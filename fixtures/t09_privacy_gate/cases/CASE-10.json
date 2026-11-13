@@ -32,5 +32,6 @@
  "anonymization": "blur_on_edge_before_upload",
  "ambiguity_notes": "",
  "case_id": "CASE-10",
- "market": "EU"
+ "market": "EU",
+ "lia_done": true
 }

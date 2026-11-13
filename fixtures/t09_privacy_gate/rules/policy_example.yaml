@@ -3,7 +3,8 @@
 policy_version: example-0.1
 effective_date: 2026-01-01
 reason_codes: [XBORDER_NO_MECHANISM, RETENTION_UNBOUNDED, RETENTION_EXCESSIVE, RAW_PII_IN_CLOUD, DPIA_MISSING,
-               NOTICE_MISSING, NO_LAWFUL_BASIS, CONSENT_RECORD_MISSING, MINORS, NO_ENCRYPTION, AMBIGUOUS_NEEDS_LEGAL]
+               NOTICE_MISSING, NO_LAWFUL_BASIS, CONSENT_RECORD_MISSING, MINORS, NO_ENCRYPTION, AMBIGUOUS_NEEDS_LEGAL,
+               CONSENT_INVALID, XBORDER_NO_IMPACT_ASSESSMENT]
 rules:
   - id: R-XB-01
     markets: [EU]
@@ -17,9 +18,43 @@ rules:
     decision: REWORK
     reason_code: RETENTION_UNBOUNDED
     source: {doc: 'GDPR (EUR-Lex)', ref: 'Art. 5(1)(e) storage limitation', url: 'https://eur-lex.europa.eu/eli/reg/2016/679/oj'}
-  - id: R-VN-TODO
+  # VN rules: teaching examples drafted 2026-11-13; article numbers follow the luatvietnam English translation. needs_legal_review before any real use.
+  - id: R-VN-01
     markets: [VN]
-    when: "TODO"
+    when: "lawful_basis not in ['consent', 'contract', 'legal_obligation', 'vital_interest', 'public_task']"
     decision: HOLD
-    reason_code: TODO
-    source: {doc: 'Luật Bảo vệ dữ liệu cá nhân 91/2025/QH15 + Nghị định 356/2025', ref: 'TODO: nhóm tự tra cứu điều khoản & ghi rõ', url: 'TODO'}
+    reason_code: NO_LAWFUL_BASIS
+    note: 'VN has no legitimate-interest basis; processing without consent needs one of the listed exceptions.'
+    source: {doc: 'Luật Bảo vệ dữ liệu cá nhân 91/2025/QH15', ref: 'Đ.9 (consent), Đ.19 (cases not requiring consent)', url: 'https://thuvienphapluat.vn/van-ban/Bo-may-hanh-chinh/Luat-Bao-ve-du-lieu-ca-nhan-2025-so-91-2025-QH15-625628.aspx'}
+    version_date: 2026-11-13
+    confidence: medium
+    needs_legal_review: true
+  - id: R-VN-02
+    markets: [VN]
+    when: "transfer.cross_border and not transfer.transfer_impact_assessment"
+    decision: HOLD
+    reason_code: XBORDER_NO_IMPACT_ASSESSMENT
+    note: 'Cross-border transfer impact-assessment dossier must be prepared and filed with the authority within 60 days.'
+    source: {doc: 'Luật 91/2025/QH15 + Nghị định 356/2025/NĐ-CP', ref: 'Luật 91 Đ.21 (transfer impact assessment); NĐ 356 dossier rules', url: 'https://thuvienphapluat.vn/van-ban/Bo-may-hanh-chinh/Luat-Bao-ve-du-lieu-ca-nhan-2025-so-91-2025-QH15-625628.aspx'}
+    version_date: 2026-11-13
+    confidence: medium
+    needs_legal_review: true
+  - id: R-VN-03
+    markets: [VN]
+    when: "not dpia_done"
+    decision: HOLD
+    reason_code: DPIA_MISSING
+    source: {doc: 'Luật 91/2025/QH15 + Nghị định 356/2025/NĐ-CP', ref: 'Luật 91 Đ.20 (processing impact assessment, filed within 60 days), Đ.22 (update within 6 months of a change)', url: 'https://thuvienphapluat.vn/van-ban/Bo-may-hanh-chinh/Luat-Bao-ve-du-lieu-ca-nhan-2025-so-91-2025-QH15-625628.aspx'}
+    version_date: 2026-11-13
+    confidence: medium
+    needs_legal_review: true
+  - id: R-VN-04
+    markets: [VN]
+    when: "lawful_basis == 'consent' and (not consent.granular or not consent.withdrawable)"
+    decision: REWORK
+    reason_code: CONSENT_INVALID
+    note: 'Silence, pre-ticked boxes or bundled consent are not valid consent; consent must be specific and withdrawable.'
+    source: {doc: 'Luật 91/2025/QH15', ref: 'Đ.9 (consent must be voluntary, explicit, specific; silence is not consent), Đ.10 (withdrawal)', url: 'https://thuvienphapluat.vn/van-ban/Bo-may-hanh-chinh/Luat-Bao-ve-du-lieu-ca-nhan-2025-so-91-2025-QH15-625628.aspx'}
+    version_date: 2026-11-13
+    confidence: medium
+    needs_legal_review: true

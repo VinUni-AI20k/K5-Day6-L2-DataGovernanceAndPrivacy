@@ -7,7 +7,7 @@
   "pedestrians",
   "other_drivers"
  ],
- "lawful_basis": "legitimate_interest",
+ "lawful_basis": "n/a",
  "consent": {
   "obtained": false,
   "granular": false,

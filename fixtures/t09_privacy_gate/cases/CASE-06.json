@@ -32,5 +32,6 @@
  "anonymization": "blur_on_edge_before_upload",
  "ambiguity_notes": "",
  "case_id": "CASE-06",
- "market": "SG"
+ "market": "SG",
+ "li_assessment_done": true
 }
