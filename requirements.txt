@@ -1,0 +1,13 @@
+# Core (P0 · py_env) — Python 3.11
+numpy>=1.26
+pandas>=2.1
+pillow>=10.0
+opencv-python-headless>=4.9
+scikit-learn>=1.4
+scipy>=1.11
+matplotlib>=3.8
+pyyaml>=6.0
+pytest>=8.0
+
+# Only for instructor/TA data prep (tools/download_real_samples.py) — not needed at demo time
+huggingface_hub>=0.24

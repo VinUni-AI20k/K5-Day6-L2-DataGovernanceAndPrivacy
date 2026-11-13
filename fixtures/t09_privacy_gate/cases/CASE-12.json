@@ -1,0 +1,36 @@
+{
+ "purpose": "ADAS model training",
+ "data_types": [
+  "exterior_video"
+ ],
+ "data_subjects": [
+  "pedestrians",
+  "other_drivers"
+ ],
+ "lawful_basis": "legitimate_interest",
+ "consent": {
+  "obtained": false,
+  "granular": false,
+  "withdrawable": false,
+  "record_available": false
+ },
+ "notice_given": true,
+ "storage": {
+  "raw_retained": true,
+  "location": "cloud",
+  "encryption_at_rest": false
+ },
+ "transfer": {
+  "cross_border": false,
+  "destination": null,
+  "mechanism": null,
+  "transfer_impact_assessment": false
+ },
+ "retention_days": 3650,
+ "dpia_done": true,
+ "minors_possible": false,
+ "anonymization": "blur_on_edge_before_upload",
+ "ambiguity_notes": "",
+ "case_id": "CASE-12",
+ "market": "VN"
+}

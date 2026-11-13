@@ -1,0 +1,15 @@
+{
+ "lm-2": {
+  "1": "car",
+  "2": "pedestrian",
+  "3": "motorbike",
+  "4": "sign"
+ },
+ "lm-3": {
+  "1": "car",
+  "2": "pedestrian",
+  "3": "motorbike",
+  "4": "sign",
+  "5": "truck"
+ }
+}

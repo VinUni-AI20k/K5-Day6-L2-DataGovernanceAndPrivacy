@@ -1,0 +1,11 @@
+# Defaults for T07 — see docs/tracks/T07.md
+# Pipeline must write out/redactions.csv. Freeze params BEFORE looking at eval results.
+track: t07
+input: fixtures/t07_redaction
+pred_file: redactions.csv
+params:
+  budget: 15
+  min_coverage: 0.9
+eval_params:
+  min_coverage: 0.9
+  split: eval

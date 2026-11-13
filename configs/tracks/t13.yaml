@@ -1,0 +1,9 @@
+# Defaults for T13 — see docs/tracks/T13.md
+# Pipeline must write out/selected.csv. Freeze params BEFORE looking at eval results.
+track: t13
+input: fixtures/t13_rare_mining
+pred_file: selected.csv
+params:
+  k: 20
+eval_params:
+  k: 20

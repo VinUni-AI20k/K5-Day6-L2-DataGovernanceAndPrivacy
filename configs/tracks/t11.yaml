@@ -1,0 +1,9 @@
+# Defaults for T11 — see docs/tracks/T11.md
+# Pipeline must write out/ranking.csv. Freeze params BEFORE looking at eval results.
+track: t11
+input: fixtures/t11_label_errors
+pred_file: ranking.csv
+params:
+  budget: 10
+eval_params:
+  split: heldout

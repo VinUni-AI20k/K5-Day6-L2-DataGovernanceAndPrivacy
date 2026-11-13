@@ -1,0 +1,8 @@
+# Defaults for T08 — see docs/tracks/T08.md
+# Pipeline must write out/actions.csv. Freeze params BEFORE looking at eval results.
+track: t08
+input: fixtures/t08_deletion
+pred_file: actions.csv
+params:
+  dry_run: true
+eval_params: {}

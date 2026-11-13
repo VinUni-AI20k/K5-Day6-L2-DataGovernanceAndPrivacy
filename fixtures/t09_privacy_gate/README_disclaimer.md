@@ -1,0 +1,1 @@
+Các case và gold decisions là **tình huống giả định cho mục đích học tập**, do giảng viên thiết kế; không phải tư vấn pháp lý. Hệ thống của nhóm là công cụ hỗ trợ rà soát; quyết định cuối cùng thuộc DPO/legal.

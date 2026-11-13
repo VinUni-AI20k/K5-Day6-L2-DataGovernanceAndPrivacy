@@ -1,0 +1,5 @@
+# Frozen before sampling. Batch size = 100.
+max_error_rate: 0.05        # batch is BAD if true error rate > 5%
+audit_budget_per_batch: 20
+confidence_level: 0.95
+decisions: [ACCEPT, REWORK, HOLD]   # not enough evidence => HOLD, never default ACCEPT

@@ -1,0 +1,10 @@
+# SIMULATED prediction fixture — NOT real model inference. Do not report it as model accuracy.
+model_name: simulated-detector-fixture
+version: fixture-1
+license: n/a (synthetic)
+label_map:   # model class ids (COCO-style) — NOT the project taxonomy ids!
+  0: person
+  2: car
+  3: motorcycle
+  11: stop sign
+notes: misses many small objects; low-confidence false positives; occasional motorbike/pedestrian confusion

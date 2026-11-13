@@ -1,0 +1,3869 @@
+{
+ "version": "mock-graph-1",
+ "note": "MOCK data \u2014 no real data is deleted in this lab",
+ "artefacts": [
+  {
+   "artefact_id": "a0001",
+   "type": "raw_video",
+   "subject_ids": [
+    "subj_00"
+   ],
+   "parent_ids": [],
+   "uri": "mock://raw/raw_video/a0001",
+   "owner": "data-platform",
+   "acl": [
+    "data-platform"
+   ],
+   "legal_hold": null,
+   "origin_known": true,
+   "created_at": "2026-08-12",
+   "filename": "drive_subj_00_000.mp4"
+  },
+  {
+   "artefact_id": "a0002",
+   "type": "backup",
+   "subject_ids": [
+    "subj_00"
+   ],
+   "parent_ids": [
+    "a0001"
+   ],
+   "uri": "mock://glacier/backup/a0002",
+   "owner": "data-platform",
+   "acl": [
+    "data-platform"
+   ],
+   "legal_hold": null,
+   "origin_known": true,
+   "created_at": "2026-02-15",
+   "filename": "drive_subj_00_000.mp4.bak"
+  },
+  {
+   "artefact_id": "a0003",
+   "type": "frame",
+   "subject_ids": [
+    "subj_00"
+   ],
+   "parent_ids": [
+    "a0001"
+   ],
+   "uri": "mock://lake/frame/a0003",
+   "owner": "data-platform",
+   "acl": [
+    "data-platform"
+   ],
+   "legal_hold": null,
+   "origin_known": true,
+   "created_at": "2026-04-20"
+  },
+  {
+   "artefact_id": "a0004",
+   "type": "face_crop",
+   "subject_ids": [
+    "subj_00"
+   ],
+   "parent_ids": [
+    "a0003"
+   ],
+   "uri": "mock://lake/face_crop/a0004",
+   "owner": "data-platform",
+   "acl": [
+    "data-platform"
+   ],
+   "legal_hold": null,
+   "origin_known": true,
+   "created_at": "2026-04-11"
+  },
+  {
+   "artefact_id": "a0005",
+   "type": "embedding",
+   "subject_ids": [
+    "subj_00"
+   ],
+   "parent_ids": [
+    "a0004"
+   ],
+   "uri": "mock://vector-db/embedding/a0005",
+   "owner": "data-platform",
+   "acl": [
+    "data-platform"
+   ],
+   "legal_hold": null,
+   "origin_known": true,
+   "created_at": "2026-03-16"
+  },
+  {
+   "artefact_id": "a0006",
+   "type": "annotation",
+   "subject_ids": [
+    "subj_00"
+   ],
+   "parent_ids": [
+    "a0003"
+   ],
+   "uri": "mock://labels/annotation/a0006",
+   "owner": "data-platform",
+   "acl": [
+    "data-platform"
+   ],
+   "legal_hold": null,
+   "origin_known": true,
+   "created_at": "2026-02-12"
+  },
+  {
+   "artefact_id": "a0007",
+   "type": "frame",
+   "subject_ids": [
+    "subj_00"
+   ],
+   "parent_ids": [
+    "a0001"
+   ],
+   "uri": "mock://lake/frame/a0007",
+   "owner": "data-platform",
+   "acl": [
+    "data-platform"
+   ],
+   "legal_hold": null,
+   "origin_known": true,
+   "created_at": "2026-08-21"
+  },
+  {
+   "artefact_id": "a0008",
+   "type": "face_crop",
+   "subject_ids": [
+    "subj_00"
+   ],
+   "parent_ids": [
+    "a0007"
+   ],
+   "uri": "mock://lake/face_crop/a0008",
+   "owner": "data-platform",
+   "acl": [
+    "data-platform"
+   ],
+   "legal_hold": null,
+   "origin_known": true,
+   "created_at": "2026-03-16"
+  },
+  {
+   "artefact_id": "a0009",
+   "type": "embedding",
+   "subject_ids": [
+    "subj_00"
+   ],
+   "parent_ids": [
+    "a0008"
+   ],
+   "uri": "mock://vector-db/embedding/a0009",
+   "owner": "data-platform",
+   "acl": [
+    "data-platform"
+   ],
+   "legal_hold": null,
+   "origin_known": true,
+   "created_at": "2026-07-20"
+  },
+  {
+   "artefact_id": "a0010",
+   "type": "annotation",
+   "subject_ids": [
+    "subj_00"
+   ],
+   "parent_ids": [
+    "a0007"
+   ],
+   "uri": "mock://labels/annotation/a0010",
+   "owner": "data-platform",
+   "acl": [
+    "data-platform"
+   ],
+   "legal_hold": null,
+   "origin_known": true,
+   "created_at": "2026-04-24"
+  },
+  {
+   "artefact_id": "a0011",
+   "type": "frame",
+   "subject_ids": [
+    "subj_00",
+    "subj_01"
+   ],
+   "parent_ids": [
+    "a0001"
+   ],
+   "uri": "mock://lake/frame/a0011",
+   "owner": "data-platform",
+   "acl": [
+    "data-platform"
+   ],
+   "legal_hold": null,
+   "origin_known": true,
+   "created_at": "2026-05-10"
+  },
+  {
+   "artefact_id": "a0012",
+   "type": "face_crop",
+   "subject_ids": [
+    "subj_00"
+   ],
+   "parent_ids": [
+    "a0011"
+   ],
+   "uri": "mock://lake/face_crop/a0012",
+   "owner": "data-platform",
+   "acl": [
+    "data-platform"
+   ],
+   "legal_hold": null,
+   "origin_known": true,
+   "created_at": "2026-03-23"
+  },
+  {
+   "artefact_id": "a0013",
+   "type": "embedding",
+   "subject_ids": [
+    "subj_00"
+   ],
+   "parent_ids": [
+    "a0012"
+   ],
+   "uri": "mock://vector-db/embedding/a0013",
+   "owner": "data-platform",
+   "acl": [
+    "data-platform"
+   ],
+   "legal_hold": null,
+   "origin_known": true,
+   "created_at": "2026-02-23"
+  },
+  {
+   "artefact_id": "a0014",
+   "type": "annotation",
+   "subject_ids": [
+    "subj_00",
+    "subj_01"
+   ],
+   "parent_ids": [
+    "a0011"
+   ],
+   "uri": "mock://labels/annotation/a0014",
+   "owner": "data-platform",
+   "acl": [
+    "data-platform"
+   ],
+   "legal_hold": null,
+   "origin_known": true,
+   "created_at": "2026-04-13"
+  },
+  {
+   "artefact_id": "a0015",
+   "type": "raw_video",
+   "subject_ids": [
+    "subj_01"
+   ],
+   "parent_ids": [],
+   "uri": "mock://raw/raw_video/a0015",
+   "owner": "data-platform",
+   "acl": [
+    "data-platform"
+   ],
+   "legal_hold": null,
+   "origin_known": true,
+   "created_at": "2026-08-18",
+   "filename": "drive_subj_01_001.mp4"
+  },
+  {
+   "artefact_id": "a0016",
+   "type": "backup",
+   "subject_ids": [
+    "subj_01"
+   ],
+   "parent_ids": [
+    "a0015"
+   ],
+   "uri": "mock://glacier/backup/a0016",
+   "owner": "data-platform",
+   "acl": [
+    "data-platform"
+   ],
+   "legal_hold": null,
+   "origin_known": true,
+   "created_at": "2026-01-23",
+   "filename": "drive_subj_01_001.mp4.bak"
+  },
+  {
+   "artefact_id": "a0017",
+   "type": "frame",
+   "subject_ids": [
+    "subj_01"
+   ],
+   "parent_ids": [
+    "a0015"
+   ],
+   "uri": "mock://lake/frame/a0017",
+   "owner": "data-platform",
+   "acl": [
+    "data-platform"
+   ],
+   "legal_hold": null,
+   "origin_known": true,
+   "created_at": "2026-07-14"
+  },
+  {
+   "artefact_id": "a0018",
+   "type": "face_crop",
+   "subject_ids": [
+    "subj_01"
+   ],
+   "parent_ids": [
+    "a0017"
+   ],
+   "uri": "mock://lake/face_crop/a0018",
+   "owner": "data-platform",
+   "acl": [
+    "data-platform"
+   ],
+   "legal_hold": null,
+   "origin_known": true,
+   "created_at": "2026-08-20"
+  },
+  {
+   "artefact_id": "a0019",
+   "type": "embedding",
+   "subject_ids": [
+    "subj_01"
+   ],
+   "parent_ids": [
+    "a0018"
+   ],
+   "uri": "mock://vector-db/embedding/a0019",
+   "owner": "data-platform",
+   "acl": [
+    "data-platform"
+   ],
+   "legal_hold": null,
+   "origin_known": true,
+   "created_at": "2026-01-26"
+  },
+  {
+   "artefact_id": "a0020",
+   "type": "annotation",
+   "subject_ids": [
+    "subj_01"
+   ],
+   "parent_ids": [
+    "a0017"
+   ],
+   "uri": "mock://labels/annotation/a0020",
+   "owner": "data-platform",
+   "acl": [
+    "data-platform"
+   ],
+   "legal_hold": null,
+   "origin_known": true,
+   "created_at": "2026-02-17"
+  },
+  {
+   "artefact_id": "a0021",
+   "type": "frame",
+   "subject_ids": [
+    "subj_01"
+   ],
+   "parent_ids": [
+    "a0015"
+   ],
+   "uri": "mock://lake/frame/a0021",
+   "owner": "data-platform",
+   "acl": [
+    "data-platform"
+   ],
+   "legal_hold": null,
+   "origin_known": true,
+   "created_at": "2026-03-14"
+  },
+  {
+   "artefact_id": "a0022",
+   "type": "face_crop",
+   "subject_ids": [
+    "subj_01"
+   ],
+   "parent_ids": [
+    "a0021"
+   ],
+   "uri": "mock://lake/face_crop/a0022",
+   "owner": "data-platform",
+   "acl": [
+    "data-platform"
+   ],
+   "legal_hold": null,
+   "origin_known": true,
+   "created_at": "2026-01-27"
+  },
+  {
+   "artefact_id": "a0023",
+   "type": "embedding",
+   "subject_ids": [
+    "subj_01"
+   ],
+   "parent_ids": [
+    "a0022"
+   ],
+   "uri": "mock://vector-db/embedding/a0023",
+   "owner": "data-platform",
+   "acl": [
+    "data-platform"
+   ],
+   "legal_hold": null,
+   "origin_known": true,
+   "created_at": "2026-02-11"
+  },
+  {
+   "artefact_id": "a0024",
+   "type": "annotation",
+   "subject_ids": [
+    "subj_01"
+   ],
+   "parent_ids": [
+    "a0021"
+   ],
+   "uri": "mock://labels/annotation/a0024",
+   "owner": "data-platform",
+   "acl": [
+    "data-platform"
+   ],
+   "legal_hold": null,
+   "origin_known": true,
+   "created_at": "2026-02-26"
+  },
+  {
+   "artefact_id": "a0025",
+   "type": "frame",
+   "subject_ids": [
+    "subj_01"
+   ],
+   "parent_ids": [
+    "a0015"
+   ],
+   "uri": "mock://lake/frame/a0025",
+   "owner": "data-platform",
+   "acl": [
+    "data-platform"
+   ],
+   "legal_hold": null,
+   "origin_known": true,
+   "created_at": "2026-04-18"
+  },
+  {
+   "artefact_id": "a0026",
+   "type": "face_crop",
+   "subject_ids": [
+    "subj_01"
+   ],
+   "parent_ids": [
+    "a0025"
+   ],
+   "uri": "mock://lake/face_crop/a0026",
+   "owner": "data-platform",
+   "acl": [
+    "data-platform"
+   ],
+   "legal_hold": null,
+   "origin_known": true,
+   "created_at": "2026-05-10"
+  },
+  {
+   "artefact_id": "a0027",
+   "type": "embedding",
+   "subject_ids": [
+    "subj_01"
+   ],
+   "parent_ids": [
+    "a0026"
+   ],
+   "uri": "mock://vector-db/embedding/a0027",
+   "owner": "data-platform",
+   "acl": [
+    "data-platform"
+   ],
+   "legal_hold": null,
+   "origin_known": true,
+   "created_at": "2026-02-10"
+  },
+  {
+   "artefact_id": "a0028",
+   "type": "annotation",
+   "subject_ids": [
+    "subj_01"
+   ],
+   "parent_ids": [
+    "a0025"
+   ],
+   "uri": "mock://labels/annotation/a0028",
+   "owner": "data-platform",
+   "acl": [
+    "data-platform"
+   ],
+   "legal_hold": null,
+   "origin_known": true,
+   "created_at": "2026-07-21"
+  },
+  {
+   "artefact_id": "a0029",
+   "type": "raw_video",
+   "subject_ids": [
+    "subj_02"
+   ],
+   "parent_ids": [],
+   "uri": "mock://raw/raw_video/a0029",
+   "owner": "data-platform",
+   "acl": [
+    "data-platform"
+   ],
+   "legal_hold": null,
+   "origin_known": true,
+   "created_at": "2026-01-15",
+   "filename": "drive_subj_02_002.mp4"
+  },
+  {
+   "artefact_id": "a0030",
+   "type": "backup",
+   "subject_ids": [
+    "subj_02"
+   ],
+   "parent_ids": [
+    "a0029"
+   ],
+   "uri": "mock://glacier/backup/a0030",
+   "owner": "data-platform",
+   "acl": [
+    "data-platform"
+   ],
+   "legal_hold": null,
+   "origin_known": true,
+   "created_at": "2026-08-25",
+   "filename": "drive_subj_02_002.mp4.bak"
+  },
+  {
+   "artefact_id": "a0031",
+   "type": "frame",
+   "subject_ids": [
+    "subj_02"
+   ],
+   "parent_ids": [
+    "a0029"
+   ],
+   "uri": "mock://lake/frame/a0031",
+   "owner": "data-platform",
+   "acl": [
+    "data-platform"
+   ],
+   "legal_hold": null,
+   "origin_known": true,
+   "created_at": "2026-04-11"
+  },
+  {
+   "artefact_id": "a0032",
+   "type": "face_crop",
+   "subject_ids": [
+    "subj_02"
+   ],
+   "parent_ids": [
+    "a0031"
+   ],
+   "uri": "mock://lake/face_crop/a0032",
+   "owner": "data-platform",
+   "acl": [
+    "data-platform"
+   ],
+   "legal_hold": null,
+   "origin_known": true,
+   "created_at": "2026-07-23"
+  },
+  {
+   "artefact_id": "a0033",
+   "type": "embedding",
+   "subject_ids": [
+    "subj_02"
+   ],
+   "parent_ids": [
+    "a0032"
+   ],
+   "uri": "mock://vector-db/embedding/a0033",
+   "owner": "data-platform",
+   "acl": [
+    "data-platform"
+   ],
+   "legal_hold": null,
+   "origin_known": true,
+   "created_at": "2026-07-11"
+  },
+  {
+   "artefact_id": "a0034",
+   "type": "annotation",
+   "subject_ids": [
+    "subj_02"
+   ],
+   "parent_ids": [
+    "a0031"
+   ],
+   "uri": "mock://labels/annotation/a0034",
+   "owner": "data-platform",
+   "acl": [
+    "data-platform"
+   ],
+   "legal_hold": null,
+   "origin_known": true,
+   "created_at": "2026-03-17"
+  },
+  {
+   "artefact_id": "a0035",
+   "type": "frame",
+   "subject_ids": [
+    "subj_02"
+   ],
+   "parent_ids": [
+    "a0029"
+   ],
+   "uri": "mock://lake/frame/a0035",
+   "owner": "data-platform",
+   "acl": [
+    "data-platform"
+   ],
+   "legal_hold": null,
+   "origin_known": true,
+   "created_at": "2026-02-26"
+  },
+  {
+   "artefact_id": "a0036",
+   "type": "face_crop",
+   "subject_ids": [
+    "subj_02"
+   ],
+   "parent_ids": [
+    "a0035"
+   ],
+   "uri": "mock://lake/face_crop/a0036",
+   "owner": "data-platform",
+   "acl": [
+    "data-platform"
+   ],
+   "legal_hold": null,
+   "origin_known": true,
+   "created_at": "2026-08-11"
+  },
+  {
+   "artefact_id": "a0037",
+   "type": "embedding",
+   "subject_ids": [
+    "subj_02"
+   ],
+   "parent_ids": [
+    "a0036"
+   ],
+   "uri": "mock://vector-db/embedding/a0037",
+   "owner": "data-platform",
+   "acl": [
+    "data-platform"
+   ],
+   "legal_hold": null,
+   "origin_known": true,
+   "created_at": "2026-07-23"
+  },
+  {
+   "artefact_id": "a0038",
+   "type": "annotation",
+   "subject_ids": [
+    "subj_02"
+   ],
+   "parent_ids": [
+    "a0035"
+   ],
+   "uri": "mock://labels/annotation/a0038",
+   "owner": "data-platform",
+   "acl": [
+    "data-platform"
+   ],
+   "legal_hold": null,
+   "origin_known": true,
+   "created_at": "2026-05-22"
+  },
+  {
+   "artefact_id": "a0039",
+   "type": "frame",
+   "subject_ids": [
+    "subj_02"
+   ],
+   "parent_ids": [
+    "a0029"
+   ],
+   "uri": "mock://lake/frame/a0039",
+   "owner": "data-platform",
+   "acl": [
+    "data-platform"
+   ],
+   "legal_hold": null,
+   "origin_known": true,
+   "created_at": "2026-04-26"
+  },
+  {
+   "artefact_id": "a0040",
+   "type": "face_crop",
+   "subject_ids": [
+    "subj_02"
+   ],
+   "parent_ids": [
+    "a0039"
+   ],
+   "uri": "mock://lake/face_crop/a0040",
+   "owner": "data-platform",
+   "acl": [
+    "data-platform"
+   ],
+   "legal_hold": null,
+   "origin_known": true,
+   "created_at": "2026-05-11"
+  },
+  {
+   "artefact_id": "a0041",
+   "type": "embedding",
+   "subject_ids": [
+    "subj_02"
+   ],
+   "parent_ids": [
+    "a0040"
+   ],
+   "uri": "mock://vector-db/embedding/a0041",
+   "owner": "data-platform",
+   "acl": [
+    "data-platform"
+   ],
+   "legal_hold": null,
+   "origin_known": true,
+   "created_at": "2026-04-17"
+  },
+  {
+   "artefact_id": "a0042",
+   "type": "annotation",
+   "subject_ids": [
+    "subj_02"
+   ],
+   "parent_ids": [
+    "a0039"
+   ],
+   "uri": "mock://labels/annotation/a0042",
+   "owner": "data-platform",
+   "acl": [
+    "data-platform"
+   ],
+   "legal_hold": null,
+   "origin_known": true,
+   "created_at": "2026-08-20"
+  },
+  {
+   "artefact_id": "a0043",
+   "type": "raw_video",
+   "subject_ids": [
+    "subj_03"
+   ],
+   "parent_ids": [],
+   "uri": "mock://raw/raw_video/a0043",
+   "owner": "data-platform",
+   "acl": [
+    "data-platform"
+   ],
+   "legal_hold": "LH-2026-03",
+   "origin_known": true,
+   "created_at": "2026-04-21",
+   "filename": "drive_subj_03_003.mp4"
+  },
+  {
+   "artefact_id": "a0044",
+   "type": "backup",
+   "subject_ids": [
+    "subj_03"
+   ],
+   "parent_ids": [
+    "a0043"
+   ],
+   "uri": "mock://glacier/backup/a0044",
+   "owner": "data-platform",
+   "acl": [
+    "data-platform"
+   ],
+   "legal_hold": null,
+   "origin_known": true,
+   "created_at": "2026-01-10",
+   "filename": "drive_subj_03_003.mp4.bak"
+  },
+  {
+   "artefact_id": "a0045",
+   "type": "frame",
+   "subject_ids": [
+    "subj_03"
+   ],
+   "parent_ids": [
+    "a0043"
+   ],
+   "uri": "mock://lake/frame/a0045",
+   "owner": "data-platform",
+   "acl": [
+    "data-platform"
+   ],
+   "legal_hold": null,
+   "origin_known": true,
+   "created_at": "2026-05-16"
+  },
+  {
+   "artefact_id": "a0046",
+   "type": "face_crop",
+   "subject_ids": [
+    "subj_03"
+   ],
+   "parent_ids": [
+    "a0045"
+   ],
+   "uri": "mock://lake/face_crop/a0046",
+   "owner": "data-platform",
+   "acl": [
+    "data-platform"
+   ],
+   "legal_hold": null,
+   "origin_known": true,
+   "created_at": "2026-06-21"
+  },
+  {
+   "artefact_id": "a0047",
+   "type": "embedding",
+   "subject_ids": [
+    "subj_03"
+   ],
+   "parent_ids": [
+    "a0046"
+   ],
+   "uri": "mock://vector-db/embedding/a0047",
+   "owner": "data-platform",
+   "acl": [
+    "data-platform"
+   ],
+   "legal_hold": null,
+   "origin_known": true,
+   "created_at": "2026-06-20"
+  },
+  {
+   "artefact_id": "a0048",
+   "type": "annotation",
+   "subject_ids": [
+    "subj_03"
+   ],
+   "parent_ids": [
+    "a0045"
+   ],
+   "uri": "mock://labels/annotation/a0048",
+   "owner": "data-platform",
+   "acl": [
+    "data-platform"
+   ],
+   "legal_hold": null,
+   "origin_known": true,
+   "created_at": "2026-02-16"
+  },
+  {
+   "artefact_id": "a0049",
+   "type": "frame",
+   "subject_ids": [
+    "subj_03"
+   ],
+   "parent_ids": [
+    "a0043"
+   ],
+   "uri": "mock://lake/frame/a0049",
+   "owner": "data-platform",
+   "acl": [
+    "data-platform"
+   ],
+   "legal_hold": null,
+   "origin_known": true,
+   "created_at": "2026-05-24"
+  },
+  {
+   "artefact_id": "a0050",
+   "type": "face_crop",
+   "subject_ids": [
+    "subj_03"
+   ],
+   "parent_ids": [
+    "a0049"
+   ],
+   "uri": "mock://lake/face_crop/a0050",
+   "owner": "data-platform",
+   "acl": [
+    "data-platform"
+   ],
+   "legal_hold": null,
+   "origin_known": true,
+   "created_at": "2026-07-27"
+  },
+  {
+   "artefact_id": "a0051",
+   "type": "embedding",
+   "subject_ids": [
+    "subj_03"
+   ],
+   "parent_ids": [
+    "a0050"
+   ],
+   "uri": "mock://vector-db/embedding/a0051",
+   "owner": "data-platform",
+   "acl": [
+    "data-platform"
+   ],
+   "legal_hold": null,
+   "origin_known": true,
+   "created_at": "2026-08-20"
+  },
+  {
+   "artefact_id": "a0052",
+   "type": "annotation",
+   "subject_ids": [
+    "subj_03"
+   ],
+   "parent_ids": [
+    "a0049"
+   ],
+   "uri": "mock://labels/annotation/a0052",
+   "owner": "data-platform",
+   "acl": [
+    "data-platform"
+   ],
+   "legal_hold": null,
+   "origin_known": true,
+   "created_at": "2026-08-16"
+  },
+  {
+   "artefact_id": "a0053",
+   "type": "frame",
+   "subject_ids": [
+    "subj_03"
+   ],
+   "parent_ids": [
+    "a0043"
+   ],
+   "uri": "mock://lake/frame/a0053",
+   "owner": "data-platform",
+   "acl": [
+    "data-platform"
+   ],
+   "legal_hold": null,
+   "origin_known": true,
+   "created_at": "2026-06-14"
+  },
+  {
+   "artefact_id": "a0054",
+   "type": "face_crop",
+   "subject_ids": [
+    "subj_03"
+   ],
+   "parent_ids": [
+    "a0053"
+   ],
+   "uri": "mock://lake/face_crop/a0054",
+   "owner": "data-platform",
+   "acl": [
+    "data-platform"
+   ],
+   "legal_hold": null,
+   "origin_known": true,
+   "created_at": "2026-03-15"
+  },
+  {
+   "artefact_id": "a0055",
+   "type": "embedding",
+   "subject_ids": [
+    "subj_03"
+   ],
+   "parent_ids": [
+    "a0054"
+   ],
+   "uri": "mock://vector-db/embedding/a0055",
+   "owner": "data-platform",
+   "acl": [
+    "data-platform"
+   ],
+   "legal_hold": null,
+   "origin_known": true,
+   "created_at": "2026-02-16"
+  },
+  {
+   "artefact_id": "a0056",
+   "type": "annotation",
+   "subject_ids": [
+    "subj_03"
+   ],
+   "parent_ids": [
+    "a0053"
+   ],
+   "uri": "mock://labels/annotation/a0056",
+   "owner": "data-platform",
+   "acl": [
+    "data-platform"
+   ],
+   "legal_hold": null,
+   "origin_known": true,
+   "created_at": "2026-06-26"
+  },
+  {
+   "artefact_id": "a0057",
+   "type": "raw_video",
+   "subject_ids": [
+    "subj_04"
+   ],
+   "parent_ids": [],
+   "uri": "mock://raw/raw_video/a0057",
+   "owner": "data-platform",
+   "acl": [
+    "data-platform"
+   ],
+   "legal_hold": null,
+   "origin_known": true,
+   "created_at": "2026-06-20",
+   "filename": "drive_subj_04_004.mp4"
+  },
+  {
+   "artefact_id": "a0058",
+   "type": "backup",
+   "subject_ids": [
+    "subj_04"
+   ],
+   "parent_ids": [
+    "a0057"
+   ],
+   "uri": "mock://glacier/backup/a0058",
+   "owner": "data-platform",
+   "acl": [
+    "data-platform"
+   ],
+   "legal_hold": null,
+   "origin_known": true,
+   "created_at": "2026-04-26",
+   "filename": "drive_subj_04_004.mp4.bak"
+  },
+  {
+   "artefact_id": "a0059",
+   "type": "frame",
+   "subject_ids": [
+    "subj_04"
+   ],
+   "parent_ids": [
+    "a0057"
+   ],
+   "uri": "mock://lake/frame/a0059",
+   "owner": "data-platform",
+   "acl": [
+    "data-platform"
+   ],
+   "legal_hold": null,
+   "origin_known": true,
+   "created_at": "2026-06-12"
+  },
+  {
+   "artefact_id": "a0060",
+   "type": "face_crop",
+   "subject_ids": [
+    "subj_04"
+   ],
+   "parent_ids": [
+    "a0059"
+   ],
+   "uri": "mock://lake/face_crop/a0060",
+   "owner": "data-platform",
+   "acl": [
+    "data-platform"
+   ],
+   "legal_hold": null,
+   "origin_known": true,
+   "created_at": "2026-05-15"
+  },
+  {
+   "artefact_id": "a0061",
+   "type": "embedding",
+   "subject_ids": [
+    "subj_04"
+   ],
+   "parent_ids": [
+    "a0060"
+   ],
+   "uri": "mock://vector-db/embedding/a0061",
+   "owner": "data-platform",
+   "acl": [
+    "data-platform"
+   ],
+   "legal_hold": null,
+   "origin_known": true,
+   "created_at": "2026-08-19"
+  },
+  {
+   "artefact_id": "a0062",
+   "type": "annotation",
+   "subject_ids": [
+    "subj_04"
+   ],
+   "parent_ids": [
+    "a0059"
+   ],
+   "uri": "mock://labels/annotation/a0062",
+   "owner": "data-platform",
+   "acl": [
+    "data-platform"
+   ],
+   "legal_hold": null,
+   "origin_known": true,
+   "created_at": "2026-03-10"
+  },
+  {
+   "artefact_id": "a0063",
+   "type": "frame",
+   "subject_ids": [
+    "subj_04"
+   ],
+   "parent_ids": [
+    "a0057"
+   ],
+   "uri": "mock://lake/frame/a0063",
+   "owner": "data-platform",
+   "acl": [
+    "data-platform"
+   ],
+   "legal_hold": null,
+   "origin_known": true,
+   "created_at": "2026-04-13"
+  },
+  {
+   "artefact_id": "a0064",
+   "type": "face_crop",
+   "subject_ids": [
+    "subj_04"
+   ],
+   "parent_ids": [
+    "a0063"
+   ],
+   "uri": "mock://lake/face_crop/a0064",
+   "owner": "data-platform",
+   "acl": [
+    "data-platform"
+   ],
+   "legal_hold": null,
+   "origin_known": true,
+   "created_at": "2026-01-20"
+  },
+  {
+   "artefact_id": "a0065",
+   "type": "embedding",
+   "subject_ids": [
+    "subj_04"
+   ],
+   "parent_ids": [
+    "a0064"
+   ],
+   "uri": "mock://vector-db/embedding/a0065",
+   "owner": "data-platform",
+   "acl": [
+    "data-platform"
+   ],
+   "legal_hold": null,
+   "origin_known": true,
+   "created_at": "2026-08-23"
+  },
+  {
+   "artefact_id": "a0066",
+   "type": "annotation",
+   "subject_ids": [
+    "subj_04"
+   ],
+   "parent_ids": [
+    "a0063"
+   ],
+   "uri": "mock://labels/annotation/a0066",
+   "owner": "data-platform",
+   "acl": [
+    "data-platform"
+   ],
+   "legal_hold": null,
+   "origin_known": true,
+   "created_at": "2026-01-16"
+  },
+  {
+   "artefact_id": "a0067",
+   "type": "frame",
+   "subject_ids": [
+    "subj_04",
+    "subj_05"
+   ],
+   "parent_ids": [
+    "a0057"
+   ],
+   "uri": "mock://lake/frame/a0067",
+   "owner": "data-platform",
+   "acl": [
+    "data-platform"
+   ],
+   "legal_hold": null,
+   "origin_known": true,
+   "created_at": "2026-01-27"
+  },
+  {
+   "artefact_id": "a0068",
+   "type": "face_crop",
+   "subject_ids": [
+    "subj_04"
+   ],
+   "parent_ids": [
+    "a0067"
+   ],
+   "uri": "mock://lake/face_crop/a0068",
+   "owner": "data-platform",
+   "acl": [
+    "data-platform"
+   ],
+   "legal_hold": null,
+   "origin_known": true,
+   "created_at": "2026-01-12"
+  },
+  {
+   "artefact_id": "a0069",
+   "type": "embedding",
+   "subject_ids": [
+    "subj_04"
+   ],
+   "parent_ids": [
+    "a0068"
+   ],
+   "uri": "mock://vector-db/embedding/a0069",
+   "owner": "data-platform",
+   "acl": [
+    "data-platform"
+   ],
+   "legal_hold": null,
+   "origin_known": true,
+   "created_at": "2026-03-13"
+  },
+  {
+   "artefact_id": "a0070",
+   "type": "annotation",
+   "subject_ids": [
+    "subj_04",
+    "subj_05"
+   ],
+   "parent_ids": [
+    "a0067"
+   ],
+   "uri": "mock://labels/annotation/a0070",
+   "owner": "data-platform",
+   "acl": [
+    "data-platform"
+   ],
+   "legal_hold": null,
+   "origin_known": true,
+   "created_at": "2026-08-10"
+  },
+  {
+   "artefact_id": "a0071",
+   "type": "raw_video",
+   "subject_ids": [
+    "subj_05"
+   ],
+   "parent_ids": [],
+   "uri": "mock://raw/raw_video/a0071",
+   "owner": "data-platform",
+   "acl": [
+    "data-platform"
+   ],
+   "legal_hold": null,
+   "origin_known": true,
+   "created_at": "2026-04-24",
+   "filename": "drive_subj_05_005.mp4"
+  },
+  {
+   "artefact_id": "a0072",
+   "type": "backup",
+   "subject_ids": [
+    "subj_05"
+   ],
+   "parent_ids": [
+    "a0071"
+   ],
+   "uri": "mock://glacier/backup/a0072",
+   "owner": "data-platform",
+   "acl": [
+    "data-platform"
+   ],
+   "legal_hold": null,
+   "origin_known": true,
+   "created_at": "2026-03-21",
+   "filename": "drive_subj_05_005.mp4.bak"
+  },
+  {
+   "artefact_id": "a0073",
+   "type": "frame",
+   "subject_ids": [
+    "subj_05"
+   ],
+   "parent_ids": [
+    "a0071"
+   ],
+   "uri": "mock://lake/frame/a0073",
+   "owner": "data-platform",
+   "acl": [
+    "data-platform"
+   ],
+   "legal_hold": null,
+   "origin_known": true,
+   "created_at": "2026-01-15"
+  },
+  {
+   "artefact_id": "a0074",
+   "type": "face_crop",
+   "subject_ids": [
+    "subj_05"
+   ],
+   "parent_ids": [
+    "a0073"
+   ],
+   "uri": "mock://lake/face_crop/a0074",
+   "owner": "data-platform",
+   "acl": [
+    "data-platform"
+   ],
+   "legal_hold": null,
+   "origin_known": true,
+   "created_at": "2026-07-24"
+  },
+  {
+   "artefact_id": "a0075",
+   "type": "embedding",
+   "subject_ids": [
+    "subj_05"
+   ],
+   "parent_ids": [
+    "a0074"
+   ],
+   "uri": "mock://vector-db/embedding/a0075",
+   "owner": "data-platform",
+   "acl": [
+    "data-platform"
+   ],
+   "legal_hold": null,
+   "origin_known": false,
+   "created_at": "2026-08-19"
+  },
+  {
+   "artefact_id": "a0076",
+   "type": "annotation",
+   "subject_ids": [
+    "subj_05"
+   ],
+   "parent_ids": [
+    "a0073"
+   ],
+   "uri": "mock://labels/annotation/a0076",
+   "owner": "data-platform",
+   "acl": [
+    "data-platform"
+   ],
+   "legal_hold": null,
+   "origin_known": true,
+   "created_at": "2026-07-11"
+  },
+  {
+   "artefact_id": "a0077",
+   "type": "frame",
+   "subject_ids": [
+    "subj_05"
+   ],
+   "parent_ids": [
+    "a0071"
+   ],
+   "uri": "mock://lake/frame/a0077",
+   "owner": "data-platform",
+   "acl": [
+    "data-platform"
+   ],
+   "legal_hold": null,
+   "origin_known": true,
+   "created_at": "2026-08-13"
+  },
+  {
+   "artefact_id": "a0078",
+   "type": "face_crop",
+   "subject_ids": [
+    "subj_05"
+   ],
+   "parent_ids": [
+    "a0077"
+   ],
+   "uri": "mock://lake/face_crop/a0078",
+   "owner": "data-platform",
+   "acl": [
+    "data-platform"
+   ],
+   "legal_hold": null,
+   "origin_known": true,
+   "created_at": "2026-03-23"
+  },
+  {
+   "artefact_id": "a0079",
+   "type": "embedding",
+   "subject_ids": [
+    "subj_05"
+   ],
+   "parent_ids": [
+    "a0078"
+   ],
+   "uri": "mock://vector-db/embedding/a0079",
+   "owner": "data-platform",
+   "acl": [
+    "data-platform"
+   ],
+   "legal_hold": null,
+   "origin_known": false,
+   "created_at": "2026-04-26"
+  },
+  {
+   "artefact_id": "a0080",
+   "type": "annotation",
+   "subject_ids": [
+    "subj_05"
+   ],
+   "parent_ids": [
+    "a0077"
+   ],
+   "uri": "mock://labels/annotation/a0080",
+   "owner": "data-platform",
+   "acl": [
+    "data-platform"
+   ],
+   "legal_hold": null,
+   "origin_known": true,
+   "created_at": "2026-08-24"
+  },
+  {
+   "artefact_id": "a0081",
+   "type": "frame",
+   "subject_ids": [
+    "subj_05"
+   ],
+   "parent_ids": [
+    "a0071"
+   ],
+   "uri": "mock://lake/frame/a0081",
+   "owner": "data-platform",
+   "acl": [
+    "data-platform"
+   ],
+   "legal_hold": null,
+   "origin_known": true,
+   "created_at": "2026-02-21"
+  },
+  {
+   "artefact_id": "a0082",
+   "type": "face_crop",
+   "subject_ids": [
+    "subj_05"
+   ],
+   "parent_ids": [
+    "a0081"
+   ],
+   "uri": "mock://lake/face_crop/a0082",
+   "owner": "data-platform",
+   "acl": [
+    "data-platform"
+   ],
+   "legal_hold": null,
+   "origin_known": true,
+   "created_at": "2026-04-12"
+  },
+  {
+   "artefact_id": "a0083",
+   "type": "embedding",
+   "subject_ids": [
+    "subj_05"
+   ],
+   "parent_ids": [
+    "a0082"
+   ],
+   "uri": "mock://vector-db/embedding/a0083",
+   "owner": "data-platform",
+   "acl": [
+    "data-platform"
+   ],
+   "legal_hold": null,
+   "origin_known": false,
+   "created_at": "2026-01-18"
+  },
+  {
+   "artefact_id": "a0084",
+   "type": "annotation",
+   "subject_ids": [
+    "subj_05"
+   ],
+   "parent_ids": [
+    "a0081"
+   ],
+   "uri": "mock://labels/annotation/a0084",
+   "owner": "data-platform",
+   "acl": [
+    "data-platform"
+   ],
+   "legal_hold": null,
+   "origin_known": true,
+   "created_at": "2026-01-11"
+  },
+  {
+   "artefact_id": "a0085",
+   "type": "raw_video",
+   "subject_ids": [
+    "subj_06"
+   ],
+   "parent_ids": [],
+   "uri": "mock://raw/raw_video/a0085",
+   "owner": "data-platform",
+   "acl": [
+    "data-platform"
+   ],
+   "legal_hold": null,
+   "origin_known": true,
+   "created_at": "2026-03-22",
+   "filename": "drive_subj_06_006.mp4"
+  },
+  {
+   "artefact_id": "a0086",
+   "type": "backup",
+   "subject_ids": [
+    "subj_06"
+   ],
+   "parent_ids": [
+    "a0085"
+   ],
+   "uri": "mock://glacier/backup/a0086",
+   "owner": "data-platform",
+   "acl": [
+    "data-platform"
+   ],
+   "legal_hold": null,
+   "origin_known": true,
+   "created_at": "2026-08-25",
+   "filename": "drive_subj_06_006.mp4.bak"
+  },
+  {
+   "artefact_id": "a0087",
+   "type": "frame",
+   "subject_ids": [
+    "subj_06"
+   ],
+   "parent_ids": [
+    "a0085"
+   ],
+   "uri": "mock://lake/frame/a0087",
+   "owner": "data-platform",
+   "acl": [
+    "data-platform"
+   ],
+   "legal_hold": null,
+   "origin_known": true,
+   "created_at": "2026-05-27"
+  },
+  {
+   "artefact_id": "a0088",
+   "type": "face_crop",
+   "subject_ids": [
+    "subj_06"
+   ],
+   "parent_ids": [
+    "a0087"
+   ],
+   "uri": "mock://lake/face_crop/a0088",
+   "owner": "data-platform",
+   "acl": [
+    "data-platform"
+   ],
+   "legal_hold": null,
+   "origin_known": true,
+   "created_at": "2026-07-11"
+  },
+  {
+   "artefact_id": "a0089",
+   "type": "embedding",
+   "subject_ids": [
+    "subj_06"
+   ],
+   "parent_ids": [
+    "a0088"
+   ],
+   "uri": "mock://vector-db/embedding/a0089",
+   "owner": "data-platform",
+   "acl": [
+    "data-platform"
+   ],
+   "legal_hold": null,
+   "origin_known": true,
+   "created_at": "2026-04-10"
+  },
+  {
+   "artefact_id": "a0090",
+   "type": "annotation",
+   "subject_ids": [
+    "subj_06"
+   ],
+   "parent_ids": [
+    "a0087"
+   ],
+   "uri": "mock://labels/annotation/a0090",
+   "owner": "data-platform",
+   "acl": [
+    "data-platform"
+   ],
+   "legal_hold": null,
+   "origin_known": true,
+   "created_at": "2026-02-24"
+  },
+  {
+   "artefact_id": "a0091",
+   "type": "frame",
+   "subject_ids": [
+    "subj_06"
+   ],
+   "parent_ids": [
+    "a0085"
+   ],
+   "uri": "mock://lake/frame/a0091",
+   "owner": "data-platform",
+   "acl": [
+    "data-platform"
+   ],
+   "legal_hold": null,
+   "origin_known": true,
+   "created_at": "2026-06-13"
+  },
+  {
+   "artefact_id": "a0092",
+   "type": "face_crop",
+   "subject_ids": [
+    "subj_06"
+   ],
+   "parent_ids": [
+    "a0091"
+   ],
+   "uri": "mock://lake/face_crop/a0092",
+   "owner": "data-platform",
+   "acl": [
+    "data-platform"
+   ],
+   "legal_hold": null,
+   "origin_known": true,
+   "created_at": "2026-02-24"
+  },
+  {
+   "artefact_id": "a0093",
+   "type": "embedding",
+   "subject_ids": [
+    "subj_06"
+   ],
+   "parent_ids": [
+    "a0092"
+   ],
+   "uri": "mock://vector-db/embedding/a0093",
+   "owner": "data-platform",
+   "acl": [
+    "data-platform"
+   ],
+   "legal_hold": null,
+   "origin_known": true,
+   "created_at": "2026-04-10"
+  },
+  {
+   "artefact_id": "a0094",
+   "type": "annotation",
+   "subject_ids": [
+    "subj_06"
+   ],
+   "parent_ids": [
+    "a0091"
+   ],
+   "uri": "mock://labels/annotation/a0094",
+   "owner": "data-platform",
+   "acl": [
+    "data-platform"
+   ],
+   "legal_hold": null,
+   "origin_known": true,
+   "created_at": "2026-01-12"
+  },
+  {
+   "artefact_id": "a0095",
+   "type": "frame",
+   "subject_ids": [
+    "subj_06"
+   ],
+   "parent_ids": [
+    "a0085"
+   ],
+   "uri": "mock://lake/frame/a0095",
+   "owner": "data-platform",
+   "acl": [
+    "data-platform"
+   ],
+   "legal_hold": null,
+   "origin_known": true,
+   "created_at": "2026-02-15"
+  },
+  {
+   "artefact_id": "a0096",
+   "type": "face_crop",
+   "subject_ids": [
+    "subj_06"
+   ],
+   "parent_ids": [
+    "a0095"
+   ],
+   "uri": "mock://lake/face_crop/a0096",
+   "owner": "data-platform",
+   "acl": [
+    "data-platform"
+   ],
+   "legal_hold": null,
+   "origin_known": true,
+   "created_at": "2026-05-12"
+  },
+  {
+   "artefact_id": "a0097",
+   "type": "embedding",
+   "subject_ids": [
+    "subj_06"
+   ],
+   "parent_ids": [
+    "a0096"
+   ],
+   "uri": "mock://vector-db/embedding/a0097",
+   "owner": "data-platform",
+   "acl": [
+    "data-platform"
+   ],
+   "legal_hold": null,
+   "origin_known": true,
+   "created_at": "2026-03-22"
+  },
+  {
+   "artefact_id": "a0098",
+   "type": "annotation",
+   "subject_ids": [
+    "subj_06"
+   ],
+   "parent_ids": [
+    "a0095"
+   ],
+   "uri": "mock://labels/annotation/a0098",
+   "owner": "data-platform",
+   "acl": [
+    "data-platform"
+   ],
+   "legal_hold": null,
+   "origin_known": true,
+   "created_at": "2026-07-12"
+  },
+  {
+   "artefact_id": "a0099",
+   "type": "raw_video",
+   "subject_ids": [
+    "subj_07"
+   ],
+   "parent_ids": [],
+   "uri": "mock://raw/raw_video/a0099",
+   "owner": "data-platform",
+   "acl": [
+    "data-platform"
+   ],
+   "legal_hold": "LH-2026-07",
+   "origin_known": true,
+   "created_at": "2026-01-17",
+   "filename": "drive_subj_07_007.mp4"
+  },
+  {
+   "artefact_id": "a0100",
+   "type": "backup",
+   "subject_ids": [
+    "subj_07"
+   ],
+   "parent_ids": [
+    "a0099"
+   ],
+   "uri": "mock://glacier/backup/a0100",
+   "owner": "data-platform",
+   "acl": [
+    "data-platform"
+   ],
+   "legal_hold": null,
+   "origin_known": true,
+   "created_at": "2026-06-15",
+   "filename": "drive_subj_07_007.mp4.bak"
+  },
+  {
+   "artefact_id": "a0101",
+   "type": "frame",
+   "subject_ids": [
+    "subj_07"
+   ],
+   "parent_ids": [
+    "a0099"
+   ],
+   "uri": "mock://lake/frame/a0101",
+   "owner": "data-platform",
+   "acl": [
+    "data-platform"
+   ],
+   "legal_hold": null,
+   "origin_known": true,
+   "created_at": "2026-03-18"
+  },
+  {
+   "artefact_id": "a0102",
+   "type": "face_crop",
+   "subject_ids": [
+    "subj_07"
+   ],
+   "parent_ids": [
+    "a0101"
+   ],
+   "uri": "mock://lake/face_crop/a0102",
+   "owner": "data-platform",
+   "acl": [
+    "data-platform"
+   ],
+   "legal_hold": null,
+   "origin_known": true,
+   "created_at": "2026-03-13"
+  },
+  {
+   "artefact_id": "a0103",
+   "type": "embedding",
+   "subject_ids": [
+    "subj_07"
+   ],
+   "parent_ids": [
+    "a0102"
+   ],
+   "uri": "mock://vector-db/embedding/a0103",
+   "owner": "data-platform",
+   "acl": [
+    "data-platform"
+   ],
+   "legal_hold": null,
+   "origin_known": true,
+   "created_at": "2026-07-26"
+  },
+  {
+   "artefact_id": "a0104",
+   "type": "annotation",
+   "subject_ids": [
+    "subj_07"
+   ],
+   "parent_ids": [
+    "a0101"
+   ],
+   "uri": "mock://labels/annotation/a0104",
+   "owner": "data-platform",
+   "acl": [
+    "data-platform"
+   ],
+   "legal_hold": null,
+   "origin_known": true,
+   "created_at": "2026-07-19"
+  },
+  {
+   "artefact_id": "a0105",
+   "type": "frame",
+   "subject_ids": [
+    "subj_07"
+   ],
+   "parent_ids": [
+    "a0099"
+   ],
+   "uri": "mock://lake/frame/a0105",
+   "owner": "data-platform",
+   "acl": [
+    "data-platform"
+   ],
+   "legal_hold": null,
+   "origin_known": true,
+   "created_at": "2026-05-21"
+  },
+  {
+   "artefact_id": "a0106",
+   "type": "face_crop",
+   "subject_ids": [
+    "subj_07"
+   ],
+   "parent_ids": [
+    "a0105"
+   ],
+   "uri": "mock://lake/face_crop/a0106",
+   "owner": "data-platform",
+   "acl": [
+    "data-platform"
+   ],
+   "legal_hold": null,
+   "origin_known": true,
+   "created_at": "2026-07-20"
+  },
+  {
+   "artefact_id": "a0107",
+   "type": "embedding",
+   "subject_ids": [
+    "subj_07"
+   ],
+   "parent_ids": [
+    "a0106"
+   ],
+   "uri": "mock://vector-db/embedding/a0107",
+   "owner": "data-platform",
+   "acl": [
+    "data-platform"
+   ],
+   "legal_hold": null,
+   "origin_known": true,
+   "created_at": "2026-06-12"
+  },
+  {
+   "artefact_id": "a0108",
+   "type": "annotation",
+   "subject_ids": [
+    "subj_07"
+   ],
+   "parent_ids": [
+    "a0105"
+   ],
+   "uri": "mock://labels/annotation/a0108",
+   "owner": "data-platform",
+   "acl": [
+    "data-platform"
+   ],
+   "legal_hold": null,
+   "origin_known": true,
+   "created_at": "2026-07-10"
+  },
+  {
+   "artefact_id": "a0109",
+   "type": "frame",
+   "subject_ids": [
+    "subj_07"
+   ],
+   "parent_ids": [
+    "a0099"
+   ],
+   "uri": "mock://lake/frame/a0109",
+   "owner": "data-platform",
+   "acl": [
+    "data-platform"
+   ],
+   "legal_hold": null,
+   "origin_known": true,
+   "created_at": "2026-02-15"
+  },
+  {
+   "artefact_id": "a0110",
+   "type": "face_crop",
+   "subject_ids": [
+    "subj_07"
+   ],
+   "parent_ids": [
+    "a0109"
+   ],
+   "uri": "mock://lake/face_crop/a0110",
+   "owner": "data-platform",
+   "acl": [
+    "data-platform"
+   ],
+   "legal_hold": null,
+   "origin_known": true,
+   "created_at": "2026-08-23"
+  },
+  {
+   "artefact_id": "a0111",
+   "type": "embedding",
+   "subject_ids": [
+    "subj_07"
+   ],
+   "parent_ids": [
+    "a0110"
+   ],
+   "uri": "mock://vector-db/embedding/a0111",
+   "owner": "data-platform",
+   "acl": [
+    "data-platform"
+   ],
+   "legal_hold": null,
+   "origin_known": true,
+   "created_at": "2026-03-10"
+  },
+  {
+   "artefact_id": "a0112",
+   "type": "annotation",
+   "subject_ids": [
+    "subj_07"
+   ],
+   "parent_ids": [
+    "a0109"
+   ],
+   "uri": "mock://labels/annotation/a0112",
+   "owner": "data-platform",
+   "acl": [
+    "data-platform"
+   ],
+   "legal_hold": null,
+   "origin_known": true,
+   "created_at": "2026-02-10"
+  },
+  {
+   "artefact_id": "a0113",
+   "type": "raw_video",
+   "subject_ids": [
+    "subj_08"
+   ],
+   "parent_ids": [],
+   "uri": "mock://raw/raw_video/a0113",
+   "owner": "data-platform",
+   "acl": [
+    "data-platform"
+   ],
+   "legal_hold": null,
+   "origin_known": true,
+   "created_at": "2026-05-14",
+   "filename": "drive_subj_08_008.mp4"
+  },
+  {
+   "artefact_id": "a0114",
+   "type": "backup",
+   "subject_ids": [
+    "subj_08"
+   ],
+   "parent_ids": [
+    "a0113"
+   ],
+   "uri": "mock://glacier/backup/a0114",
+   "owner": "data-platform",
+   "acl": [
+    "data-platform"
+   ],
+   "legal_hold": null,
+   "origin_known": true,
+   "created_at": "2026-04-25",
+   "filename": "drive_subj_08_008.mp4.bak"
+  },
+  {
+   "artefact_id": "a0115",
+   "type": "frame",
+   "subject_ids": [
+    "subj_08"
+   ],
+   "parent_ids": [
+    "a0113"
+   ],
+   "uri": "mock://lake/frame/a0115",
+   "owner": "data-platform",
+   "acl": [
+    "data-platform"
+   ],
+   "legal_hold": null,
+   "origin_known": true,
+   "created_at": "2026-06-25"
+  },
+  {
+   "artefact_id": "a0116",
+   "type": "face_crop",
+   "subject_ids": [
+    "subj_08"
+   ],
+   "parent_ids": [
+    "a0115"
+   ],
+   "uri": "mock://lake/face_crop/a0116",
+   "owner": "data-platform",
+   "acl": [
+    "data-platform"
+   ],
+   "legal_hold": null,
+   "origin_known": true,
+   "created_at": "2026-04-24"
+  },
+  {
+   "artefact_id": "a0117",
+   "type": "embedding",
+   "subject_ids": [
+    "subj_08"
+   ],
+   "parent_ids": [
+    "a0116"
+   ],
+   "uri": "mock://vector-db/embedding/a0117",
+   "owner": "data-platform",
+   "acl": [
+    "data-platform"
+   ],
+   "legal_hold": null,
+   "origin_known": true,
+   "created_at": "2026-05-11"
+  },
+  {
+   "artefact_id": "a0118",
+   "type": "annotation",
+   "subject_ids": [
+    "subj_08"
+   ],
+   "parent_ids": [
+    "a0115"
+   ],
+   "uri": "mock://labels/annotation/a0118",
+   "owner": "data-platform",
+   "acl": [
+    "data-platform"
+   ],
+   "legal_hold": null,
+   "origin_known": true,
+   "created_at": "2026-04-24"
+  },
+  {
+   "artefact_id": "a0119",
+   "type": "frame",
+   "subject_ids": [
+    "subj_08"
+   ],
+   "parent_ids": [
+    "a0113"
+   ],
+   "uri": "mock://lake/frame/a0119",
+   "owner": "data-platform",
+   "acl": [
+    "data-platform"
+   ],
+   "legal_hold": null,
+   "origin_known": true,
+   "created_at": "2026-01-13"
+  },
+  {
+   "artefact_id": "a0120",
+   "type": "face_crop",
+   "subject_ids": [
+    "subj_08"
+   ],
+   "parent_ids": [
+    "a0119"
+   ],
+   "uri": "mock://lake/face_crop/a0120",
+   "owner": "data-platform",
+   "acl": [
+    "data-platform"
+   ],
+   "legal_hold": null,
+   "origin_known": true,
+   "created_at": "2026-08-25"
+  },
+  {
+   "artefact_id": "a0121",
+   "type": "embedding",
+   "subject_ids": [
+    "subj_08"
+   ],
+   "parent_ids": [
+    "a0120"
+   ],
+   "uri": "mock://vector-db/embedding/a0121",
+   "owner": "data-platform",
+   "acl": [
+    "data-platform"
+   ],
+   "legal_hold": null,
+   "origin_known": true,
+   "created_at": "2026-03-25"
+  },
+  {
+   "artefact_id": "a0122",
+   "type": "annotation",
+   "subject_ids": [
+    "subj_08"
+   ],
+   "parent_ids": [
+    "a0119"
+   ],
+   "uri": "mock://labels/annotation/a0122",
+   "owner": "data-platform",
+   "acl": [
+    "data-platform"
+   ],
+   "legal_hold": null,
+   "origin_known": true,
+   "created_at": "2026-01-21"
+  },
+  {
+   "artefact_id": "a0123",
+   "type": "frame",
+   "subject_ids": [
+    "subj_08",
+    "subj_09"
+   ],
+   "parent_ids": [
+    "a0113"
+   ],
+   "uri": "mock://lake/frame/a0123",
+   "owner": "data-platform",
+   "acl": [
+    "data-platform"
+   ],
+   "legal_hold": null,
+   "origin_known": true,
+   "created_at": "2026-04-16"
+  },
+  {
+   "artefact_id": "a0124",
+   "type": "face_crop",
+   "subject_ids": [
+    "subj_08"
+   ],
+   "parent_ids": [
+    "a0123"
+   ],
+   "uri": "mock://lake/face_crop/a0124",
+   "owner": "data-platform",
+   "acl": [
+    "data-platform"
+   ],
+   "legal_hold": null,
+   "origin_known": true,
+   "created_at": "2026-03-25"
+  },
+  {
+   "artefact_id": "a0125",
+   "type": "embedding",
+   "subject_ids": [
+    "subj_08"
+   ],
+   "parent_ids": [
+    "a0124"
+   ],
+   "uri": "mock://vector-db/embedding/a0125",
+   "owner": "data-platform",
+   "acl": [
+    "data-platform"
+   ],
+   "legal_hold": null,
+   "origin_known": true,
+   "created_at": "2026-03-25"
+  },
+  {
+   "artefact_id": "a0126",
+   "type": "annotation",
+   "subject_ids": [
+    "subj_08",
+    "subj_09"
+   ],
+   "parent_ids": [
+    "a0123"
+   ],
+   "uri": "mock://labels/annotation/a0126",
+   "owner": "data-platform",
+   "acl": [
+    "data-platform"
+   ],
+   "legal_hold": null,
+   "origin_known": true,
+   "created_at": "2026-08-16"
+  },
+  {
+   "artefact_id": "a0127",
+   "type": "raw_video",
+   "subject_ids": [
+    "subj_09"
+   ],
+   "parent_ids": [],
+   "uri": "mock://raw/raw_video/a0127",
+   "owner": "data-platform",
+   "acl": [
+    "data-platform"
+   ],
+   "legal_hold": null,
+   "origin_known": true,
+   "created_at": "2026-06-14",
+   "filename": "drive_subj_09_009.mp4"
+  },
+  {
+   "artefact_id": "a0128",
+   "type": "backup",
+   "subject_ids": [
+    "subj_09"
+   ],
+   "parent_ids": [
+    "a0127"
+   ],
+   "uri": "mock://glacier/backup/a0128",
+   "owner": "data-platform",
+   "acl": [
+    "data-platform"
+   ],
+   "legal_hold": null,
+   "origin_known": true,
+   "created_at": "2026-05-18",
+   "filename": "drive_subj_09_009.mp4.bak"
+  },
+  {
+   "artefact_id": "a0129",
+   "type": "frame",
+   "subject_ids": [
+    "subj_09"
+   ],
+   "parent_ids": [
+    "a0127"
+   ],
+   "uri": "mock://lake/frame/a0129",
+   "owner": "data-platform",
+   "acl": [
+    "data-platform"
+   ],
+   "legal_hold": null,
+   "origin_known": true,
+   "created_at": "2026-02-17"
+  },
+  {
+   "artefact_id": "a0130",
+   "type": "face_crop",
+   "subject_ids": [
+    "subj_09"
+   ],
+   "parent_ids": [
+    "a0129"
+   ],
+   "uri": "mock://lake/face_crop/a0130",
+   "owner": "data-platform",
+   "acl": [
+    "data-platform"
+   ],
+   "legal_hold": null,
+   "origin_known": true,
+   "created_at": "2026-07-13"
+  },
+  {
+   "artefact_id": "a0131",
+   "type": "embedding",
+   "subject_ids": [
+    "subj_09"
+   ],
+   "parent_ids": [
+    "a0130"
+   ],
+   "uri": "mock://vector-db/embedding/a0131",
+   "owner": "data-platform",
+   "acl": [
+    "data-platform"
+   ],
+   "legal_hold": null,
+   "origin_known": true,
+   "created_at": "2026-06-12"
+  },
+  {
+   "artefact_id": "a0132",
+   "type": "annotation",
+   "subject_ids": [
+    "subj_09"
+   ],
+   "parent_ids": [
+    "a0129"
+   ],
+   "uri": "mock://labels/annotation/a0132",
+   "owner": "data-platform",
+   "acl": [
+    "data-platform"
+   ],
+   "legal_hold": null,
+   "origin_known": true,
+   "created_at": "2026-08-15"
+  },
+  {
+   "artefact_id": "a0133",
+   "type": "frame",
+   "subject_ids": [
+    "subj_09"
+   ],
+   "parent_ids": [
+    "a0127"
+   ],
+   "uri": "mock://lake/frame/a0133",
+   "owner": "data-platform",
+   "acl": [
+    "data-platform"
+   ],
+   "legal_hold": null,
+   "origin_known": true,
+   "created_at": "2026-07-22"
+  },
+  {
+   "artefact_id": "a0134",
+   "type": "face_crop",
+   "subject_ids": [
+    "subj_09"
+   ],
+   "parent_ids": [
+    "a0133"
+   ],
+   "uri": "mock://lake/face_crop/a0134",
+   "owner": "data-platform",
+   "acl": [
+    "data-platform"
+   ],
+   "legal_hold": null,
+   "origin_known": true,
+   "created_at": "2026-05-22"
+  },
+  {
+   "artefact_id": "a0135",
+   "type": "embedding",
+   "subject_ids": [
+    "subj_09"
+   ],
+   "parent_ids": [
+    "a0134"
+   ],
+   "uri": "mock://vector-db/embedding/a0135",
+   "owner": "data-platform",
+   "acl": [
+    "data-platform"
+   ],
+   "legal_hold": null,
+   "origin_known": true,
+   "created_at": "2026-05-19"
+  },
+  {
+   "artefact_id": "a0136",
+   "type": "annotation",
+   "subject_ids": [
+    "subj_09"
+   ],
+   "parent_ids": [
+    "a0133"
+   ],
+   "uri": "mock://labels/annotation/a0136",
+   "owner": "data-platform",
+   "acl": [
+    "data-platform"
+   ],
+   "legal_hold": null,
+   "origin_known": true,
+   "created_at": "2026-02-21"
+  },
+  {
+   "artefact_id": "a0137",
+   "type": "frame",
+   "subject_ids": [
+    "subj_09"
+   ],
+   "parent_ids": [
+    "a0127"
+   ],
+   "uri": "mock://lake/frame/a0137",
+   "owner": "data-platform",
+   "acl": [
+    "data-platform"
+   ],
+   "legal_hold": null,
+   "origin_known": true,
+   "created_at": "2026-07-13"
+  },
+  {
+   "artefact_id": "a0138",
+   "type": "face_crop",
+   "subject_ids": [
+    "subj_09"
+   ],
+   "parent_ids": [
+    "a0137"
+   ],
+   "uri": "mock://lake/face_crop/a0138",
+   "owner": "data-platform",
+   "acl": [
+    "data-platform"
+   ],
+   "legal_hold": null,
+   "origin_known": true,
+   "created_at": "2026-08-11"
+  },
+  {
+   "artefact_id": "a0139",
+   "type": "embedding",
+   "subject_ids": [
+    "subj_09"
+   ],
+   "parent_ids": [
+    "a0138"
+   ],
+   "uri": "mock://vector-db/embedding/a0139",
+   "owner": "data-platform",
+   "acl": [
+    "data-platform"
+   ],
+   "legal_hold": null,
+   "origin_known": true,
+   "created_at": "2026-08-14"
+  },
+  {
+   "artefact_id": "a0140",
+   "type": "annotation",
+   "subject_ids": [
+    "subj_09"
+   ],
+   "parent_ids": [
+    "a0137"
+   ],
+   "uri": "mock://labels/annotation/a0140",
+   "owner": "data-platform",
+   "acl": [
+    "data-platform"
+   ],
+   "legal_hold": null,
+   "origin_known": true,
+   "created_at": "2026-06-17"
+  },
+  {
+   "artefact_id": "a0141",
+   "type": "raw_video",
+   "subject_ids": [
+    "subj_10"
+   ],
+   "parent_ids": [],
+   "uri": "mock://raw/raw_video/a0141",
+   "owner": "data-platform",
+   "acl": [
+    "data-platform"
+   ],
+   "legal_hold": null,
+   "origin_known": true,
+   "created_at": "2026-04-20",
+   "filename": "drive_subj_10_010.mp4"
+  },
+  {
+   "artefact_id": "a0142",
+   "type": "backup",
+   "subject_ids": [
+    "subj_10"
+   ],
+   "parent_ids": [
+    "a0141"
+   ],
+   "uri": "mock://glacier/backup/a0142",
+   "owner": "data-platform",
+   "acl": [
+    "data-platform"
+   ],
+   "legal_hold": null,
+   "origin_known": true,
+   "created_at": "2026-08-11",
+   "filename": "drive_subj_10_010.mp4.bak"
+  },
+  {
+   "artefact_id": "a0143",
+   "type": "frame",
+   "subject_ids": [
+    "subj_10"
+   ],
+   "parent_ids": [
+    "a0141"
+   ],
+   "uri": "mock://lake/frame/a0143",
+   "owner": "data-platform",
+   "acl": [
+    "data-platform"
+   ],
+   "legal_hold": null,
+   "origin_known": true,
+   "created_at": "2026-04-16"
+  },
+  {
+   "artefact_id": "a0144",
+   "type": "face_crop",
+   "subject_ids": [
+    "subj_10"
+   ],
+   "parent_ids": [
+    "a0143"
+   ],
+   "uri": "mock://lake/face_crop/a0144",
+   "owner": "data-platform",
+   "acl": [
+    "data-platform"
+   ],
+   "legal_hold": null,
+   "origin_known": true,
+   "created_at": "2026-06-18"
+  },
+  {
+   "artefact_id": "a0145",
+   "type": "embedding",
+   "subject_ids": [
+    "subj_10"
+   ],
+   "parent_ids": [
+    "a0144"
+   ],
+   "uri": "mock://vector-db/embedding/a0145",
+   "owner": "data-platform",
+   "acl": [
+    "data-platform"
+   ],
+   "legal_hold": null,
+   "origin_known": true,
+   "created_at": "2026-01-18"
+  },
+  {
+   "artefact_id": "a0146",
+   "type": "annotation",
+   "subject_ids": [
+    "subj_10"
+   ],
+   "parent_ids": [
+    "a0143"
+   ],
+   "uri": "mock://labels/annotation/a0146",
+   "owner": "data-platform",
+   "acl": [
+    "data-platform"
+   ],
+   "legal_hold": null,
+   "origin_known": true,
+   "created_at": "2026-04-11"
+  },
+  {
+   "artefact_id": "a0147",
+   "type": "frame",
+   "subject_ids": [
+    "subj_10"
+   ],
+   "parent_ids": [
+    "a0141"
+   ],
+   "uri": "mock://lake/frame/a0147",
+   "owner": "data-platform",
+   "acl": [
+    "data-platform"
+   ],
+   "legal_hold": null,
+   "origin_known": true,
+   "created_at": "2026-03-24"
+  },
+  {
+   "artefact_id": "a0148",
+   "type": "face_crop",
+   "subject_ids": [
+    "subj_10"
+   ],
+   "parent_ids": [
+    "a0147"
+   ],
+   "uri": "mock://lake/face_crop/a0148",
+   "owner": "data-platform",
+   "acl": [
+    "data-platform"
+   ],
+   "legal_hold": null,
+   "origin_known": true,
+   "created_at": "2026-02-16"
+  },
+  {
+   "artefact_id": "a0149",
+   "type": "embedding",
+   "subject_ids": [
+    "subj_10"
+   ],
+   "parent_ids": [
+    "a0148"
+   ],
+   "uri": "mock://vector-db/embedding/a0149",
+   "owner": "data-platform",
+   "acl": [
+    "data-platform"
+   ],
+   "legal_hold": null,
+   "origin_known": true,
+   "created_at": "2026-08-12"
+  },
+  {
+   "artefact_id": "a0150",
+   "type": "annotation",
+   "subject_ids": [
+    "subj_10"
+   ],
+   "parent_ids": [
+    "a0147"
+   ],
+   "uri": "mock://labels/annotation/a0150",
+   "owner": "data-platform",
+   "acl": [
+    "data-platform"
+   ],
+   "legal_hold": null,
+   "origin_known": true,
+   "created_at": "2026-07-18"
+  },
+  {
+   "artefact_id": "a0151",
+   "type": "frame",
+   "subject_ids": [
+    "subj_10"
+   ],
+   "parent_ids": [
+    "a0141"
+   ],
+   "uri": "mock://lake/frame/a0151",
+   "owner": "data-platform",
+   "acl": [
+    "data-platform"
+   ],
+   "legal_hold": null,
+   "origin_known": true,
+   "created_at": "2026-03-20"
+  },
+  {
+   "artefact_id": "a0152",
+   "type": "face_crop",
+   "subject_ids": [
+    "subj_10"
+   ],
+   "parent_ids": [
+    "a0151"
+   ],
+   "uri": "mock://lake/face_crop/a0152",
+   "owner": "data-platform",
+   "acl": [
+    "data-platform"
+   ],
+   "legal_hold": null,
+   "origin_known": true,
+   "created_at": "2026-06-20"
+  },
+  {
+   "artefact_id": "a0153",
+   "type": "embedding",
+   "subject_ids": [
+    "subj_10"
+   ],
+   "parent_ids": [
+    "a0152"
+   ],
+   "uri": "mock://vector-db/embedding/a0153",
+   "owner": "data-platform",
+   "acl": [
+    "data-platform"
+   ],
+   "legal_hold": null,
+   "origin_known": true,
+   "created_at": "2026-06-20"
+  },
+  {
+   "artefact_id": "a0154",
+   "type": "annotation",
+   "subject_ids": [
+    "subj_10"
+   ],
+   "parent_ids": [
+    "a0151"
+   ],
+   "uri": "mock://labels/annotation/a0154",
+   "owner": "data-platform",
+   "acl": [
+    "data-platform"
+   ],
+   "legal_hold": null,
+   "origin_known": true,
+   "created_at": "2026-08-25"
+  },
+  {
+   "artefact_id": "a0155",
+   "type": "raw_video",
+   "subject_ids": [
+    "subj_11"
+   ],
+   "parent_ids": [],
+   "uri": "mock://raw/raw_video/a0155",
+   "owner": "data-platform",
+   "acl": [
+    "data-platform"
+   ],
+   "legal_hold": null,
+   "origin_known": true,
+   "created_at": "2026-02-15",
+   "filename": "drive_subj_11_011.mp4"
+  },
+  {
+   "artefact_id": "a0156",
+   "type": "backup",
+   "subject_ids": [
+    "subj_11"
+   ],
+   "parent_ids": [
+    "a0155"
+   ],
+   "uri": "mock://glacier/backup/a0156",
+   "owner": "data-platform",
+   "acl": [
+    "vendor-x"
+   ],
+   "legal_hold": null,
+   "origin_known": true,
+   "created_at": "2026-02-26",
+   "filename": "drive_subj_11_011.mp4.bak"
+  },
+  {
+   "artefact_id": "a0157",
+   "type": "frame",
+   "subject_ids": [
+    "subj_11"
+   ],
+   "parent_ids": [
+    "a0155"
+   ],
+   "uri": "mock://lake/frame/a0157",
+   "owner": "data-platform",
+   "acl": [
+    "data-platform"
+   ],
+   "legal_hold": null,
+   "origin_known": true,
+   "created_at": "2026-08-21"
+  },
+  {
+   "artefact_id": "a0158",
+   "type": "face_crop",
+   "subject_ids": [
+    "subj_11"
+   ],
+   "parent_ids": [
+    "a0157"
+   ],
+   "uri": "mock://lake/face_crop/a0158",
+   "owner": "data-platform",
+   "acl": [
+    "data-platform"
+   ],
+   "legal_hold": null,
+   "origin_known": true,
+   "created_at": "2026-07-24"
+  },
+  {
+   "artefact_id": "a0159",
+   "type": "embedding",
+   "subject_ids": [
+    "subj_11"
+   ],
+   "parent_ids": [
+    "a0158"
+   ],
+   "uri": "mock://vector-db/embedding/a0159",
+   "owner": "data-platform",
+   "acl": [
+    "data-platform"
+   ],
+   "legal_hold": null,
+   "origin_known": true,
+   "created_at": "2026-01-16"
+  },
+  {
+   "artefact_id": "a0160",
+   "type": "annotation",
+   "subject_ids": [
+    "subj_11"
+   ],
+   "parent_ids": [
+    "a0157"
+   ],
+   "uri": "mock://labels/annotation/a0160",
+   "owner": "data-platform",
+   "acl": [
+    "data-platform"
+   ],
+   "legal_hold": null,
+   "origin_known": true,
+   "created_at": "2026-04-16"
+  },
+  {
+   "artefact_id": "a0161",
+   "type": "frame",
+   "subject_ids": [
+    "subj_11"
+   ],
+   "parent_ids": [
+    "a0155"
+   ],
+   "uri": "mock://lake/frame/a0161",
+   "owner": "data-platform",
+   "acl": [
+    "data-platform"
+   ],
+   "legal_hold": null,
+   "origin_known": true,
+   "created_at": "2026-03-23"
+  },
+  {
+   "artefact_id": "a0162",
+   "type": "face_crop",
+   "subject_ids": [
+    "subj_11"
+   ],
+   "parent_ids": [
+    "a0161"
+   ],
+   "uri": "mock://lake/face_crop/a0162",
+   "owner": "data-platform",
+   "acl": [
+    "data-platform"
+   ],
+   "legal_hold": null,
+   "origin_known": true,
+   "created_at": "2026-02-22"
+  },
+  {
+   "artefact_id": "a0163",
+   "type": "embedding",
+   "subject_ids": [
+    "subj_11"
+   ],
+   "parent_ids": [
+    "a0162"
+   ],
+   "uri": "mock://vector-db/embedding/a0163",
+   "owner": "data-platform",
+   "acl": [
+    "data-platform"
+   ],
+   "legal_hold": null,
+   "origin_known": true,
+   "created_at": "2026-06-24"
+  },
+  {
+   "artefact_id": "a0164",
+   "type": "annotation",
+   "subject_ids": [
+    "subj_11"
+   ],
+   "parent_ids": [
+    "a0161"
+   ],
+   "uri": "mock://labels/annotation/a0164",
+   "owner": "data-platform",
+   "acl": [
+    "data-platform"
+   ],
+   "legal_hold": null,
+   "origin_known": true,
+   "created_at": "2026-04-12"
+  },
+  {
+   "artefact_id": "a0165",
+   "type": "frame",
+   "subject_ids": [
+    "subj_11"
+   ],
+   "parent_ids": [
+    "a0155"
+   ],
+   "uri": "mock://lake/frame/a0165",
+   "owner": "data-platform",
+   "acl": [
+    "data-platform"
+   ],
+   "legal_hold": null,
+   "origin_known": true,
+   "created_at": "2026-02-25"
+  },
+  {
+   "artefact_id": "a0166",
+   "type": "face_crop",
+   "subject_ids": [
+    "subj_11"
+   ],
+   "parent_ids": [
+    "a0165"
+   ],
+   "uri": "mock://lake/face_crop/a0166",
+   "owner": "data-platform",
+   "acl": [
+    "data-platform"
+   ],
+   "legal_hold": null,
+   "origin_known": true,
+   "created_at": "2026-02-17"
+  },
+  {
+   "artefact_id": "a0167",
+   "type": "embedding",
+   "subject_ids": [
+    "subj_11"
+   ],
+   "parent_ids": [
+    "a0166"
+   ],
+   "uri": "mock://vector-db/embedding/a0167",
+   "owner": "data-platform",
+   "acl": [
+    "data-platform"
+   ],
+   "legal_hold": null,
+   "origin_known": true,
+   "created_at": "2026-02-24"
+  },
+  {
+   "artefact_id": "a0168",
+   "type": "annotation",
+   "subject_ids": [
+    "subj_11"
+   ],
+   "parent_ids": [
+    "a0165"
+   ],
+   "uri": "mock://labels/annotation/a0168",
+   "owner": "data-platform",
+   "acl": [
+    "data-platform"
+   ],
+   "legal_hold": null,
+   "origin_known": true,
+   "created_at": "2026-03-12"
+  },
+  {
+   "artefact_id": "a0169",
+   "type": "raw_video",
+   "subject_ids": [
+    "subj_12"
+   ],
+   "parent_ids": [],
+   "uri": "mock://raw/raw_video/a0169",
+   "owner": "data-platform",
+   "acl": [
+    "data-platform"
+   ],
+   "legal_hold": null,
+   "origin_known": true,
+   "created_at": "2026-02-26",
+   "filename": "drive_subj_12_012.mp4"
+  },
+  {
+   "artefact_id": "a0170",
+   "type": "backup",
+   "subject_ids": [
+    "subj_12"
+   ],
+   "parent_ids": [
+    "a0169"
+   ],
+   "uri": "mock://glacier/backup/a0170",
+   "owner": "data-platform",
+   "acl": [
+    "data-platform"
+   ],
+   "legal_hold": null,
+   "origin_known": true,
+   "created_at": "2026-05-11",
+   "filename": "drive_subj_12_012.mp4.bak"
+  },
+  {
+   "artefact_id": "a0171",
+   "type": "frame",
+   "subject_ids": [
+    "subj_12"
+   ],
+   "parent_ids": [
+    "a0169"
+   ],
+   "uri": "mock://lake/frame/a0171",
+   "owner": "data-platform",
+   "acl": [
+    "data-platform"
+   ],
+   "legal_hold": null,
+   "origin_known": true,
+   "created_at": "2026-08-14"
+  },
+  {
+   "artefact_id": "a0172",
+   "type": "face_crop",
+   "subject_ids": [
+    "subj_12"
+   ],
+   "parent_ids": [
+    "a0171"
+   ],
+   "uri": "mock://lake/face_crop/a0172",
+   "owner": "data-platform",
+   "acl": [
+    "data-platform"
+   ],
+   "legal_hold": null,
+   "origin_known": true,
+   "created_at": "2026-08-26"
+  },
+  {
+   "artefact_id": "a0173",
+   "type": "embedding",
+   "subject_ids": [
+    "subj_12"
+   ],
+   "parent_ids": [
+    "a0172"
+   ],
+   "uri": "mock://vector-db/embedding/a0173",
+   "owner": "data-platform",
+   "acl": [
+    "data-platform"
+   ],
+   "legal_hold": null,
+   "origin_known": true,
+   "created_at": "2026-01-16"
+  },
+  {
+   "artefact_id": "a0174",
+   "type": "annotation",
+   "subject_ids": [
+    "subj_12"
+   ],
+   "parent_ids": [
+    "a0171"
+   ],
+   "uri": "mock://labels/annotation/a0174",
+   "owner": "data-platform",
+   "acl": [
+    "data-platform"
+   ],
+   "legal_hold": null,
+   "origin_known": true,
+   "created_at": "2026-05-15"
+  },
+  {
+   "artefact_id": "a0175",
+   "type": "frame",
+   "subject_ids": [
+    "subj_12"
+   ],
+   "parent_ids": [
+    "a0169"
+   ],
+   "uri": "mock://lake/frame/a0175",
+   "owner": "data-platform",
+   "acl": [
+    "data-platform"
+   ],
+   "legal_hold": null,
+   "origin_known": true,
+   "created_at": "2026-07-14"
+  },
+  {
+   "artefact_id": "a0176",
+   "type": "face_crop",
+   "subject_ids": [
+    "subj_12"
+   ],
+   "parent_ids": [
+    "a0175"
+   ],
+   "uri": "mock://lake/face_crop/a0176",
+   "owner": "data-platform",
+   "acl": [
+    "data-platform"
+   ],
+   "legal_hold": null,
+   "origin_known": true,
+   "created_at": "2026-08-10"
+  },
+  {
+   "artefact_id": "a0177",
+   "type": "embedding",
+   "subject_ids": [
+    "subj_12"
+   ],
+   "parent_ids": [
+    "a0176"
+   ],
+   "uri": "mock://vector-db/embedding/a0177",
+   "owner": "data-platform",
+   "acl": [
+    "data-platform"
+   ],
+   "legal_hold": null,
+   "origin_known": true,
+   "created_at": "2026-04-10"
+  },
+  {
+   "artefact_id": "a0178",
+   "type": "annotation",
+   "subject_ids": [
+    "subj_12"
+   ],
+   "parent_ids": [
+    "a0175"
+   ],
+   "uri": "mock://labels/annotation/a0178",
+   "owner": "data-platform",
+   "acl": [
+    "data-platform"
+   ],
+   "legal_hold": null,
+   "origin_known": true,
+   "created_at": "2026-01-16"
+  },
+  {
+   "artefact_id": "a0179",
+   "type": "frame",
+   "subject_ids": [
+    "subj_12",
+    "subj_13"
+   ],
+   "parent_ids": [
+    "a0169"
+   ],
+   "uri": "mock://lake/frame/a0179",
+   "owner": "data-platform",
+   "acl": [
+    "data-platform"
+   ],
+   "legal_hold": null,
+   "origin_known": true,
+   "created_at": "2026-03-19"
+  },
+  {
+   "artefact_id": "a0180",
+   "type": "face_crop",
+   "subject_ids": [
+    "subj_12"
+   ],
+   "parent_ids": [
+    "a0179"
+   ],
+   "uri": "mock://lake/face_crop/a0180",
+   "owner": "data-platform",
+   "acl": [
+    "data-platform"
+   ],
+   "legal_hold": null,
+   "origin_known": true,
+   "created_at": "2026-07-18"
+  },
+  {
+   "artefact_id": "a0181",
+   "type": "embedding",
+   "subject_ids": [
+    "subj_12"
+   ],
+   "parent_ids": [
+    "a0180"
+   ],
+   "uri": "mock://vector-db/embedding/a0181",
+   "owner": "data-platform",
+   "acl": [
+    "data-platform"
+   ],
+   "legal_hold": null,
+   "origin_known": true,
+   "created_at": "2026-03-13"
+  },
+  {
+   "artefact_id": "a0182",
+   "type": "annotation",
+   "subject_ids": [
+    "subj_12",
+    "subj_13"
+   ],
+   "parent_ids": [
+    "a0179"
+   ],
+   "uri": "mock://labels/annotation/a0182",
+   "owner": "data-platform",
+   "acl": [
+    "data-platform"
+   ],
+   "legal_hold": null,
+   "origin_known": true,
+   "created_at": "2026-07-26"
+  },
+  {
+   "artefact_id": "a0183",
+   "type": "raw_video",
+   "subject_ids": [
+    "subj_13"
+   ],
+   "parent_ids": [],
+   "uri": "mock://raw/raw_video/a0183",
+   "owner": "data-platform",
+   "acl": [
+    "data-platform"
+   ],
+   "legal_hold": null,
+   "origin_known": true,
+   "created_at": "2026-08-15",
+   "filename": "drive_subj_13_013.mp4"
+  },
+  {
+   "artefact_id": "a0184",
+   "type": "backup",
+   "subject_ids": [
+    "subj_13"
+   ],
+   "parent_ids": [
+    "a0183"
+   ],
+   "uri": "mock://glacier/backup/a0184",
+   "owner": "data-platform",
+   "acl": [
+    "data-platform"
+   ],
+   "legal_hold": null,
+   "origin_known": true,
+   "created_at": "2026-06-20",
+   "filename": "drive_subj_13_013.mp4.bak"
+  },
+  {
+   "artefact_id": "a0185",
+   "type": "frame",
+   "subject_ids": [
+    "subj_13"
+   ],
+   "parent_ids": [
+    "a0183"
+   ],
+   "uri": "mock://lake/frame/a0185",
+   "owner": "data-platform",
+   "acl": [
+    "data-platform"
+   ],
+   "legal_hold": null,
+   "origin_known": true,
+   "created_at": "2026-05-18"
+  },
+  {
+   "artefact_id": "a0186",
+   "type": "face_crop",
+   "subject_ids": [
+    "subj_13"
+   ],
+   "parent_ids": [
+    "a0185"
+   ],
+   "uri": "mock://lake/face_crop/a0186",
+   "owner": "data-platform",
+   "acl": [
+    "data-platform"
+   ],
+   "legal_hold": null,
+   "origin_known": true,
+   "created_at": "2026-01-11"
+  },
+  {
+   "artefact_id": "a0187",
+   "type": "embedding",
+   "subject_ids": [
+    "subj_13"
+   ],
+   "parent_ids": [
+    "a0186"
+   ],
+   "uri": "mock://vector-db/embedding/a0187",
+   "owner": "data-platform",
+   "acl": [
+    "data-platform"
+   ],
+   "legal_hold": null,
+   "origin_known": true,
+   "created_at": "2026-05-16"
+  },
+  {
+   "artefact_id": "a0188",
+   "type": "annotation",
+   "subject_ids": [
+    "subj_13"
+   ],
+   "parent_ids": [
+    "a0185"
+   ],
+   "uri": "mock://labels/annotation/a0188",
+   "owner": "data-platform",
+   "acl": [
+    "data-platform"
+   ],
+   "legal_hold": null,
+   "origin_known": true,
+   "created_at": "2026-06-25"
+  },
+  {
+   "artefact_id": "a0189",
+   "type": "frame",
+   "subject_ids": [
+    "subj_13"
+   ],
+   "parent_ids": [
+    "a0183"
+   ],
+   "uri": "mock://lake/frame/a0189",
+   "owner": "data-platform",
+   "acl": [
+    "data-platform"
+   ],
+   "legal_hold": null,
+   "origin_known": true,
+   "created_at": "2026-07-15"
+  },
+  {
+   "artefact_id": "a0190",
+   "type": "face_crop",
+   "subject_ids": [
+    "subj_13"
+   ],
+   "parent_ids": [
+    "a0189"
+   ],
+   "uri": "mock://lake/face_crop/a0190",
+   "owner": "data-platform",
+   "acl": [
+    "data-platform"
+   ],
+   "legal_hold": null,
+   "origin_known": true,
+   "created_at": "2026-08-21"
+  },
+  {
+   "artefact_id": "a0191",
+   "type": "embedding",
+   "subject_ids": [
+    "subj_13"
+   ],
+   "parent_ids": [
+    "a0190"
+   ],
+   "uri": "mock://vector-db/embedding/a0191",
+   "owner": "data-platform",
+   "acl": [
+    "data-platform"
+   ],
+   "legal_hold": null,
+   "origin_known": true,
+   "created_at": "2026-03-16"
+  },
+  {
+   "artefact_id": "a0192",
+   "type": "annotation",
+   "subject_ids": [
+    "subj_13"
+   ],
+   "parent_ids": [
+    "a0189"
+   ],
+   "uri": "mock://labels/annotation/a0192",
+   "owner": "data-platform",
+   "acl": [
+    "data-platform"
+   ],
+   "legal_hold": null,
+   "origin_known": true,
+   "created_at": "2026-08-23"
+  },
+  {
+   "artefact_id": "a0193",
+   "type": "frame",
+   "subject_ids": [
+    "subj_13"
+   ],
+   "parent_ids": [
+    "a0183"
+   ],
+   "uri": "mock://lake/frame/a0193",
+   "owner": "data-platform",
+   "acl": [
+    "data-platform"
+   ],
+   "legal_hold": null,
+   "origin_known": true,
+   "created_at": "2026-06-23"
+  },
+  {
+   "artefact_id": "a0194",
+   "type": "face_crop",
+   "subject_ids": [
+    "subj_13"
+   ],
+   "parent_ids": [
+    "a0193"
+   ],
+   "uri": "mock://lake/face_crop/a0194",
+   "owner": "data-platform",
+   "acl": [
+    "data-platform"
+   ],
+   "legal_hold": null,
+   "origin_known": true,
+   "created_at": "2026-08-12"
+  },
+  {
+   "artefact_id": "a0195",
+   "type": "embedding",
+   "subject_ids": [
+    "subj_13"
+   ],
+   "parent_ids": [
+    "a0194"
+   ],
+   "uri": "mock://vector-db/embedding/a0195",
+   "owner": "data-platform",
+   "acl": [
+    "data-platform"
+   ],
+   "legal_hold": null,
+   "origin_known": true,
+   "created_at": "2026-06-14"
+  },
+  {
+   "artefact_id": "a0196",
+   "type": "annotation",
+   "subject_ids": [
+    "subj_13"
+   ],
+   "parent_ids": [
+    "a0193"
+   ],
+   "uri": "mock://labels/annotation/a0196",
+   "owner": "data-platform",
+   "acl": [
+    "data-platform"
+   ],
+   "legal_hold": null,
+   "origin_known": true,
+   "created_at": "2026-03-13"
+  },
+  {
+   "artefact_id": "a0197",
+   "type": "raw_video",
+   "subject_ids": [
+    "subj_14"
+   ],
+   "parent_ids": [],
+   "uri": "mock://raw/raw_video/a0197",
+   "owner": "data-platform",
+   "acl": [
+    "data-platform"
+   ],
+   "legal_hold": null,
+   "origin_known": true,
+   "created_at": "2026-07-21",
+   "filename": "drive_subj_14_014.mp4"
+  },
+  {
+   "artefact_id": "a0198",
+   "type": "backup",
+   "subject_ids": [
+    "subj_14"
+   ],
+   "parent_ids": [
+    "a0197"
+   ],
+   "uri": "mock://glacier/backup/a0198",
+   "owner": "data-platform",
+   "acl": [
+    "data-platform"
+   ],
+   "legal_hold": null,
+   "origin_known": true,
+   "created_at": "2026-02-10",
+   "filename": "drive_subj_14_014.mp4.bak"
+  },
+  {
+   "artefact_id": "a0199",
+   "type": "frame",
+   "subject_ids": [
+    "subj_14"
+   ],
+   "parent_ids": [
+    "a0197"
+   ],
+   "uri": "mock://lake/frame/a0199",
+   "owner": "data-platform",
+   "acl": [
+    "data-platform"
+   ],
+   "legal_hold": null,
+   "origin_known": true,
+   "created_at": "2026-02-24"
+  },
+  {
+   "artefact_id": "a0200",
+   "type": "face_crop",
+   "subject_ids": [
+    "subj_14"
+   ],
+   "parent_ids": [
+    "a0199"
+   ],
+   "uri": "mock://lake/face_crop/a0200",
+   "owner": "data-platform",
+   "acl": [
+    "data-platform"
+   ],
+   "legal_hold": null,
+   "origin_known": true,
+   "created_at": "2026-02-22"
+  },
+  {
+   "artefact_id": "a0201",
+   "type": "embedding",
+   "subject_ids": [
+    "subj_14"
+   ],
+   "parent_ids": [
+    "a0200"
+   ],
+   "uri": "mock://vector-db/embedding/a0201",
+   "owner": "data-platform",
+   "acl": [
+    "data-platform"
+   ],
+   "legal_hold": null,
+   "origin_known": true,
+   "created_at": "2026-01-12"
+  },
+  {
+   "artefact_id": "a0202",
+   "type": "annotation",
+   "subject_ids": [
+    "subj_14"
+   ],
+   "parent_ids": [
+    "a0199"
+   ],
+   "uri": "mock://labels/annotation/a0202",
+   "owner": "data-platform",
+   "acl": [
+    "data-platform"
+   ],
+   "legal_hold": null,
+   "origin_known": true,
+   "created_at": "2026-07-14"
+  },
+  {
+   "artefact_id": "a0203",
+   "type": "frame",
+   "subject_ids": [
+    "subj_14"
+   ],
+   "parent_ids": [
+    "a0197"
+   ],
+   "uri": "mock://lake/frame/a0203",
+   "owner": "data-platform",
+   "acl": [
+    "data-platform"
+   ],
+   "legal_hold": null,
+   "origin_known": true,
+   "created_at": "2026-08-14"
+  },
+  {
+   "artefact_id": "a0204",
+   "type": "face_crop",
+   "subject_ids": [
+    "subj_14"
+   ],
+   "parent_ids": [
+    "a0203"
+   ],
+   "uri": "mock://lake/face_crop/a0204",
+   "owner": "data-platform",
+   "acl": [
+    "data-platform"
+   ],
+   "legal_hold": null,
+   "origin_known": true,
+   "created_at": "2026-06-14"
+  },
+  {
+   "artefact_id": "a0205",
+   "type": "embedding",
+   "subject_ids": [
+    "subj_14"
+   ],
+   "parent_ids": [
+    "a0204"
+   ],
+   "uri": "mock://vector-db/embedding/a0205",
+   "owner": "data-platform",
+   "acl": [
+    "data-platform"
+   ],
+   "legal_hold": null,
+   "origin_known": true,
+   "created_at": "2026-06-25"
+  },
+  {
+   "artefact_id": "a0206",
+   "type": "annotation",
+   "subject_ids": [
+    "subj_14"
+   ],
+   "parent_ids": [
+    "a0203"
+   ],
+   "uri": "mock://labels/annotation/a0206",
+   "owner": "data-platform",
+   "acl": [
+    "data-platform"
+   ],
+   "legal_hold": null,
+   "origin_known": true,
+   "created_at": "2026-01-11"
+  },
+  {
+   "artefact_id": "a0207",
+   "type": "frame",
+   "subject_ids": [
+    "subj_14"
+   ],
+   "parent_ids": [
+    "a0197"
+   ],
+   "uri": "mock://lake/frame/a0207",
+   "owner": "data-platform",
+   "acl": [
+    "data-platform"
+   ],
+   "legal_hold": null,
+   "origin_known": true,
+   "created_at": "2026-02-27"
+  },
+  {
+   "artefact_id": "a0208",
+   "type": "face_crop",
+   "subject_ids": [
+    "subj_14"
+   ],
+   "parent_ids": [
+    "a0207"
+   ],
+   "uri": "mock://lake/face_crop/a0208",
+   "owner": "data-platform",
+   "acl": [
+    "data-platform"
+   ],
+   "legal_hold": null,
+   "origin_known": true,
+   "created_at": "2026-05-15"
+  },
+  {
+   "artefact_id": "a0209",
+   "type": "embedding",
+   "subject_ids": [
+    "subj_14"
+   ],
+   "parent_ids": [
+    "a0208"
+   ],
+   "uri": "mock://vector-db/embedding/a0209",
+   "owner": "data-platform",
+   "acl": [
+    "data-platform"
+   ],
+   "legal_hold": null,
+   "origin_known": true,
+   "created_at": "2026-03-13"
+  },
+  {
+   "artefact_id": "a0210",
+   "type": "annotation",
+   "subject_ids": [
+    "subj_14"
+   ],
+   "parent_ids": [
+    "a0207"
+   ],
+   "uri": "mock://labels/annotation/a0210",
+   "owner": "data-platform",
+   "acl": [
+    "data-platform"
+   ],
+   "legal_hold": null,
+   "origin_known": true,
+   "created_at": "2026-01-26"
+  },
+  {
+   "artefact_id": "a0211",
+   "type": "training_export",
+   "subject_ids": [
+    "subj_03",
+    "subj_04",
+    "subj_05",
+    "subj_06",
+    "subj_07",
+    "subj_09",
+    "subj_10",
+    "subj_11",
+    "subj_12",
+    "subj_14"
+   ],
+   "parent_ids": [
+    "a0166",
+    "a0068",
+    "a0152",
+    "a0092",
+    "a0106",
+    "a0046",
+    "a0176",
+    "a0200",
+    "a0130",
+    "a0148",
+    "a0060",
+    "a0082"
+   ],
+   "uri": "mock://exports/training_export/a0211",
+   "owner": "data-platform",
+   "acl": [
+    "data-platform"
+   ],
+   "legal_hold": null,
+   "origin_known": true,
+   "created_at": "2026-07-25"
+  },
+  {
+   "artefact_id": "a0212",
+   "type": "training_export",
+   "subject_ids": [
+    "subj_00",
+    "subj_01",
+    "subj_02",
+    "subj_04",
+    "subj_05",
+    "subj_06",
+    "subj_07",
+    "subj_10",
+    "subj_13"
+   ],
+   "parent_ids": [
+    "a0018",
+    "a0022",
+    "a0106",
+    "a0026",
+    "a0186",
+    "a0088",
+    "a0012",
+    "a0152",
+    "a0008",
+    "a0074",
+    "a0064",
+    "a0032"
+   ],
+   "uri": "mock://exports/training_export/a0212",
+   "owner": "data-platform",
+   "acl": [
+    "data-platform"
+   ],
+   "legal_hold": null,
+   "origin_known": true,
+   "created_at": "2026-02-19"
+  }
+ ]
+}

@@ -1,0 +1,9 @@
+# Defaults for T10 — see docs/tracks/T10.md
+# Pipeline must write out/shift_scores.csv. Freeze params BEFORE looking at eval results.
+track: t10
+input: fixtures/t10_domain_shift
+pred_file: shift_scores.csv
+params:
+  reference_batch: b0_source
+  high_risk_drop: 0.1
+eval_params: {}

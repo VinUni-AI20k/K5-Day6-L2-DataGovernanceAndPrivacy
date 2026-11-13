@@ -1,0 +1,13 @@
+# Defaults for T01 — see docs/tracks/T01.md
+# Pipeline must write out/pick.csv. Freeze params BEFORE looking at eval results.
+track: t01
+input: fixtures/t01_coverage
+pred_file: pick.csv
+params:
+  k: 30
+  budgets_to_try:
+  - 10
+  - 20
+  - 30
+eval_params:
+  k: 30

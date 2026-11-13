@@ -1,0 +1,12 @@
+# Defaults for T04 — see docs/tracks/T04.md
+# Pipeline must write out/pairs.csv. Freeze params BEFORE looking at eval results.
+track: t04
+input: fixtures/t04_sensor_sync
+pred_file: pairs.csv
+params:
+  tol_ms: 50
+  camera_ts_unit: s
+  imu_ts_unit: ms
+eval_params:
+  tol_ms: 50
+  split: eval

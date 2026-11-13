@@ -1,0 +1,3 @@
+file_id,path,source,license,split,group_id,sha256
+acceptance_policy,acceptance_policy.yaml,synthetic:tools/make_fixtures.py (seed 42),"CC0-1.0 (synthetic, generated for AI20K Day06)",na,na,4cdbb931af067052de51522b0c41c3139fe852ba17a22310d5da7724081b94df
+batches,batches.csv,synthetic:tools/make_fixtures.py (seed 42),"CC0-1.0 (synthetic, generated for AI20K Day06)",na,na,9c00337015e9a796b2ecda0ea34af684df47cc559ba2e4b58bab359eeea79ce8

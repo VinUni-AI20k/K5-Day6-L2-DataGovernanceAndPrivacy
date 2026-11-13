@@ -1,0 +1,6 @@
+# Project taxonomy (export target)
+classes:
+  0: car
+  1: pedestrian
+  2: motorbike
+  3: sign

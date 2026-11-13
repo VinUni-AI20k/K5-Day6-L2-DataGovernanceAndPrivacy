@@ -1,0 +1,25 @@
+# EXAMPLE STRUCTURE ONLY — not legal advice, not complete, not verified.
+# Every rule must cite its source and be versioned. Ambiguity => HOLD + escalate to DPO/legal.
+policy_version: example-0.1
+effective_date: 2026-01-01
+reason_codes: [XBORDER_NO_MECHANISM, RETENTION_UNBOUNDED, RETENTION_EXCESSIVE, RAW_PII_IN_CLOUD, DPIA_MISSING,
+               NOTICE_MISSING, NO_LAWFUL_BASIS, CONSENT_RECORD_MISSING, MINORS, NO_ENCRYPTION, AMBIGUOUS_NEEDS_LEGAL]
+rules:
+  - id: R-XB-01
+    markets: [EU]
+    when: "transfer.cross_border and transfer.mechanism in [null, 'unknown', 'none']"
+    decision: HOLD
+    reason_code: XBORDER_NO_MECHANISM
+    source: {doc: 'GDPR (EUR-Lex)', ref: 'Chapter V, Art. 44-49', url: 'https://eur-lex.europa.eu/eli/reg/2016/679/oj'}
+  - id: R-RET-01
+    markets: ['*']
+    when: "retention_days is null"
+    decision: REWORK
+    reason_code: RETENTION_UNBOUNDED
+    source: {doc: 'GDPR (EUR-Lex)', ref: 'Art. 5(1)(e) storage limitation', url: 'https://eur-lex.europa.eu/eli/reg/2016/679/oj'}
+  - id: R-VN-TODO
+    markets: [VN]
+    when: "TODO"
+    decision: HOLD
+    reason_code: TODO
+    source: {doc: 'Luật Bảo vệ dữ liệu cá nhân 91/2025/QH15 + Nghị định 356/2025', ref: 'TODO: nhóm tự tra cứu điều khoản & ghi rõ', url: 'TODO'}

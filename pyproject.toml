@@ -1,0 +1,10 @@
+[project]
+name = "day06-data-lab"
+version = "0.1.0"
+description = "AI20K Day 06 Data Lab — Field-to-Release PoC starter (14 tracks)"
+requires-python = ">=3.10"
+readme = "README.md"
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+addopts = "-q"

@@ -1,0 +1,9 @@
+# Defaults for T12 — see docs/tracks/T12.md
+# Pipeline must write out/batch_decisions.csv. Freeze params BEFORE looking at eval results.
+track: t12
+input: fixtures/t12_vendor_batches
+pred_file: batch_decisions.csv
+params:
+  audit_budget_per_batch: 20
+  max_error_rate: 0.05
+eval_params: {}

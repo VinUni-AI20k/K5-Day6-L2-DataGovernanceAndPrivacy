@@ -1,0 +1,16 @@
+# Defaults for T03 — see docs/tracks/T03.md
+# Pipeline must write out/qc.csv. Freeze params BEFORE looking at eval results.
+track: t03
+input: fixtures/t03_synthetic
+pred_file: qc.csv
+params:
+  transforms:
+  - night
+  - glare
+  - fog
+  - blur
+  severities:
+  - 0
+  - 1
+  - 2
+eval_params: {}

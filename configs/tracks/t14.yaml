@@ -1,0 +1,11 @@
+# Defaults for T14 — see docs/tracks/T14.md
+# Pipeline must write out/predictions.csv. Freeze params BEFORE looking at eval results.
+track: t14
+input: fixtures/t14_auto_annotation
+pred_file: predictions.csv
+params:
+  conf_threshold: 0.25
+  budget: 30
+eval_params:
+  iou: 0.5
+  split: eval

@@ -1,0 +1,16 @@
+cell_id,route,weather,light,object,weight,is_hard
+C01,urban,clear,day,car,1,0
+C02,urban,clear,night,car,2,0
+C03,highway,clear,day,car,1,0
+C04,highway,rain,*,car,3,0
+C05,urban,rain,day,motorbike,3,0
+C06,urban,*,dusk,pedestrian,3,0
+C07,alley,*,day,motorbike,3,0
+C08,alley,*,night,*,4,1
+C09,urban,rain,night,motorbike,5,1
+C10,*,rain,night,pedestrian,5,1
+C11,*,*,*,motorbike_occluded,4,1
+C12,highway,fog,*,*,3,0
+C13,urban,fog,night,pedestrian,5,0
+C14,highway,clear,night,motorbike,2,0
+C15,alley,rain,dusk,pedestrian,4,0
