@@ -6,4 +6,5 @@ pred_file: decisions.csv
 params:
   policy_file: rules/policy_example.yaml
 eval_params:
-  split: all
+  split: eval          # official score; use --split all only as a self-check
+  max_false_hold: 0.5  # guardrail: primary only valid if false HOLD rate stays below this

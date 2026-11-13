@@ -9,3 +9,4 @@ params:
 eval_params:
   min_coverage: 0.9
   split: eval
+  max_over_redaction: 0.3  # guardrail: primary only valid if over-redaction stays below this

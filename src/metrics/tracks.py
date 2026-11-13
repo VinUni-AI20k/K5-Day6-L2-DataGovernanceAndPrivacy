@@ -57,6 +57,17 @@ def _m(name, value, direction, unit="", num=None, den=None, n=None, primary=Fals
                         numerator=num, denominator=den, n=n, slice=slice, primary=primary, notes=notes)
 
 
+def _guardrail(name: str, value, limit: float) -> tuple[MetricResult, str]:
+    """Constrained primary: the primary metric only counts when this side metric stays within its limit.
+
+    Without it, a trivial policy (blur everything, HOLD everything) can reach a perfect primary score.
+    """
+    ok = value is not None and float(value) <= limit
+    note = (f"guardrail {name} <= {limit}: {'PASS' if ok else 'FAIL — primary metric is not valid on its own'}"
+            f" (value={'n/a' if value is None else round(float(value), 4)})")
+    return _m(f"Guardrail: {name} <= {limit}", 1.0 if ok else 0.0, "higher", "1 = pass, 0 = fail (constrained primary)"), note
+
+
 def _need(df: pd.DataFrame, cols: list[str], what: str) -> None:
     miss = [c for c in cols if c not in df.columns]
     if miss:
@@ -287,7 +298,10 @@ def eval_t07(gt_path: Path, pred_path: Path, cfg: dict) -> EvalOutput:
         for s, sub in reg.groupby(col):
             ms.append(_m("PII Miss Rate", sub.missed.mean(), "lower", "fraction", int(sub.missed.sum()), len(sub), len(sub), slice=f"{col}={s}"))
             rows.append({"slice": f"{col}={s}", "n": len(sub), "miss_rate": sub.missed.mean(), "mean_coverage": sub.coverage.mean()})
-    return EvalOutput(ms, pd.DataFrame(rows), [f"min_coverage={cov}"])
+    g, note = _guardrail("Over-redaction rate", over["value"], float(cfg.get("max_over_redaction", 0.3)))
+    ms.insert(3, g)
+    return EvalOutput(ms, pd.DataFrame(rows), [f"min_coverage={cov}", note,
+                                               "report the trivial blur-all baseline next to your PoC"])
 
 
 # ----------------------------------------------------------------------------- T08
@@ -319,11 +333,11 @@ def eval_t08(gt_path: Path, pred_path: Path, cfg: dict) -> EvalOutput:
 
 # ----------------------------------------------------------------------------- T09
 def eval_t09(gt_path: Path, pred_path: Path, cfg: dict) -> EvalOutput:
-    gt = _split(pd.read_csv(gt_path), cfg, "all")
+    gt = _split(pd.read_csv(gt_path), cfg, "eval")
     pred = pd.read_csv(pred_path)
     _need(pred, ["case_id", "decision"], "decisions.csv")
     m = gt.merge(pred, on="case_id", how="left")
-    m["pred"] = m.decision.fillna("GO").map(lambda s: canonical_status(str(s)))
+    m["pred"] = m.decision.fillna("GO").map(lambda s: canonical_status(str(s)))  # missing decision counts as GO (worst case)
     risky = m[m.gold_decision != "GO"]
     safe = m[m.gold_decision == "GO"]
     crit = int((risky.pred == "GO").sum())
@@ -333,6 +347,9 @@ def eval_t09(gt_path: Path, pred_path: Path, cfg: dict) -> EvalOutput:
         _m("False HOLD rate", safe_div(int((safe.pred != "GO").sum()), len(safe)), "lower", "GO cases blocked / GO cases", int((safe.pred != "GO").sum()), len(safe)),
         _m("Exact decision accuracy", (m.pred == m.gold_decision).mean(), "higher", "fraction", n=len(m)),
     ]
+    false_hold = safe_div(int((safe.pred != "GO").sum()), len(safe))
+    g, gnote = _guardrail("False HOLD rate", false_hold, float(cfg.get("max_false_hold", 0.5)))
+    ms.append(g)
     if "reason_codes" in m.columns:
         def hit(r):
             g = {x for x in str(r.gold_reason_codes).split(";") if x and x != "nan"}
@@ -341,7 +358,10 @@ def eval_t09(gt_path: Path, pred_path: Path, cfg: dict) -> EvalOutput:
         h = risky.apply(hit, axis=1) if len(risky) else pd.Series(dtype=int)
         ms.append(_m("Reason-code match (risky)", h.mean() if len(h) else None, "higher", "risky cases with ≥1 correct reason code", int(h.sum()), len(h)))
     sl = m.assign(ok=(m.pred == m.gold_decision).astype(int)).groupby("gold_decision").ok.agg(["count", "mean"]).reset_index().rename(columns={"gold_decision": "slice", "count": "n", "mean": "accuracy"})
-    return EvalOutput(ms, sl, ["N is tiny (12 cases): report results case by case, not only as rates"])
+    split = cfg.get("split", "eval")
+    return EvalOutput(ms, sl, [f"split={split} (N={len(m)}); official score uses split=eval, split=all is self-check only",
+                               "N is tiny: report results case by case, not only as rates", gnote,
+                               "report the trivial all-HOLD baseline next to your PoC"])
 
 
 # ----------------------------------------------------------------------------- T10
@@ -401,9 +421,9 @@ def eval_t12(gt_path: Path, pred_path: Path, cfg: dict) -> EvalOutput:
     fx = _fixture_dir_of(gt_path)
     gt = pd.read_csv(gt_path)
     pred = pd.read_csv(pred_path)
-    _need(pred, ["batch_id", "est_error_rate", "decision"], "batch_decisions.csv")
+    _need(pred, ["batch_id", "est_error_rate", "decision", "n_audited"], "batch_decisions.csv")
     m = gt.merge(pred, on="batch_id", how="left")
-    m["dec"] = m.decision.fillna("HOLD").str.upper()
+    m["dec"] = m.decision.fillna("ACCEPT").str.upper()  # missing decision counts as ACCEPT (worst case for recall)
     bad, good = m[m.is_bad == 1], m[m.is_bad == 0]
     caught = int((bad.dec != "ACCEPT").sum())
     ms = [
@@ -415,11 +435,14 @@ def eval_t12(gt_path: Path, pred_path: Path, cfg: dict) -> EvalOutput:
     if {"ci_low", "ci_high"} <= set(m.columns):
         cov = ((m.ci_low <= m.true_error_rate) & (m.true_error_rate <= m.ci_high)).mean()
         ms.append(_m("CI coverage", cov, "higher", "batches whose CI contains true rate / batches (nominal 0.95)", n=len(m)))
-    if "n_audited" in m.columns and (fx / "acceptance_policy.yaml").exists():
+    if (fx / "acceptance_policy.yaml").exists():
         budget = yaml.safe_load((fx / "acceptance_policy.yaml").read_text())["audit_budget_per_batch"]
         over = int((m.n_audited > budget).sum())
         ms.append(_m("Budget violations", over, "lower", f"batches audited above budget {budget}", n=len(m)))
-    return EvalOutput(ms, m[["batch_id", "true_error_rate", "est_error_rate", "dec", "is_bad"]].rename(columns={"batch_id": "slice"}))
+    g, note = _guardrail("HOLD rate", float((m.dec == "HOLD").mean()), float(cfg.get("max_hold_rate", 0.4)))
+    ms.append(g)
+    notes = [note, "missing decision = ACCEPT; report the trivial all-HOLD / all-REWORK baselines next to your PoC"]
+    return EvalOutput(ms, m[["batch_id", "true_error_rate", "est_error_rate", "dec", "is_bad"]].rename(columns={"batch_id": "slice"}), notes)
 
 
 # ----------------------------------------------------------------------------- T13
@@ -486,12 +509,12 @@ TRACKS: dict[str, TrackSpec] = {
     "t04": TrackSpec("t04", "Sensor Sync Guard", "t04_sensor_sync", "gt/gt_pairs.csv", "pairs.csv", ["frame_id", "imu_t_ms"], eval_t04, {"tol_ms": 50, "split": "eval"}),
     "t05": TrackSpec("t05", "Leakage & Near-Duplicate Guardian", "t05_near_duplicate", "gt/gt_groups.csv", "suspect_pairs.csv", ["img_a", "img_b"], eval_t05),
     "t06": TrackSpec("t06", "Semantic Integrity & Provenance Gate", "t06_release_gate", "gt/gt_releases.csv", "release_decisions.csv", ["release_id", "decision"], eval_t06, {"split": "eval"}),
-    "t07": TrackSpec("t07", "Face/Plate Redaction + Review Queue", "t07_redaction", "gt/gt_regions.csv", "redactions.csv", ["image_id", "x", "y", "w", "h"], eval_t07, {"min_coverage": 0.9, "split": "eval"}),
+    "t07": TrackSpec("t07", "Face/Plate Redaction + Review Queue", "t07_redaction", "gt/gt_regions.csv", "redactions.csv", ["image_id", "x", "y", "w", "h"], eval_t07, {"min_coverage": 0.9, "split": "eval", "max_over_redaction": 0.3}),
     "t08": TrackSpec("t08", "Retention & Delete Request Simulator", "t08_deletion", "gt/gt_actions.csv", "actions.csv", ["request_id", "artefact_id", "action"], eval_t08),
-    "t09": TrackSpec("t09", "Multi-Market Privacy Decision Gate", "t09_privacy_gate", "gt/gold_decisions.csv", "decisions.csv", ["case_id", "decision"], eval_t09, {"split": "all"}),
+    "t09": TrackSpec("t09", "Multi-Market Privacy Decision Gate", "t09_privacy_gate", "gt/gold_decisions.csv", "decisions.csv", ["case_id", "decision"], eval_t09, {"split": "eval", "max_false_hold": 0.5}),
     "t10": TrackSpec("t10", "Domain Shift Radar", "t10_domain_shift", "gt/batch_perf.csv", "shift_scores.csv", ["batch_id", "shift_score"], eval_t10),
     "t11": TrackSpec("t11", "Post-label Error Review Prioritizer", "t11_label_errors", "gt/gt_errors.csv", "ranking.csv", ["item_id", "score"], eval_t11, {"split": "heldout"}),
-    "t12": TrackSpec("t12", "Vendor Batch Acceptance", "t12_vendor_batches", "gt/batch_truth.csv", "batch_decisions.csv", ["batch_id", "est_error_rate", "decision"], eval_t12),
+    "t12": TrackSpec("t12", "Vendor Batch Acceptance", "t12_vendor_batches", "gt/batch_truth.csv", "batch_decisions.csv", ["batch_id", "est_error_rate", "decision", "n_audited"], eval_t12, {"max_hold_rate": 0.4}),
     "t13": TrackSpec("t13", "Active Learning & Rare Case Miner", "t13_rare_mining", "gt/rare_labels.csv", "selected.csv", ["image_id"], eval_t13, {"k": 20}),
     "t14": TrackSpec("t14", "Auto-Annotation + Human QC Exporter", "t14_auto_annotation", "gt/gt_boxes.csv", "predictions.csv", ["image_id", "class", "x", "y", "w", "h"], eval_t14, {"iou": 0.5, "split": "eval"}),
 }
