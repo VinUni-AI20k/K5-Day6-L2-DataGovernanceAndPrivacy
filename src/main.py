@@ -24,7 +24,7 @@ from .common.io import config_hash, git_sha, resolve_config, set_seed, write_jso
 from .common.offline import NetworkBlockedError, enable_offline_guard
 from .common.review import AuditLog
 from .common.timer import machine_info
-from .metrics.tracks import get_track
+from .metrics.tracks import get_track, infer_track_from_path
 
 DEFAULT_CONFIG = "configs/lab.yaml"
 
@@ -48,7 +48,8 @@ def main(argv=None) -> int:
     if not Path(a.config).exists():
         print(f"[main] config not found: {a.config}", file=sys.stderr)
         return 2
-    cfg = resolve_config(a.config, a.track, {"input": a.input, "output": a.output, "seed": a.seed,
+    track_arg = a.track or infer_track_from_path(a.input)
+    cfg = resolve_config(a.config, track_arg, {"input": a.input, "output": a.output, "seed": a.seed,
                                              "run_name": a.run_name, "pipeline": a.pipeline})
     offline = a.offline or bool(cfg.get("offline", False))
     if offline:

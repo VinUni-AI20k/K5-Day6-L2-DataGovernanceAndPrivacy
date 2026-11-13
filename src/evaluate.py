@@ -15,7 +15,7 @@ import pandas as pd
 
 from .common.io import read_json, resolve_config
 from .common.report import write_metrics
-from .metrics.tracks import default_gt_path, get_track
+from .metrics.tracks import default_gt_path, get_track, infer_track_from_path
 
 
 def main(argv=None) -> int:
@@ -32,8 +32,9 @@ def main(argv=None) -> int:
     ap.add_argument("--slices-out", help="write slice table CSV here")
     a = ap.parse_args(argv)
 
-    cfg = resolve_config(a.config, a.track)
-    track = a.track or cfg.get("track")
+    track_arg = a.track or infer_track_from_path(a.gt)
+    cfg = resolve_config(a.config, track_arg)
+    track = track_arg or cfg.get("track")
     if not track:
         print("--track is required (or set `track:` in configs/lab.yaml)", file=sys.stderr)
         return 2

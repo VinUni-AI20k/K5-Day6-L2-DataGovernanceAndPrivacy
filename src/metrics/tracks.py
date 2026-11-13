@@ -507,3 +507,14 @@ def get_track(track: str) -> TrackSpec:
 def default_gt_path(track: str) -> Path:
     spec = get_track(track)
     return FIXTURES / spec.fixture_dir / spec.default_gt
+
+
+def infer_track_from_path(path: str | Path | None) -> str | None:
+    """'fixtures/t07_redaction/...' -> 't07' (lets the contract commands omit --track)."""
+    if not path:
+        return None
+    parts = Path(path).resolve().parts
+    for spec in TRACKS.values():
+        if spec.fixture_dir in parts:
+            return spec.track
+    return None

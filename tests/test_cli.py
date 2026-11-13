@@ -67,3 +67,10 @@ def test_gt_guard_blocks_ground_truth_reads():
 def test_cli_module_invocation():
     r = subprocess.run([sys.executable, "-m", "src.evaluate", "--help"], capture_output=True, text=True)
     assert r.returncode == 0 and "--pred" in r.stdout
+
+
+def test_track_inferred_from_input_folder(tmp_path):
+    # contract command without --track: track comes from the fixture folder name
+    rc = runner.main(["--input", "fixtures/t13_rare_mining", "--pipeline", "src.examples.random_baseline", "--output", str(tmp_path), "--offline"])
+    assert rc == 0 and (tmp_path / "selected.csv").exists()
+    assert evaluate.main(["--gt", "fixtures/t13_rare_mining/gt/rare_labels.csv", "--pred", str(tmp_path / "selected.csv")]) == 0
