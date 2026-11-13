@@ -53,6 +53,9 @@ def process(ctx: RunContext, data: dict) -> pd.DataFrame:
 def rank(ctx: RunContext, scored: pd.DataFrame) -> pd.DataFrame:
     """Default: top-B by `score`. Adapt id/score/reason columns to your track."""
     budget = int(ctx.param("budget", 20))
+    if "score" not in scored.columns:
+        raise ValueError("rank(): process() output needs a numeric `score` column (higher = review first), "
+                         "or adapt rank() to your track")
     q = make_review_queue(scored, id_col=scored.columns[0], score_col="score", budget=budget,
                           reason_col="reason" if "reason" in scored.columns else None)
     write_review_queue(q, ctx.out("review_queue.csv"))

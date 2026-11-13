@@ -13,7 +13,7 @@ python3.11 -m venv .venv && .venv/bin/pip install -r requirements.txt
 
 ## Fixtures synthetic (đã commit sẵn — mọi track)
 
-`fixtures/` được sinh bởi `python -m tools.make_fixtures` (deterministic, seed 42; sinh lại cho ra hash giống hệt).
+`fixtures/` được sinh bởi `python -m tools.make_fixtures` (deterministic, seed 42; sinh lại cho ra hash giống hệt **với cùng phiên bản Pillow/OpenCV** — bản commit dùng Pillow 13 / OpenCV 5.0; phiên bản khác chỉ đổi byte JPEG và `t13 pool_features.csv`, GT không đổi).
 Ground truth nằm trong `fixtures/<track>/gt/`. Nếu muốn **hidden eval** riêng: đổi seed trong `tools/make_fixtures.py`
 (ví dụ cộng 1000 vào mọi `default_rng(...)`), sinh ra thư mục khác, giữ kín và chấm bằng
 `python -m src.evaluate --track tXX --gt <hidden>/gt/<file> --pred <out của nhóm>`. Cấu trúc file y hệt nên pipeline của nhóm chạy được ngay.

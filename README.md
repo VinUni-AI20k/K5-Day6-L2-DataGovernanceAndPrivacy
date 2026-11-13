@@ -119,10 +119,28 @@ python -m src.main --track tXX --output out/poc --run-name poc --offline
 make eval-baseline eval-poc compare TRACK=tXX      # -> reports/metrics_*.json + reports/table1_baseline_vs_poc.md
 ```
 
+### Bắt đầu viết pipeline (15 phút đầu)
+
+1. Sửa `configs/lab.yaml`: `group_id`, `owner`, `track: tXX`, `track_config: tracks/tXX.yaml`.
+2. Đọc `docs/tracks/TXX.md`, mở `fixtures/<track>/` xem input; xem `src/examples/random_baseline.py` để biết cách nối dây.
+3. Trong `src/pipeline.py`, viết `load()` + `process()`; `process()` trả DataFrame có **các cột bắt buộc** của track
+   (bảng trên) **và** cột `score` (số, cao = cần review trước) để `rank()` lập queue top-B.
+4. `make run TRACK=tXX` (exit 0) → `make eval-poc TRACK=tXX`. Exit 3 nghĩa là `process()` chưa được cài.
+
+### Vòng human-in-the-loop (review → override → audit)
+
+1. `make run` sinh `out/poc/review_queue.csv` (top-B). Muốn có giao diện: gọi
+   `render_contact_sheet(queue, ctx.out("contact_sheet.html"), image_root=ctx.input_dir)` (xem `random_baseline.py`), mở file HTML bằng trình duyệt (offline).
+2. Reviewer nhập tên, chọn quyết định (`approve/reject/edit/escalate/skip`), bấm **Export CSV**
+   → trình duyệt tải về `review_queue_reviewed.csv`. Hoặc điền thẳng các cột `reviewer`, `reviewer_decision`, `override_value`, `review_note` trong CSV.
+3. Chép file vào **`out/poc/review_queue_reviewed.csv`** rồi chạy lại `make run`: bước `review()` đọc file
+   (dòng có quyết định mà thiếu `reviewer` → fail rõ), nhóm tự áp override (`common.review.apply_overrides`) và ghi `out/poc/audit_log.jsonl`.
+
 ## 5. Dữ liệu
 
 - `fixtures/`: **synthetic, sinh deterministic** bởi `python -m tools.make_fixtures` (seed 42), CC0, không có người/biển số thật.
   Mỗi track có `manifest.csv` (input) và `gt/manifest.csv` (ground truth) kèm sha256. Kiểm tra: `make verify`.
+  **Không cần chạy `make fixtures`**: dữ liệu đã commit sẵn. Sinh lại với phiên bản Pillow/OpenCV khác sẽ ra byte JPEG khác (GT giữ nguyên) và làm lệch hash so với bản chấm.
 - `data/real/` (gitignored, tuỳ chọn): mẫu nhỏ dữ liệu thật từ Hugging Face (BDD100K val, COCO val2017, license plates).
   Giảng viên chuẩn bị trước lớp bằng `make real-data` — xem `docs/INSTRUCTOR_SETUP.md`.
   **Có người và biển số thật → không commit, không đưa lên cloud/public repo.**
