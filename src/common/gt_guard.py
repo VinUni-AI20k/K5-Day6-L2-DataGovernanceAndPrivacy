@@ -2,6 +2,11 @@
 
 Only src.evaluate (and the controlled AuditOracle for T12-style audits) may.
 Enabled by default in src.main; disable with --allow-gt-read (and explain why in the report).
+
+This is an honesty check, NOT a security boundary: it only patches builtins.open / io.open in
+the current process, so os.open, subprocess, a second process or a copied file bypass it.
+Official scores must come from a hidden eval set the group never had
+(tools/make_hidden_eval.py, see docs/INSTRUCTOR_SETUP.md).
 """
 from __future__ import annotations
 

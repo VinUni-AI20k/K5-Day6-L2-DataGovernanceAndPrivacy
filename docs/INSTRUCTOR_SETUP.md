@@ -14,9 +14,29 @@ python3.11 -m venv .venv && .venv/bin/pip install -r requirements.txt
 ## Fixtures synthetic (đã commit sẵn — mọi track)
 
 `fixtures/` được sinh bởi `python -m tools.make_fixtures` (deterministic, seed 42; sinh lại cho ra hash giống hệt **với cùng phiên bản Pillow/OpenCV** — bản commit dùng Pillow 13 / OpenCV 5.0; phiên bản khác chỉ đổi byte JPEG và `t13 pool_features.csv`, GT không đổi).
-Ground truth nằm trong `fixtures/<track>/gt/`. Nếu muốn **hidden eval** riêng: đổi seed trong `tools/make_fixtures.py`
-(ví dụ cộng 1000 vào mọi `default_rng(...)`), sinh ra thư mục khác, giữ kín và chấm bằng
-`python -m src.evaluate --track tXX --gt <hidden>/gt/<file> --pred <out của nhóm>`. Cấu trúc file y hệt nên pipeline của nhóm chạy được ngay.
+Ground truth nằm trong `fixtures/<track>/gt/` — học viên **có** GT này trong repo, nên điểm trên `fixtures/` chỉ là điểm tự kiểm.
+
+### Hidden eval (bắt buộc cho điểm chính thức)
+
+GT guard trong `src.main` chỉ là **kiểm tra trung thực**, không phải ranh giới bảo mật: nó chỉ chặn `open()` trong cùng
+process; `os.open`, `subprocess`, process khác hoặc copy file đều vượt qua được. Vì vậy điểm chính thức **chỉ** lấy
+trên bộ hidden eval mà nhóm chưa từng có:
+
+```bash
+python -m tools.make_hidden_eval --seed <seed bí mật, khác 0> --out hidden_eval/     # hidden_eval/ đã gitignore
+python -m src.evaluate --track tXX --gt hidden_eval/<track_dir>/gt/<file> --pred <out của nhóm>
+```
+
+Cấu trúc file y hệt `fixtures/` nên pipeline của nhóm chạy được ngay (trỏ input sang `hidden_eval/<track_dir>`).
+Không commit, không chia sẻ seed. Lưu ý: case T09 viết tay nên không đổi theo seed (tự viết thêm case kín nếu cần);
+tỉ lệ lỗi theo batch của T12 cố định theo thiết kế, chỉ item lỗi thay đổi.
+
+### Guardrail (constrained primary)
+
+T07, T09, T12 có thêm metric `Guardrail: ... <= ngưỡng` (1 = đạt). Primary chỉ hợp lệ khi guardrail đạt — chặn
+lời giải tầm thường đạt điểm tuyệt đối (blur toàn ảnh, HOLD mọi case/batch). Ngưỡng mặc định trong
+`configs/tracks/t07|t09|t12.yaml` (`max_over_redaction: 0.3`, `max_false_hold: 0.5`, `max_hold_rate: 0.4`). Yêu cầu
+nhóm báo baseline tầm thường (blur-all / all-HOLD) cạnh PoC.
 
 Mapping với gói trong handout:
 

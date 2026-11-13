@@ -6,6 +6,9 @@
 data/real/
 data/cache/
 
+# Private hidden-eval fixtures (tools/make_hidden_eval.py) — never commit
+hidden_eval/
+
 # Run outputs
 out/
 runs/
