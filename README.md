@@ -10,7 +10,7 @@ vấn đề, baseline, thuật toán, đánh giá trung thực, human-in-the-loo
 ## 1. Quickstart (≤ 5 phút, chạy offline)
 
 ```bash
-# Python 3.11 khuyến nghị (>=3.10)
+# Python 3.11–3.13 (đã test trên 3.13)
 make setup                 # = python3 -m venv .venv && pip install -r requirements.txt
 make preflight             # kiểm tra môi trường, fixtures, offline guard, không lộ token
 make test                  # pytest -q  (phải 0 failed)
@@ -86,12 +86,12 @@ Mỗi track có evaluator riêng trong `src/metrics/tracks.py`, cài đúng prim
 | T04 Sensor Sync Guard | Pair Accuracy@50ms | `pairs.csv` |
 | T05 Leakage & Near-Dup | Leakage Detection F1 (pair) | `suspect_pairs.csv` (+ `split_manifest.csv`) |
 | T06 Integrity & Provenance Gate | Silent-defect Detection F1 (release) | `release_decisions.csv` |
-| T07 Face/Plate Redaction | PII Miss Rate (coverage ≥ 0.9) | `redactions.csv` |
+| T07 Face/Plate Redaction | PII Miss Rate (coverage ≥ 0.9) + guardrail over-redaction ≤ 0.3 | `redactions.csv` |
 | T08 Delete Request Simulator | Deletion Completeness (+ false-delete = 0) | `actions.csv` (+ `audit_log.jsonl`) |
-| T09 Privacy Decision Gate | Critical-miss Rate | `decisions.csv` |
+| T09 Privacy Decision Gate | Critical-miss Rate (split eval) + guardrail false HOLD ≤ 0.5 | `decisions.csv` |
 | T10 Domain Shift Radar | Spearman ρ(ShiftScore, PerfDrop) + bootstrap CI | `shift_scores.csv` |
 | T11 Label Error Prioritizer | Error Recall@B, B=max(10, 10%N) | `ranking.csv` |
-| T12 Vendor Batch Acceptance | MAE + Bad-batch Recall (báo riêng) | `batch_decisions.csv` |
+| T12 Vendor Batch Acceptance | MAE + Bad-batch Recall (báo riêng) + guardrail HOLD rate ≤ 0.4 | `batch_decisions.csv` |
 | T13 Rare Case Miner | Rare-case Recall@K (K=20) | `selected.csv` |
 | T14 Auto-Annotation + QC | Detection F1@IoU0.5 | `predictions.csv` |
 

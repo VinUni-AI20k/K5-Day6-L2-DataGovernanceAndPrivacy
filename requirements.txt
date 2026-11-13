@@ -1,8 +1,10 @@
-# Core (P0 · py_env) — Python 3.11
+# Core (P0 · py_env) — Python 3.11–3.13 (tested on 3.13)
 numpy>=1.26
 pandas>=2.1
 pillow>=10.0
-opencv-python-headless>=4.9
+# OpenCV 5.0 (06/2026) has breaking changes (C API removed, modules moved); upper bound guards the next major.
+# Committed fixtures were generated with 5.0; tests also pass on 4.13. Re-run `make test` after upgrading.
+opencv-python-headless>=4.9,<6
 scikit-learn>=1.4
 scipy>=1.11
 matplotlib>=3.8
@@ -11,3 +13,7 @@ pytest>=8.0
 
 # Only for instructor/TA data prep (tools/download_real_samples.py) — not needed at demo time
 huggingface_hub>=0.24
+
+# Optional (T10 drift report). Evidently 0.7 changed the API (`from evidently import Report`,
+# `from evidently.presets import DataDriftPreset`, Dataset + DataDefinition, no ColumnMapping).
+# Either use the 0.7 API or pin the old one:  evidently<=0.6.7
