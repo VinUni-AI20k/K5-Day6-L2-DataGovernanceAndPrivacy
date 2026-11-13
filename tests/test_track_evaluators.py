@@ -115,3 +115,35 @@ def test_t09_consent_only_baseline_has_critical_misses(tmp_path):
     pd.DataFrame(rows).to_csv(p, index=False)
     res = TRACKS["t09"].evaluator(default_gt_path("t09"), p, {"split": "all"})
     assert primary(res) > 0.5   # naive rule lets most risky cases through
+
+
+def _t12_eval(df, tmp_path):
+    p = tmp_path / TRACKS["t12"].pred_file
+    df.to_csv(p, index=False)
+    spec = TRACKS["t12"]
+    return spec.evaluator(default_gt_path("t12"), p, dict(spec.params))
+
+
+def test_t12_rejects_unknown_decision(tmp_path):
+    df = pd.read_csv(_perfect("t12", tmp_path)).assign(decision="MAYBE")
+    with pytest.raises(ValueError, match="decision must be one of"):
+        _t12_eval(df, tmp_path)
+
+
+def test_t12_rejects_duplicate_batches(tmp_path):
+    df = pd.read_csv(_perfect("t12", tmp_path))
+    with pytest.raises(ValueError, match="duplicate"):
+        _t12_eval(pd.concat([df, df.head(1)]), tmp_path)
+
+
+def test_t12_rejects_blank_estimate(tmp_path):
+    df = pd.read_csv(_perfect("t12", tmp_path))
+    df.loc[1:, "est_error_rate"] = np.nan
+    with pytest.raises(ValueError, match="est_error_rate"):
+        _t12_eval(df, tmp_path)
+
+
+def test_t12_missing_batches_cannot_lower_mae(tmp_path):
+    df = pd.read_csv(_perfect("t12", tmp_path))
+    res = _t12_eval(df.head(1), tmp_path)
+    assert primary(res) > 0.0

@@ -16,7 +16,8 @@ make preflight             # kiểm tra môi trường, fixtures, offline guard,
 make test                  # pytest -q  (phải 0 failed)
 
 # Ví dụ wiring E2E (random baseline, có cho T01/T02/T11/T13):
-make baseline TRACK=t11 && make eval-baseline TRACK=t11
+make baseline TRACK=t11      # ghi out/baseline/; repo học viên không có gt/ nên bước chấm
+                             # (make eval-baseline) chỉ chạy được khi đã cài overlay giảng viên, nếu không exit 2
 ```
 
 Chọn challenge: sửa `configs/lab.yaml` (`track`, `track_config`, `owner`, `group_id`), đọc `docs/tracks/TXX.md`.
@@ -118,7 +119,8 @@ Lệnh nộp số liệu (không gõ tay):
 ```bash
 python -m src.main --track tXX --output out/baseline --run-name baseline --pipeline <module baseline của nhóm> --offline
 python -m src.main --track tXX --output out/poc --run-name poc --offline
-make eval-baseline eval-poc compare TRACK=tXX      # -> reports/metrics_*.json + reports/table1_baseline_vs_poc.md
+make eval-baseline eval-poc compare TRACK=tXX      # cần overlay giảng viên (gt/); không có thì exit 2
+                                                   # -> reports/metrics_*.json + reports/table1_baseline_vs_poc.md
 ```
 
 ### Bắt đầu viết pipeline (15 phút đầu)
@@ -127,7 +129,8 @@ make eval-baseline eval-poc compare TRACK=tXX      # -> reports/metrics_*.json +
 2. Đọc `docs/tracks/TXX.md`, mở `fixtures/<track>/` xem input; xem `src/examples/random_baseline.py` để biết cách nối dây.
 3. Trong `src/pipeline.py`, viết `load()` + `process()`; `process()` trả DataFrame có **các cột bắt buộc** của track
    (bảng trên) **và** cột `score` (số, cao = cần review trước) để `rank()` lập queue top-B.
-4. `make run TRACK=tXX` (exit 0) → `make eval-poc TRACK=tXX`. Exit 3 nghĩa là `process()` chưa được cài.
+4. `make run TRACK=tXX` (exit 0). Exit 3 nghĩa là `process()` chưa được cài. `make eval-poc` cần `gt/` của giảng viên
+   (repo học viên trả exit 2); tự kiểm bằng metric không cần nhãn và review thủ công.
 
 ### Vòng human-in-the-loop (review → override → audit)
 

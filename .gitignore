@@ -8,10 +8,11 @@ data/cache/
 
 # Instructor-only material (ground truth, generators, hidden eval) lives in the private
 # instructor repo and is copied in as an overlay — never commit it here
-fixtures/*/gt/
-tools/make_fixtures.py
-tools/make_hidden_eval.py
-hidden_eval/
+# The ** prefix also catches nested copies of the repo (e.g. a vendored checkout)
+**/fixtures/*/gt/
+**/make_fixtures.py
+**/make_hidden_eval.py
+**/hidden_eval/
 
 # Run outputs
 out/

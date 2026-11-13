@@ -74,6 +74,13 @@ def _need(df: pd.DataFrame, cols: list[str], what: str) -> None:
         raise ValueError(f"{what} is missing required columns {miss}; has {list(df.columns)}")
 
 
+def _unique(df: pd.DataFrame, keys: list[str], what: str) -> None:
+    """One prediction row per evaluation unit; duplicates would re-weight rates computed after a merge."""
+    dup = df[df.duplicated(keys, keep=False)]
+    if len(dup):
+        raise ValueError(f"{what} has duplicate {keys} rows: {dup[keys].drop_duplicates().head(5).values.tolist()}")
+
+
 def _fixture_dir_of(gt_path: Path) -> Path:
     return gt_path.parent.parent if gt_path.parent.name == "gt" else gt_path.parent
 
@@ -170,6 +177,7 @@ def eval_t03(gt_path: Path, pred_path: Path, cfg: dict) -> EvalOutput:
     gt = pd.read_csv(gt_path)
     pred = pd.read_csv(pred_path)
     _need(pred, ["image_id", "pred_unusable"], "qc.csv")
+    _unique(pred, ["image_id"], "qc.csv")
     m = gt.merge(pred[["image_id", "pred_unusable"]], on="image_id", how="left")
     missing = int(m.pred_unusable.isna().sum())
     m["pred_unusable"] = m.pred_unusable.fillna(0).astype(int)  # no prediction = treated as 'usable' (worst case)
@@ -195,6 +203,7 @@ def eval_t04(gt_path: Path, pred_path: Path, cfg: dict) -> EvalOutput:
     gt = _split(pd.read_csv(gt_path), cfg, "eval")
     pred = pd.read_csv(pred_path)
     _need(pred, ["frame_id", "imu_t_ms"], "pairs.csv")
+    _unique(pred, ["frame_id"], "pairs.csv")
     m = gt.merge(pred[["frame_id", "imu_t_ms"]], on="frame_id", how="left")
     tol = float(cfg.get("tol_ms", 50))
     valid = m.gt_imu_t_ms.notna()
@@ -257,6 +266,7 @@ def eval_t06(gt_path: Path, pred_path: Path, cfg: dict) -> EvalOutput:
     gt = _split(pd.read_csv(gt_path), cfg, "all")
     pred = pd.read_csv(pred_path)
     _need(pred, ["release_id", "decision"], "release_decisions.csv")
+    _unique(pred, ["release_id"], "release_decisions.csv")
     m = gt.merge(pred, on="release_id", how="left")
     m["blocked"] = m.decision.fillna("GO").map(lambda s: int(canonical_status(str(s)) != "GO"))
     r = CL.prf(m.is_defective, m.blocked)
@@ -309,6 +319,7 @@ def eval_t08(gt_path: Path, pred_path: Path, cfg: dict) -> EvalOutput:
     gt = pd.read_csv(gt_path)
     pred = pd.read_csv(pred_path)
     _need(pred, ["request_id", "artefact_id", "action"], "actions.csv")
+    _unique(pred, ["request_id", "artefact_id"], "actions.csv")
     pred["action"] = pred.action.str.strip().str.lower()
     m = gt.merge(pred, on=["request_id", "artefact_id"], how="left")
     must = m[m.expected_action == "delete"]
@@ -336,6 +347,7 @@ def eval_t09(gt_path: Path, pred_path: Path, cfg: dict) -> EvalOutput:
     gt = _split(pd.read_csv(gt_path), cfg, "eval")
     pred = pd.read_csv(pred_path)
     _need(pred, ["case_id", "decision"], "decisions.csv")
+    _unique(pred, ["case_id"], "decisions.csv")
     m = gt.merge(pred, on="case_id", how="left")
     m["pred"] = m.decision.fillna("GO").map(lambda s: canonical_status(str(s)))  # missing decision counts as GO (worst case)
     risky = m[m.gold_decision != "GO"]
@@ -369,6 +381,7 @@ def eval_t10(gt_path: Path, pred_path: Path, cfg: dict) -> EvalOutput:
     gt = pd.read_csv(gt_path)
     pred = pd.read_csv(pred_path)
     _need(pred, ["batch_id", "shift_score"], "shift_scores.csv")
+    _unique(pred, ["batch_id"], "shift_scores.csv")
     m = gt.merge(pred, on="batch_id", how="left")
     if m.shift_score.isna().any():
         raise ValueError(f"missing shift_score for batches {m.loc[m.shift_score.isna(), 'batch_id'].tolist()}")
@@ -417,13 +430,36 @@ def eval_t11(gt_path: Path, pred_path: Path, cfg: dict) -> EvalOutput:
 
 
 # ----------------------------------------------------------------------------- T12
+T12_DECISIONS = {"ACCEPT", "REWORK", "HOLD"}
+
+
+def _t12_validate(pred: pd.DataFrame) -> None:
+    """Every submitted row must carry a known decision, an estimate in [0, 1] and a non-negative audit count."""
+    dec = pred.decision.astype(str).str.strip().str.upper()
+    bad = pred.loc[pred.decision.isna() | ~dec.isin(T12_DECISIONS), "batch_id"].tolist()
+    if bad:
+        raise ValueError(f"batch_decisions.csv: decision must be one of {sorted(T12_DECISIONS)}; invalid for batches {bad}")
+    est = pd.to_numeric(pred.est_error_rate, errors="coerce")
+    bad = pred.loc[~(est.between(0, 1)), "batch_id"].tolist()
+    if bad:
+        raise ValueError(f"batch_decisions.csv: est_error_rate must be a number in [0, 1]; invalid for batches {bad}")
+    n = pd.to_numeric(pred.n_audited, errors="coerce")
+    bad = pred.loc[~((n >= 0) & (n == n.round())), "batch_id"].tolist()
+    if bad:
+        raise ValueError(f"batch_decisions.csv: n_audited must be a non-negative integer; invalid for batches {bad}")
+
+
 def eval_t12(gt_path: Path, pred_path: Path, cfg: dict) -> EvalOutput:
     fx = _fixture_dir_of(gt_path)
     gt = pd.read_csv(gt_path)
     pred = pd.read_csv(pred_path)
     _need(pred, ["batch_id", "est_error_rate", "decision", "n_audited"], "batch_decisions.csv")
-    m = gt.merge(pred, on="batch_id", how="left")
-    m["dec"] = m.decision.fillna("ACCEPT").str.upper()  # missing decision counts as ACCEPT (worst case for recall)
+    _unique(pred, ["batch_id"], "batch_decisions.csv")
+    _t12_validate(pred)
+    m = gt.merge(pred, on="batch_id", how="left", validate="one_to_one")
+    m["dec"] = m.decision.fillna("ACCEPT").str.strip().str.upper()  # missing decision counts as ACCEPT (worst case for recall)
+    # A batch with no estimate gets the worst possible error, so leaving rows blank cannot lower MAE.
+    m["est_error_rate"] = m.est_error_rate.where(m.est_error_rate.notna(), (m.true_error_rate >= 0.5).map({True: 0.0, False: 1.0}))
     bad, good = m[m.is_bad == 1], m[m.is_bad == 0]
     caught = int((bad.dec != "ACCEPT").sum())
     ms = [
