@@ -9,6 +9,7 @@ import pytest
 from src.metrics.tracks import TRACKS, default_gt_path
 
 FX = Path("fixtures")
+pytestmark = pytest.mark.requires_gt
 
 
 def primary(res):

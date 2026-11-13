@@ -43,7 +43,9 @@ def main() -> int:
     for t, spec in sorted(TRACKS.items()):
         d = ROOT / "fixtures" / spec.fixture_dir
         probs = verify_manifest(d / "manifest.csv") if (d / "manifest.csv").exists() else ["missing manifest"]
-        probs += verify_manifest(d / "gt" / "manifest.csv") if (d / "gt" / "manifest.csv").exists() else ["missing gt manifest"]
+        # gt/ ships only with the instructor overlay; verify it when present
+        if (d / "gt" / "manifest.csv").exists():
+            probs += verify_manifest(d / "gt" / "manifest.csv")
         check(OK if not probs else FAIL, f"{t} fixtures/{spec.fixture_dir} ({'hashes match' if not probs else probs[:2]})")
 
     from src.common.offline import NetworkBlockedError, disable_offline_guard, enable_offline_guard

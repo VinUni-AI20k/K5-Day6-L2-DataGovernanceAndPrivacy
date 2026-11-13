@@ -41,10 +41,14 @@ def main(argv=None) -> int:
     spec = get_track(track)
     gt = Path(a.gt) if a.gt else default_gt_path(spec.track)
     pred = Path(a.pred)
-    for p, what in ((gt, "ground truth"), (pred, "predictions")):
-        if not p.exists():
-            print(f"{what} file not found: {p}", file=sys.stderr)
-            return 2
+    if not gt.exists():
+        print(f"ground truth file not found: {gt}\n"
+              "Ground truth is not distributed in the student repo; the instructor runs official evaluation "
+              "(docs/INSTRUCTOR_SETUP.md).", file=sys.stderr)
+        return 2
+    if not pred.exists():
+        print(f"predictions file not found: {pred}", file=sys.stderr)
+        return 2
     same_track = str(cfg.get("track", "")).lower()[:3] == spec.track
     params = {**spec.params, **((cfg.get("eval_params") or {}) if same_track else {})}
     for k in ("split", "budget", "k"):

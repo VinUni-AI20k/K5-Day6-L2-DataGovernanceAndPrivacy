@@ -21,21 +21,37 @@ def test_template_pipeline_fails_clearly_not_silently(tmp_path):
     assert info["status"] == 3 and info["seed"] == 42
 
 
-def test_random_baseline_end_to_end_and_evaluate(tmp_path):
+def _run_baseline(out):
+    return runner.main(["--track", "t02", "--pipeline", "src.examples.random_baseline", "--output", str(out), "--offline", "--seed", "42", "--run-name", "baseline"])
+
+
+def test_random_baseline_end_to_end(tmp_path):
     out = tmp_path / "baseline"
-    rc = runner.main(["--track", "t02", "--pipeline", "src.examples.random_baseline", "--output", str(out), "--offline", "--seed", "42", "--run-name", "baseline"])
-    assert rc == 0
+    assert _run_baseline(out) == 0
     for f in ["ranked_review.csv", "review_queue.csv", "contact_sheet.html", "decision.json", "decision_log.csv", "run_info.json"]:
         assert (out / f).exists(), f
+    # same seed -> identical output (reproducibility)
+    out2 = tmp_path / "baseline2"
+    _run_baseline(out2)
+    assert (out / "ranked_review.csv").read_text() == (out2 / "ranked_review.csv").read_text()
+
+
+def test_evaluate_without_ground_truth_fails_clearly(tmp_path, capsys):
+    pred = tmp_path / "ranked_review.csv"
+    pred.write_text("image_id,score\nx,0.5\n")
+    assert evaluate.main(["--track", "t02", "--gt", str(tmp_path / "missing.csv"), "--pred", str(pred)]) == 2
+    assert "not distributed" in capsys.readouterr().err
+
+
+@pytest.mark.requires_gt
+def test_random_baseline_evaluate(tmp_path):
+    out = tmp_path / "baseline"
+    assert _run_baseline(out) == 0
     mb = tmp_path / "metrics_baseline.json"
     assert evaluate.main(["--track", "t02", "--pred", str(out / "ranked_review.csv"), "--run-name", "baseline", "--out", str(mb)]) == 0
     payload = json.loads(mb.read_text())
     prim = [m for m in payload["metrics"] if m["primary"]][0]
     assert prim["denominator"] == 20 and payload["seed"] == 42
-    # same seed -> identical output (reproducibility)
-    out2 = tmp_path / "baseline2"
-    runner.main(["--track", "t02", "--pipeline", "src.examples.random_baseline", "--output", str(out2), "--offline", "--seed", "42"])
-    assert (out / "ranked_review.csv").read_text() == (out2 / "ranked_review.csv").read_text()
     md = tmp_path / "t1.md"
     assert compare.main([str(mb), str(mb), "--out", str(md)]) == 0
     assert "Defect Recall@B" in md.read_text()
@@ -69,6 +85,7 @@ def test_cli_module_invocation():
     assert r.returncode == 0 and "--pred" in r.stdout
 
 
+@pytest.mark.requires_gt
 def test_track_inferred_from_input_folder(tmp_path):
     # contract command without --track: track comes from the fixture folder name
     rc = runner.main(["--input", "fixtures/t13_rare_mining", "--pipeline", "src.examples.random_baseline", "--output", str(tmp_path), "--offline"])

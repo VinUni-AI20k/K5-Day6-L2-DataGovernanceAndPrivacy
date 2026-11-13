@@ -6,7 +6,11 @@
 data/real/
 data/cache/
 
-# Private hidden-eval fixtures (tools/make_hidden_eval.py) — never commit
+# Instructor-only material (ground truth, generators, hidden eval) lives in the private
+# instructor repo and is copied in as an overlay — never commit it here
+fixtures/*/gt/
+tools/make_fixtures.py
+tools/make_hidden_eval.py
 hidden_eval/
 
 # Run outputs

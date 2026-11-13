@@ -41,6 +41,7 @@ def test_decision_validation(tmp_path):
     assert len(pd.read_csv(tmp_path / "log.csv")) == 2
 
 
+@pytest.mark.requires_gt
 def test_audit_oracle_budget():
     o = AuditOracle("fixtures/t12_vendor_batches/gt/hidden_errors.csv", "sample_id", "is_error", "batch_id", budget_per_group=2)
     o.inspect(["V1_0000", "V1_0001"])

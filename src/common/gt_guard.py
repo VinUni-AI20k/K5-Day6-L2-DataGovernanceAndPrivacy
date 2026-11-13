@@ -5,8 +5,8 @@ Enabled by default in src.main; disable with --allow-gt-read (and explain why in
 
 This is an honesty check, NOT a security boundary: it only patches builtins.open / io.open in
 the current process, so os.open, subprocess, a second process or a copied file bypass it.
-Official scores must come from a hidden eval set the group never had
-(tools/make_hidden_eval.py, see docs/INSTRUCTOR_SETUP.md).
+Ground truth is therefore not distributed in the student repo; official scores come from the
+instructor's private overlay and hidden eval set (see docs/INSTRUCTOR_SETUP.md).
 """
 from __future__ import annotations
 

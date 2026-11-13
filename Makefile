@@ -21,7 +21,8 @@ test:
 verify:
 	$(PY) -m tools.verify_manifests
 
-fixtures:            ## regenerate synthetic fixtures (deterministic)
+fixtures:            ## instructor only: regenerate fixtures (needs the private instructor overlay)
+	@test -f tools/make_fixtures.py || { echo "tools/make_fixtures.py is instructor-only (private overlay not installed)"; exit 1; }
 	$(PY) -m tools.make_fixtures
 
 baseline:            ## random baseline wiring example (t01, t02, t11, t13)

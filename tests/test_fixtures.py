@@ -17,14 +17,19 @@ def test_manifest_hashes_match(track):
     assert m.exists(), f"{m} missing"
     assert list(pd.read_csv(m, nrows=0).columns) == MANIFEST_COLUMNS
     assert verify_manifest(m) == []
-    assert verify_manifest(d / "gt" / "manifest.csv") == []
     assert not pd.read_csv(m).path.str.startswith("gt/").any(), "GT must not be listed in the input manifest"
 
 
 @pytest.mark.parametrize("track", sorted(TRACKS))
-def test_ground_truth_lives_in_gt_folder(track):
+def test_ground_truth_path_is_in_gt_folder(track):
+    assert TRACKS[track].default_gt.startswith("gt/")
+
+
+@pytest.mark.requires_gt
+@pytest.mark.parametrize("track", sorted(TRACKS))
+def test_ground_truth_files_match_manifest(track):
     spec = TRACKS[track]
-    assert spec.default_gt.startswith("gt/")
+    assert verify_manifest(FX / spec.fixture_dir / "gt" / "manifest.csv") == []
     assert (FX / spec.fixture_dir / spec.default_gt).exists()
 
 

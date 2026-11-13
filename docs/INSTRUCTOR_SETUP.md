@@ -11,10 +11,20 @@ python3.11 -m venv .venv && .venv/bin/pip install -r requirements.txt
 # Trên máy học viên:  pip install --no-index --find-links wheelhouse -r requirements.txt
 ```
 
-## Fixtures synthetic (đã commit sẵn — mọi track)
+## Fixtures synthetic và tài liệu riêng của giảng viên
 
-`fixtures/` được sinh bởi `python -m tools.make_fixtures` (deterministic, seed 42; sinh lại cho ra hash giống hệt **với cùng phiên bản Pillow/OpenCV** — bản commit dùng Pillow 13 / OpenCV 5.0; phiên bản khác chỉ đổi byte JPEG và `t13 pool_features.csv`, GT không đổi).
-Ground truth nằm trong `fixtures/<track>/gt/` — học viên **có** GT này trong repo, nên điểm trên `fixtures/` chỉ là điểm tự kiểm.
+Repo học viên chỉ chứa **input** của `fixtures/`. Ground truth (`fixtures/*/gt/`), `tools/make_fixtures.py` (generator,
+seed 42, chứa cả gold label T09) và `tools/make_hidden_eval.py` nằm ở **repo private dành cho giảng viên**, được chép
+đè (overlay) vào bản clone repo học viên khi cần chấm:
+
+```bash
+git clone <repo học viên> lab && git clone <repo private giảng viên> lab-instructor
+lab-instructor/install.sh lab          # chép gt/ + generator vào lab/ (các path này đã gitignore)
+cd lab && pytest -q                    # chạy đủ test, kể cả test cần GT
+```
+
+Generator sinh lại hash giống hệt **với cùng phiên bản Pillow/OpenCV** (bản commit dùng Pillow 13 / OpenCV 5.0; phiên
+bản khác chỉ đổi byte JPEG và `t13 pool_features.csv`, GT không đổi). Không commit các file overlay vào repo học viên.
 
 ### Hidden eval (bắt buộc cho điểm chính thức)
 
@@ -46,7 +56,7 @@ Mapping với gói trong handout:
 | P2 `sensors_small/` | T04 | `fixtures/t04_sensor_sync` (+ `shock/` clock reset) | — |
 | P3 `labels_small/` | T06, T11, T14 | `fixtures/t06,t11,t14` | `data/real/coco/` (150 ảnh COCO val2017 + boxes), `data/real/bdd/detections.csv` |
 | P4 `privacy_safe/` | T07–09 | `fixtures/t07,t08,t09` (mặt/biển số synthetic) | `data/real/plates/` (60 ảnh biển số thật, CC BY 4.0) |
-| P5 `vendor_batches/` | T12 | `fixtures/t12_vendor_batches` (5×100) | `python -m tools.make_fixtures --tracks t12 --t12-size 1000` |
+| P5 `vendor_batches/` | T12 | `fixtures/t12_vendor_batches` (5×100) | `python -m tools.make_fixtures --tracks t12 --t12-size 1000` (cần overlay giảng viên) |
 | P6 `models_optional/` | T07, T14 | — | MediaPipe face `.tflite`, YOLO nano weights — tải trước, ghi checksum + license |
 
 ## Dữ liệu thật từ Hugging Face (chạy TRƯỚC buổi học)

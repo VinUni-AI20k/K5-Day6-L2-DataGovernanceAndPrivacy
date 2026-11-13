@@ -26,7 +26,7 @@ Chọn challenge: sửa `configs/lab.yaml` (`track`, `track_config`, `owner`, `g
 | Lệnh | Điều kiện PASS |
 |---|---|
 | `python -m src.main --input fixtures/<track> --config configs/lab.yaml --output out/` | exit 0, sinh output + review log + decision |
-| `python -m src.evaluate --gt fixtures/<track>/gt/<file> --pred out/<pred_file>` | in baseline/PoC và định nghĩa số mẫu, tính bằng script |
+| `python -m src.evaluate --gt fixtures/<track>/gt/<file> --pred out/<pred_file>` | giảng viên chạy (repo học viên không có `gt/`); in baseline/PoC và định nghĩa số mẫu, tính bằng script |
 | `pytest -q` | ≥2 test của nhóm (success + failure/edge), 0 failed |
 | `python -m src.main --offline --seed 42` | không network; thiếu model → fail rõ ràng, không tự download |
 | `git shortlog -sne --all` | mỗi người có tên/email, khớp `reports/team_contributions.csv` |
@@ -34,7 +34,9 @@ Chọn challenge: sửa `configs/lab.yaml` (`track`, `track_config`, `owner`, `g
 Exit code của `src.main`: `0` OK · `2` input/output sai · `3` chưa implement · `4` gọi network khi `--offline` · `5` pipeline đọc ground truth.
 
 `src.main` tự bật hai guard: **offline guard** (chặn socket ra ngoài) và **GT guard** (chặn đọc `fixtures/*/gt/`).
-Ground truth chỉ dành cho `src.evaluate`; với T12, nhãn ẩn chỉ đọc được qua `AuditOracle` có budget.
+Ground truth **không có trong repo học viên**: `fixtures/*/gt/`, generator và hidden eval nằm ở repo private của giảng viên.
+Giảng viên chép chúng vào khi chấm (`src.evaluate`; với T12, nhãn ẩn đọc qua `AuditOracle` có budget). Học viên tự thiết kế
+kiểm tra nội bộ (ví dụ tự gán nhãn vài mẫu) và ghi rõ trong report.
 
 ## 3. Cấu trúc repo
 
@@ -48,13 +50,13 @@ src/evaluate.py · src/compare.py
 src/examples/random_baseline.py  # ví dụ nối dây E2E (random = baseline của T01/T02/T11/T13)
 src/common/                    # hạ tầng dùng chung (xem bảng dưới)
 src/metrics/                   # thư viện metric + evaluator chuẩn cho 14 track (tracks.py)
-fixtures/<track>/              # dữ liệu synthetic offline, KHÔNG có PII thật; GT nằm trong gt/
+fixtures/<track>/              # dữ liệu synthetic offline, KHÔNG có PII thật; gt/ chỉ có ở repo giảng viên
 data/real/                     # (gitignored) mẫu dữ liệu thật do giảng viên tải trước
 docs/tracks/T01..T14.md        # đề bài chi tiết + data schema + metric + output contract
 docs/INSTRUCTOR_SETUP.md       # chuẩn bị gói offline P0–P6, dữ liệu thật từ Hugging Face
 reports/                       # group_report.md, metric_contract.md, team_contributions.csv, metrics_*.json
 tests/                         # test hạ tầng + metric; nhóm thêm test của mình ở đây
-tools/                         # make_fixtures, download_real_samples, verify_manifests, preflight
+tools/                         # download_real_samples, verify_manifests, preflight (generator ở repo giảng viên)
 demo/                          # slides / ảnh chụp demo
 ```
 
@@ -138,9 +140,9 @@ make eval-baseline eval-poc compare TRACK=tXX      # -> reports/metrics_*.json +
 
 ## 5. Dữ liệu
 
-- `fixtures/`: **synthetic, sinh deterministic** bởi `python -m tools.make_fixtures` (seed 42), CC0, không có người/biển số thật.
-  Mỗi track có `manifest.csv` (input) và `gt/manifest.csv` (ground truth) kèm sha256. Kiểm tra: `make verify`.
-  **Không cần chạy `make fixtures`**: dữ liệu đã commit sẵn. Sinh lại với phiên bản Pillow/OpenCV khác sẽ ra byte JPEG khác (GT giữ nguyên) và làm lệch hash so với bản chấm.
+- `fixtures/`: **synthetic**, CC0, không có người/biển số thật; dữ liệu input đã commit sẵn.
+  Mỗi track có `manifest.csv` (input) kèm sha256. Kiểm tra: `make verify`.
+  Ground truth (`gt/`) và generator không phát cho học viên; `pytest` tự skip các test cần GT.
 - `data/real/` (gitignored, tuỳ chọn): mẫu nhỏ dữ liệu thật từ Hugging Face (BDD100K val, COCO val2017, license plates).
   Giảng viên chuẩn bị trước lớp bằng `make real-data` — xem `docs/INSTRUCTOR_SETUP.md`.
   **Có người và biển số thật → không commit, không đưa lên cloud/public repo.**

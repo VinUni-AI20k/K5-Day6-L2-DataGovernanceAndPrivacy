@@ -23,8 +23,12 @@ class BudgetExceededError(RuntimeError):
 class AuditOracle:
     def __init__(self, gt_csv: str, id_col: str, label_col: str, group_col: str | None = None,
                  budget_per_group: int | None = None, total_budget: int | None = None, audit: AuditLog | None = None):
-        with trusted_open(gt_csv, newline="", encoding="utf-8") as f:
-            rows = list(csv.DictReader(f))
+        try:
+            with trusted_open(gt_csv, newline="", encoding="utf-8") as f:
+                rows = list(csv.DictReader(f))
+        except FileNotFoundError as e:
+            raise FileNotFoundError(f"{gt_csv} not found: hidden audit labels ship only with the instructor overlay; "
+                                    "T12 audits run in the instructor's grading environment (docs/INSTRUCTOR_SETUP.md)") from e
         self._label = {r[id_col]: int(r[label_col]) for r in rows}
         self._group = {r[id_col]: r[group_col] for r in rows} if group_col else {}
         self.budget_per_group = budget_per_group
