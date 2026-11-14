@@ -2,11 +2,11 @@
 # Group config — EDIT ME (one per group). Values here override
 # the track defaults loaded from `track_config`.
 # ============================================================
-group_id: G00                     # e.g. G07
-owner: "Huynh Nhat Quang"   # mandatory for every Decision
+group_id: G99                     # e.g. G07
+owner: "TODO: TruongThanhDuc (Lead / Integrator)"   # mandatory for every Decision
 track_config: tracks/t07.yaml     # pick your challenge: tracks/t01.yaml ... tracks/t14.yaml
 track: t07                        # must match track_config
-input: fixtures/t07_raw_qc        # or data/real/... if your instructor provided a real pack
+input: fixtures/t07_redaction        # or data/real/... if your instructor provided a real pack
 output: out/
 seed: 42
 offline: true                     # demo/eval must not touch the network
