@@ -161,10 +161,14 @@ Tổng: 52 approve + 4 escalate, 0 edit, 0 reject.
 python -m tools.verify_manifests
 python -m src.main --config configs/lab.yaml --pipeline src.baselines.t08_raw_only --output out/baseline --run-name baseline --offline --seed 42
 python -m src.main --config configs/lab.yaml --output out/poc --run-name poc --offline --seed 42      # lần 1: HOLD
-cp reports/review_queue.csv out/poc/review_queue_reviewed.csv
+cp reports/review_queue.csv out/poc/review_queue_reviewed.csv                                        # Windows: copy reports\review_queue.csv out\poc\review_queue_reviewed.csv
 python -m src.main --config configs/lab.yaml --output out/poc --run-name poc --offline --seed 42      # lần 2: GO
 pytest -q
 ```
+
+- **Vì sao phải chép file:** `out/` nằm trong `.gitignore`, nên clone sạch chỉ có quyết định của reviewer (P6) ở `reports/review_queue.csv`. Thiếu bước chép, lần chạy chỉ ra **HOLD** (`EXCEPTIONS_PENDING_REVIEW`, 56 ngoại lệ chờ duyệt). Đây là hành vi đúng của risk gate, không phải lỗi.
+- **Kết quả mong đợi** (đã chạy lại trên `main`): lần 1 `HOLD / EXCEPTIONS_PENDING_REVIEW`; lần 2 `GO / DELETION_PLAN_APPROVED`; `out/poc/actions.csv` = 102 delete / 31 retain_legal_hold / 25 escalate.
+- **Cột không tái lập theo seed:** `days_to_deadline` trong `request_summary.csv` và `deleted_at` của tombstone tính theo giờ lúc chạy (`datetime.now()`), nên lệch so với `reports/request_summary.csv` tùy thời điểm. Mọi số đếm và cột `status` còn lại trùng khớp.
 
 - `pytest -q`: **54 passed, 39 skipped in 6.69s**; `tests/test_t08_pipeline.py`: 7 passed. Chạy 2 lần cho `actions.csv` giống hệt.
 - Máy: AMD64 Family 25, Windows 11, Python 3.13.14 · git sha `47fd94e`.
