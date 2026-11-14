@@ -1,0 +1,53 @@
+{
+  "track": "t08",
+  "run_name": "poc_reviewed",
+  "status": 0,
+  "seed": 42,
+  "offline": true,
+  "input": "fixtures\\t08_deletion",
+  "output": "out\\poc_reviewed",
+  "pipeline": "src.pipeline",
+  "config_hash": "6cf1fab43594",
+  "git_sha": "1af063c",
+  "runtime_seconds": 0.4911,
+  "stats": {
+    "n_requests": 10,
+    "n_artefacts": 212,
+    "n_items": 164,
+    "n_exceptions": 62,
+    "n_queued": 62,
+    "review_budget": 100,
+    "n_reviewed": 62,
+    "n_overrides": 8,
+    "n_stale_reviews": 0,
+    "evidence": {
+      "mode": "mock_delete",
+      "note": "MOCK - no real data is deleted in this lab",
+      "input_fingerprint": "53c2bd968209e7c7-aa7c66c418d1b87b",
+      "plan_sha256": "3c87b6cd655694c2ee8782d39f7460678fdfefdfaeccf64f758a7253281e1abf",
+      "n_pairs": 164,
+      "n_delete_pairs": 110,
+      "n_delete_artefacts": 106,
+      "newly_deleted": 0,
+      "newly_linked": 0,
+      "noop": 110,
+      "residual_must_delete": [],
+      "deleted_but_no_longer_planned": [],
+      "tombstones_total": 106,
+      "changed_state": false
+    },
+    "n_delete": 110,
+    "n_retain_legal_hold": 28,
+    "n_escalate": 26
+  },
+  "machine": {
+    "python": "3.13.1",
+    "platform": "Windows-11-10.0.26300-SP0",
+    "processor": "AMD64 Family 25 Model 97 Stepping 2, AuthenticAMD"
+  },
+  "output_check": {
+    "pred_file": "out\\poc_reviewed\\actions.csv",
+    "exists": true,
+    "missing_columns": []
+  }
+}

@@ -1,0 +1,16 @@
+{
+  "mode": "mock_delete",
+  "note": "MOCK - no real data is deleted in this lab",
+  "input_fingerprint": "53c2bd968209e7c7-aa7c66c418d1b87b",
+  "plan_sha256": "3c87b6cd655694c2ee8782d39f7460678fdfefdfaeccf64f758a7253281e1abf",
+  "n_pairs": 164,
+  "n_delete_pairs": 110,
+  "n_delete_artefacts": 106,
+  "newly_deleted": 0,
+  "newly_linked": 0,
+  "noop": 110,
+  "residual_must_delete": [],
+  "deleted_but_no_longer_planned": [],
+  "tombstones_total": 106,
+  "changed_state": false
+}

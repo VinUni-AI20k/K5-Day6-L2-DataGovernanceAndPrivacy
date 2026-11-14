@@ -1,0 +1,92 @@
+{
+  "run_name": "poc_reviewed",
+  "track": "t08",
+  "created_at": "2026-11-14T10:31:43+00:00",
+  "git_sha": "1af063c",
+  "seed": 42,
+  "n_items": 164,
+  "runtime_seconds": 0.4911,
+  "runtime_per_100_items_s": 0.2995,
+  "machine": {
+    "python": "3.13.1",
+    "platform": "Windows-11-10.0.26300-SP0",
+    "processor": "AMD64 Family 25 Model 97 Stepping 2, AuthenticAMD"
+  },
+  "config": {},
+  "metrics": [
+    {
+      "name": "Deletion Completeness",
+      "value": 1.0,
+      "direction": "higher",
+      "unit": "must-delete artefacts deleted / must-delete artefacts",
+      "numerator": 110,
+      "denominator": 110,
+      "n": 158,
+      "slice": "all",
+      "primary": true,
+      "notes": "",
+      "extra": {}
+    },
+    {
+      "name": "False-delete count",
+      "value": 0.0,
+      "direction": "lower",
+      "unit": "count (target 0): exceptions deleted + deletes outside request scope",
+      "numerator": null,
+      "denominator": null,
+      "n": null,
+      "slice": "all",
+      "primary": false,
+      "notes": "",
+      "extra": {}
+    },
+    {
+      "name": "Exception handling accuracy",
+      "value": 1.0,
+      "direction": "higher",
+      "unit": "legal-hold/escalate rows handled as expected / such rows",
+      "numerator": 48,
+      "denominator": 48,
+      "n": null,
+      "slice": "all",
+      "primary": false,
+      "notes": "",
+      "extra": {}
+    },
+    {
+      "name": "Audit trace completeness",
+      "value": 1.0,
+      "direction": "higher",
+      "unit": "actions with an audit entry / actions",
+      "numerator": 164,
+      "denominator": 164,
+      "n": null,
+      "slice": "all",
+      "primary": false,
+      "notes": "",
+      "extra": {}
+    }
+  ],
+  "extra": {
+    "gt": "reports\\t08_selflabel.csv",
+    "pred": "out\\poc_reviewed\\actions.csv",
+    "notes": [],
+    "slices": [
+      {
+        "slice": "delete",
+        "accuracy": 1.0,
+        "n": 110
+      },
+      {
+        "slice": "escalate",
+        "accuracy": 1.0,
+        "n": 20
+      },
+      {
+        "slice": "retain_legal_hold",
+        "accuracy": 1.0,
+        "n": 28
+      }
+    ]
+  }
+}

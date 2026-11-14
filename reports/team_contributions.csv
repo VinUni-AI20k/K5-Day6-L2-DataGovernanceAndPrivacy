@@ -1,5 +1,5 @@
 member,git_author_name,git_email,role,modules_files,commit_shas,evidence_note,presenter
-Member 1,,,Lead / Integrator,src/main.py; configs/,,,
+Member 1,Lam TherK,dtlam122003@gmail.com,Lead / Integrator + core algorithm + QA + review + report,configs/lab.yaml; src/pipeline.py; src/t08_policy.py; src/t08_mock_store.py; src/baseline_t08.py; tests/test_t08_*.py; tools/t08_selfcheck.py; reports/,619e058; b8a9549; 7ae6c80; c67289e; 1af063c,"Metric contract + gold set committed before the PoC (b8a9549 < 7ae6c80). Work done with an AI coding assistant (Claude Code), see Co-Authored-By trailers.",TODO
 Member 2,,,Data & fixtures,fixtures/; tools/,,,
 Member 3,,,Core algorithm,src/pipeline.py,,,
 Member 4,,,QA / metric,tests/; reports/metrics_*.json,,,

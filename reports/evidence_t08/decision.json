@@ -1,0 +1,29 @@
+{
+  "status": "GO",
+  "reason_code": "PLAN_EXECUTED_EXCEPTIONS_TRACKED",
+  "reason": "all 62 exception pairs reviewed; 106 artefacts mock-deleted, residual 0; open items tracked with an owner (110 delete, 28 retain_legal_hold, 26 escalate)",
+  "owner": "Lam TherK (reviewer, đóng vai DPO)",
+  "scope": "t08",
+  "evidence": [
+    "out\\poc_reviewed\\actions.csv",
+    "out\\poc_reviewed\\audit_log.jsonl",
+    "out\\poc_reviewed\\deletion_evidence.json",
+    "out\\poc_reviewed\\request_summary.csv",
+    "out\\poc_reviewed\\review_queue.csv"
+  ],
+  "metrics": {
+    "n_pairs": 164,
+    "n_delete": 110,
+    "n_retain_legal_hold": 28,
+    "n_escalate": 26,
+    "n_exceptions": 62,
+    "n_pending_review": 0,
+    "n_conflicts": 0,
+    "mode": "mock_delete",
+    "newly_deleted": 0,
+    "tombstones_total": 106,
+    "plan_sha256": "3c87b6cd655694c2ee8782d39f7460678fdfefdfaeccf64f758a7253281e1abf"
+  },
+  "ts": "2026-11-14T10:31:38+00:00",
+  "canonical": "GO"
+}

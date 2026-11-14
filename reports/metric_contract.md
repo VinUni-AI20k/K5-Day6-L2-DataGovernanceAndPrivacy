@@ -73,3 +73,11 @@ trên, không chứng minh được các giả định đó trùng với GT củ
 | REWORK | Kiểm tra toàn vẹn thất bại: khóa trùng, hành động không hợp lệ, cặp thiếu audit entry, hoặc sau khi xóa mock vẫn còn artefact lẽ ra đã xóa | `INTEGRITY_CHECK_FAILED` |
 | HOLD | Còn cặp ngoại lệ chưa có quyết định của người duyệt, hoặc số ngoại lệ vượt budget B | `EXCEPTIONS_PENDING_REVIEW` / `REVIEW_BUDGET_EXCEEDED` |
 | GO | Mọi cặp ngoại lệ đã có người duyệt, mọi cặp `delete` đã thực thi (mock) và kiểm tra tồn dư = 0; các cặp giữ/escalate còn lại được theo dõi kèm người phụ trách | `PLAN_EXECUTED_EXCEPTIONS_TRACKED` |
+
+**Bổ sung làm rõ sau khi cài đặt (2026-11-14, không đổi metric, nhãn gold hay thứ tự luật):** hai trường hợp không đạt
+điều kiện GO ở trên được gán mã riêng thay vì dùng chung một mã HOLD:
+
+| Trạng thái | Điều kiện | `reason_code` |
+|---|---|---|
+| HOLD | Người duyệt cho xóa một artefact ở yêu cầu này nhưng dòng của yêu cầu khác trên cùng artefact vẫn còn ngoại lệ mở; lệnh xóa bị hạ về `escalate` | `CONFLICTING_ACTIONS` |
+| HOLD | Chạy với `dry_run: true`: kế hoạch đã duyệt nhưng chưa thực thi | `DRY_RUN_ONLY` |
