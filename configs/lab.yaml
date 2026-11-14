@@ -6,7 +6,7 @@ group_id: ABC                     # e.g. G07
 owner: "Bui Thanh Tan (Lead / Integrator)"   # mandatory for every Decision
 track_config: tracks/t08.yaml     # pick your challenge: tracks/t01.yaml ... tracks/t14.yaml
 track: t08                        # must match track_config
-input: fixtures/t08_raw_qc        # or data/real/... if your instructor provided a real pack
+input: fixtures/t08_deletion        # or data/real/... if your instructor provided a real pack
 output: out/
 seed: 42
 offline: true                     # demo/eval must not touch the network
