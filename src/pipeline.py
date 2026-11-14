@@ -17,13 +17,32 @@ See src/examples/random_baseline.py for a minimal end-to-end wiring example.
 """
 from __future__ import annotations
 
+import numpy as np
 import pandas as pd
 
+from .common.contact_sheet import render_contact_sheet
 from .common.context import RunContext
 from .common.decision import Decision, write_decision
+from .common.image_ops import brightness_stats, laplacian_variance, load_rgb, to_gray
 from .common.manifest import verify_manifest
 from .common.review import load_review_decisions, make_review_queue, write_review_queue
 from .metrics.tracks import get_track
+
+
+def _robust_upper(values: pd.Series, groups: pd.Series) -> pd.Series:
+    frame = pd.DataFrame({"value": values.astype(float), "group": groups.astype(str)})
+    median = frame.groupby("group")["value"].transform("median")
+    deviation = (frame["value"] - median).abs()
+    mad = deviation.groupby(frame["group"]).transform("median").clip(lower=1e-6)
+    return ((frame["value"] - median) / (1.4826 * mad)).clip(lower=0.0, upper=8.0)
+
+
+def _jpeg_blockiness(gray: np.ndarray) -> float:
+    vertical = np.abs(np.diff(gray, axis=1))
+    horizontal = np.abs(np.diff(gray, axis=0))
+    boundary = np.concatenate((vertical[:, 7::8].ravel(), horizontal[7::8, :].ravel()))
+    interior = np.concatenate((vertical[:, 6::8].ravel(), horizontal[6::8, :].ravel()))
+    return float(max(boundary.mean() - interior.mean(), 0.0))
 
 
 # ---------------------------------------------------------------- 01 load
@@ -35,6 +54,8 @@ def load(ctx: RunContext) -> dict:
         if ctx.config.get("strict_provenance", True):
             raise ValueError(f"provenance check failed ({len(problems)} problems), first: {problems[:3]}")
     data = {"manifest": pd.read_csv(manifest) if manifest.exists() else None}
+    if ctx.track == "t02":
+        data["images"] = pd.read_csv(ctx.input_dir / "images.csv")
     # TODO: load the tables/images your track needs, e.g.
     # data["images"] = pd.read_csv(ctx.input_dir / "images.csv")
     return data
@@ -43,10 +64,42 @@ def load(ctx: RunContext) -> dict:
 # ---------------------------------------------------------------- 02 process
 def process(ctx: RunContext, data: dict) -> pd.DataFrame:
     spec = get_track(ctx.track)
-    raise NotImplementedError(
-        f"Implement process() for {spec.track} ({spec.title}). It must produce a DataFrame with at least "
-        f"{spec.pred_columns} (saved as out/{spec.pred_file}). See docs/tracks/{spec.track.upper()}.md"
-    )
+    if ctx.track != "t02":
+        raise NotImplementedError(
+            f"Implement process() for {spec.track} ({spec.title}). It must produce a DataFrame with at least "
+            f"{spec.pred_columns} (saved as out/{spec.pred_file}). See docs/tracks/{spec.track.upper()}.md"
+        )
+    rows = []
+    for item in data["images"].itertuples(index=False):
+        image = load_rgb(ctx.input_dir / item.path)
+        brightness = brightness_stats(image)
+        rows.append(
+            {
+                "image_id": item.image_id,
+                "path": item.path,
+                "camera_id": item.camera_id,
+                "light": item.light,
+                "split": item.split,
+                "sharpness": laplacian_variance(image),
+                "mean_brightness": brightness["mean"],
+                "frac_dark": brightness["frac_dark"],
+                "frac_saturated": brightness["frac_saturated"],
+                "blockiness": _jpeg_blockiness(to_gray(image)),
+            }
+        )
+    scored = pd.DataFrame(rows)
+    camera_light = scored["camera_id"].astype(str) + ":" + scored["light"].astype(str)
+    scored["blur_score"] = _robust_upper(-np.log1p(scored["sharpness"]), scored["camera_id"])
+    scored["dark_score"] = _robust_upper(scored["frac_dark"], camera_light)
+    scored["glare_score"] = _robust_upper(scored["frac_saturated"], camera_light)
+    scored["compression_score"] = _robust_upper(scored["blockiness"], scored["camera_id"])
+    feature_scores = scored[["blur_score", "dark_score", "glare_score", "compression_score"]]
+    scored["score"] = feature_scores.max(axis=1) + 0.15 * feature_scores.mean(axis=1)
+    labels = feature_scores.idxmax(axis=1).str.replace("_score", "", regex=False)
+    scored["pred_defect_type"] = labels.where(scored["score"] >= 1.5, "none")
+    scored["pred_action"] = np.where(scored["score"] >= 2.5, "RECAPTURE", "KEEP")
+    scored["reason"] = "qc:" + labels
+    return scored
 
 
 # ---------------------------------------------------------------- 03 rank
@@ -57,8 +110,13 @@ def rank(ctx: RunContext, scored: pd.DataFrame) -> pd.DataFrame:
         raise ValueError("rank(): process() output needs a numeric `score` column (higher = review first), "
                          "or adapt rank() to your track")
     q = make_review_queue(scored, id_col=scored.columns[0], score_col="score", budget=budget,
-                          reason_col="reason" if "reason" in scored.columns else None)
+                          reason_col="reason" if "reason" in scored.columns else None,
+                          action_col="pred_action" if "pred_action" in scored.columns else None,
+                          slice_col="light" if "light" in scored.columns else None,
+                          evidence_col="path" if "path" in scored.columns else None)
     write_review_queue(q, ctx.out("review_queue.csv"))
+    if "path" in scored.columns:
+        render_contact_sheet(q, ctx.out("contact_sheet.html"), image_root=ctx.input_dir, title=f"{ctx.track} QC review queue")
     return q
 
 
@@ -80,8 +138,14 @@ def review(ctx: RunContext, scored: pd.DataFrame, queue: pd.DataFrame) -> pd.Dat
 # ---------------------------------------------------------------- 05 decide
 def decide(ctx: RunContext, final: pd.DataFrame) -> Decision:
     # TODO: replace with your policy (thresholds frozen BEFORE looking at eval results)
-    return Decision(status="HOLD", reason_code="POLICY_NOT_IMPLEMENTED", reason="Decision policy not implemented yet",
-                    owner=ctx.config.get("owner", "TODO-owner"), scope=ctx.track)
+    recapture_count = int((final["pred_action"] == "RECAPTURE").sum())
+    status = "RECAPTURE" if recapture_count else "KEEP"
+    reason_code = "QC_ANOMALIES_FOUND" if recapture_count else "QC_WITHIN_LIMITS"
+    reason = f"{recapture_count} images exceeded the frozen QC anomaly threshold"
+    return Decision(status=status, reason_code=reason_code, reason=reason,
+                    owner=ctx.config.get("owner", "TODO-owner"), scope=ctx.track,
+                    evidence=[str(ctx.out("ranked_review.csv")), str(ctx.out("review_queue.csv"))],
+                    metrics={"n_images": len(final), "n_recapture": recapture_count})
 
 
 def run(ctx: RunContext) -> None:

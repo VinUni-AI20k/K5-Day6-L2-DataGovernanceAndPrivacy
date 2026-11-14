@@ -1,0 +1,8 @@
+# Fixture manifests hash exact file bytes. Keep text fixtures identical across
+# operating systems so provenance verification is reproducible.
+fixtures/**/*.csv  text eol=lf
+fixtures/**/*.json text eol=lf
+fixtures/**/*.md   text eol=lf
+fixtures/**/*.txt  text eol=lf
+fixtures/**/*.yaml text eol=lf
+fixtures/**/*.yml  text eol=lf

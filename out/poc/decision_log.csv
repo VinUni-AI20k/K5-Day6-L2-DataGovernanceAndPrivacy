@@ -1,0 +1,2 @@
+ts,scope,status,canonical,reason_code,reason,owner,evidence
+2026-11-14T08:36:17+00:00,t02,RECAPTURE,REWORK,QC_ANOMALIES_FOUND,48 images exceeded the frozen QC anomaly threshold,Nguyen Thanh Phong (Data Owner),out\poc\ranked_review.csv;out\poc\review_queue.csv
