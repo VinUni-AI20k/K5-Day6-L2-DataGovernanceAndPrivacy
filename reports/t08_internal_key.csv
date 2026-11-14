@@ -1,0 +1,49 @@
+request_id,artefact_id,type,expected_action,why
+DR-002,a0043,raw_video,retain_legal_hold,E1/E2 legal hold
+DR-002,a0044,backup,retain_legal_hold,E3 copy of held raw
+DR-002,a0045,frame,retain_legal_hold,E3 copy of held raw
+DR-002,a0046,face_crop,retain_legal_hold,E3 copy of held raw
+DR-002,a0047,embedding,retain_legal_hold,E3 copy of held raw
+DR-002,a0048,annotation,retain_legal_hold,E3 copy of held raw
+DR-002,a0049,frame,retain_legal_hold,E3 copy of held raw
+DR-002,a0050,face_crop,retain_legal_hold,E3 copy of held raw
+DR-002,a0051,embedding,retain_legal_hold,E3 copy of held raw
+DR-002,a0052,annotation,retain_legal_hold,E3 copy of held raw
+DR-002,a0053,frame,retain_legal_hold,E3 copy of held raw
+DR-002,a0054,face_crop,retain_legal_hold,E3 copy of held raw
+DR-002,a0055,embedding,retain_legal_hold,E3 copy of held raw
+DR-002,a0056,annotation,retain_legal_hold,E3 copy of held raw
+DR-002,a0211,training_export,retain_legal_hold,E3 copy of held raw
+DR-004,a0067,frame,escalate,E6/E7 2 subjects
+DR-004,a0070,annotation,escalate,E6/E7 2 subjects
+DR-004,a0071,raw_video,delete,only this subject
+DR-004,a0072,backup,delete,only this subject
+DR-004,a0073,frame,delete,only this subject
+DR-004,a0074,face_crop,delete,only this subject
+DR-004,a0075,embedding,escalate,E5 unknown origin
+DR-004,a0076,annotation,delete,only this subject
+DR-004,a0077,frame,delete,only this subject
+DR-004,a0078,face_crop,delete,only this subject
+DR-004,a0079,embedding,escalate,E5 unknown origin
+DR-004,a0080,annotation,delete,only this subject
+DR-004,a0081,frame,delete,only this subject
+DR-004,a0082,face_crop,delete,only this subject
+DR-004,a0083,embedding,escalate,E5 unknown origin
+DR-004,a0084,annotation,delete,only this subject
+DR-004,a0211,training_export,escalate,E6/E7 10 subjects
+DR-004,a0212,training_export,escalate,E6/E7 9 subjects
+DR-008,a0155,raw_video,delete,only this subject
+DR-008,a0156,backup,escalate,E4 acl vendor-x
+DR-008,a0157,frame,delete,only this subject
+DR-008,a0158,face_crop,delete,only this subject
+DR-008,a0159,embedding,delete,only this subject
+DR-008,a0160,annotation,delete,only this subject
+DR-008,a0161,frame,delete,only this subject
+DR-008,a0162,face_crop,delete,only this subject
+DR-008,a0163,embedding,delete,only this subject
+DR-008,a0164,annotation,delete,only this subject
+DR-008,a0165,frame,delete,only this subject
+DR-008,a0166,face_crop,delete,only this subject
+DR-008,a0167,embedding,delete,only this subject
+DR-008,a0168,annotation,delete,only this subject
+DR-008,a0211,training_export,escalate,E6/E7 10 subjects

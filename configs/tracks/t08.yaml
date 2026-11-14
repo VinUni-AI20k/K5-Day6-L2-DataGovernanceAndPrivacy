@@ -5,4 +5,6 @@ input: fixtures/t08_deletion
 pred_file: actions.csv
 params:
   dry_run: true
+  permitted_acl: [data-platform] 
+  legal_hold_inherit: true
 eval_params: {}

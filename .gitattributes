@@ -1,0 +1,2 @@
+# Keep fixtures byte-exact so manifest sha256 checks pass on Windows (core.autocrlf)
+fixtures/** -text

@@ -1,0 +1,26 @@
+{
+  "status": "GO",
+  "reason_code": "DELETION_PLAN_APPROVED",
+  "reason": "all exceptions signed off; execute delete plan, retained items re-checked when holds lift",
+  "owner": "NhatNguyen28122003 - P6 human reviewer",
+  "scope": "t08:DR-001,DR-002,DR-003,DR-004,DR-005,DR-006,DR-007,DR-008,DR-009,DR-010",
+  "evidence": [
+    "out\\poc\\actions.csv",
+    "out\\poc\\dry_run_diff.csv",
+    "out\\poc\\review_queue.csv",
+    "out\\poc\\request_summary.csv",
+    "out\\poc\\audit_log.jsonl"
+  ],
+  "metrics": {
+    "n_rows": 158,
+    "n_delete": 102,
+    "n_retain_legal_hold": 31,
+    "n_escalate": 25,
+    "pending_review": 0,
+    "dry_run": true,
+    "new": 0,
+    "already": 0
+  },
+  "ts": "2026-11-14T14:50:54+00:00",
+  "canonical": "GO"
+}
