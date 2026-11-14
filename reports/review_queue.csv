@@ -1,0 +1,21 @@
+rank,item_id,score,reason,suggested_action,slice,evidence_path,reviewer,reviewer_decision,override_value,review_note,reviewed_at
+1,img_04_2,1.0,Compression defect detected (subscore=1.000),RECAPTURE,dusk,images/img_04_2.jpg,Hoang Sy Khiem,approve,,Heavy 8x8 block artifacts detected; confirmed unrecoverable,2026-11-14T07:42:00Z
+2,img_05_3,1.0,Glare defect detected (subscore=1.000),RECAPTURE,day,images/img_05_3.jpg,Hoang Sy Khiem,approve,,High specular reflection over road surface and vehicle,2026-11-14T07:42:15Z
+3,img_06_2,1.0,Compression defect detected (subscore=1.000),RECAPTURE,night,images/img_06_2.jpg,Hoang Sy Khiem,approve,,Severe compression noise across night background,2026-11-14T07:42:30Z
+4,img_10_2,1.0,Compression defect detected (subscore=1.000),RECAPTURE,day,images/img_10_2.jpg,Hoang Sy Khiem,approve,,Block boundary discontinuity; re-encode/recapture needed,2026-11-14T07:42:45Z
+5,img_17_2,1.0,Glare defect detected (subscore=1.000),RECAPTURE,day,images/img_17_2.jpg,Hoang Sy Khiem,approve,,Severe glare covering central horizon,2026-11-14T07:43:00Z
+6,img_22_2,1.0,Compression defect detected (subscore=1.000),RECAPTURE,dusk,images/img_22_2.jpg,Hoang Sy Khiem,approve,,Severe JPEG blocking on dusk sky gradient,2026-11-14T07:43:15Z
+7,img_22_3,1.0,Glare defect detected (subscore=1.000),RECAPTURE,dusk,images/img_22_3.jpg,Hoang Sy Khiem,approve,,Direct low sun angle glare in sensor,2026-11-14T07:43:30Z
+8,img_13_3,0.987605,Blur defect detected (subscore=0.988),RECAPTURE,night,images/img_13_3.jpg,Hoang Sy Khiem,approve,,Optical blur under night lighting,2026-11-14T07:43:45Z
+9,img_04_3,0.97729,Blur defect detected (subscore=0.977),RECAPTURE,dusk,images/img_04_3.jpg,Hoang Sy Khiem,approve,,Out-of-focus blur; license plates unreadable,2026-11-14T07:44:00Z
+10,img_07_3,0.96923,Blur defect detected (subscore=0.969),RECAPTURE,day,images/img_07_3.jpg,Hoang Sy Khiem,approve,,Severe optical defocus,2026-11-14T07:44:15Z
+11,img_11_3,0.968026,Blur defect detected (subscore=0.968),RECAPTURE,day,images/img_11_3.jpg,Hoang Sy Khiem,approve,,Defocus blur across entire frame,2026-11-14T07:44:30Z
+12,img_19_3,0.967546,Blur defect detected (subscore=0.968),RECAPTURE,day,images/img_19_3.jpg,Hoang Sy Khiem,approve,,Confirmed blur; road boundaries smeared,2026-11-14T07:44:45Z
+13,img_16_2,0.965006,Blur defect detected (subscore=0.965),RECAPTURE,day,images/img_16_2.jpg,Hoang Sy Khiem,approve,,Confirmed blur defect,2026-11-14T07:45:00Z
+14,img_14_2,0.961471,Blur defect detected (subscore=0.961),RECAPTURE,day,images/img_14_2.jpg,Hoang Sy Khiem,approve,,Severe lens blur,2026-11-14T07:45:15Z
+15,img_00_2,0.957108,Compression defect detected (subscore=0.957),RECAPTURE,day,images/img_00_2.jpg,Hoang Sy Khiem,approve,,Camera B JPEG compression defect,2026-11-14T07:45:30Z
+16,img_09_2,0.955687,Blur defect detected (subscore=0.956),RECAPTURE,day,images/img_09_2.jpg,Hoang Sy Khiem,approve,,Camera B lens blur defect,2026-11-14T07:45:45Z
+17,img_21_2,0.952348,Blur defect detected (subscore=0.952),RECAPTURE,day,images/img_21_2.jpg,Hoang Sy Khiem,approve,,Camera B lens blur defect,2026-11-14T07:46:00Z
+18,img_18_3,0.951494,Blur defect detected (subscore=0.951),RECAPTURE,night,images/img_18_3.jpg,Hoang Sy Khiem,approve,,Camera B night blur defect,2026-11-14T07:46:15Z
+19,img_15_2,0.949109,Blur defect detected (subscore=0.949),RECAPTURE,dusk,images/img_15_2.jpg,Hoang Sy Khiem,approve,,Camera B dusk blur defect,2026-11-14T07:46:30Z
+20,img_15_3,0.92687,Dark defect detected (subscore=0.927),RECAPTURE,dusk,images/img_15_3.jpg,Hoang Sy Khiem,approve,,Camera B extreme underexposure; zero scene detail,2026-11-14T07:46:45Z

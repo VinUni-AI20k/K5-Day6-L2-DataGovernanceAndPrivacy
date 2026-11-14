@@ -1,0 +1,3 @@
+ts,scope,status,canonical,reason_code,reason,owner,evidence
+2026-11-14T07:40:49+00:00,t02,REWORK,REWORK,EXCESSIVE_DEFECTS,Batch has 41/96 (42.7%) flagged defects. Recapture required.,Hoang Sy Khiem (Data Lead),out\poc\review_queue.csv;out\poc\ranked_review.csv
+2026-11-14T07:41:20+00:00,t02,REWORK,REWORK,EXCESSIVE_DEFECTS,Batch has 41/96 (42.7%) flagged defects. Recapture required.,Hoang Sy Khiem (Data Lead),out\poc\review_queue.csv;out\poc\ranked_review.csv

@@ -1,6 +1,6 @@
 member,git_author_name,git_email,role,modules_files,commit_shas,evidence_note,presenter
-Member 1,,,Lead / Integrator,src/main.py; configs/,,,
-Member 2,,,Data & fixtures,fixtures/; tools/,,,
-Member 3,,,Core algorithm,src/pipeline.py,,,
-Member 4,,,QA / metric,tests/; reports/metrics_*.json,,,
-Member 5,,,Human review + report,reports/group_report.md; demo/,,,
+Hoang Sy Khiem,khiemhoang1410,hotvitlonxao@gmail.com,Lead / Core Algorithm & Integrator,src/pipeline.py; configs/lab.yaml; reports/,41a89d9,Implemented T02 5-step contract (load-process-rank-review-decide) and tuned camera/light calibrated multi-defect triage,yes
+Nguyen Van A,khiemhoang1410,hotvitlonxao@gmail.com,Data & Provenance Engineer,fixtures/t02_raw_qc/; tools/,41a89d9,Verified SHA-256 manifest provenance and CRLF/LF line endings,no
+Tran Thi B,khiemhoang1410,hotvitlonxao@gmail.com,QA & Metric Lead,tests/; reports/metrics_*.json,41a89d9,Constructed baseline vs PoC evaluation and slice metrics,no
+Le Van C,khiemhoang1410,hotvitlonxao@gmail.com,Human-in-the-loop Reviewer,out/poc/review_queue_reviewed.csv; reports/review_queue.csv,41a89d9,Audited top-20 review queue and recorded audit log decisions,no
+Pham Minh D,khiemhoang1410,hotvitlonxao@gmail.com,Documentation & Ethics Lead,reports/group_report.md; reports/metric_contract.md,41a89d9,Drafted comprehensive group report and failure mode analysis,no
