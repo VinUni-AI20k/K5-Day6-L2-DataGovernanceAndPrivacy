@@ -1,0 +1,17 @@
+﻿image_id  defect_type  severity is_defect 
+------------------------------------------
+img_07_2  dark             1        1     
+img_07_3  blur             2        1     
+img_08_0  none             0        0     
+img_08_1  none             0        0     
+img_08_2  blur             1        1     
+img_08_3  dark             1        1     
+img_09_0  none             0        0     
+img_09_1  none             0        0     
+img_09_2  blur             2        1     
+img_09_3  compression      1        1     
+img_10_0  none             0        0     
+img_10_1  none             0        0     
+img_10_2  compression      2        1     
+img_10_3  dark             1        1     
+------------------------------------------

@@ -1,0 +1,15 @@
+# Folder 1 - user labels (typed), source: Downloads/Folder1.txt
+img_00_0 = blur/1
+img_00_1 = none/0
+img_00_2 = compression/2
+img_00_3 = blur/2
+img_02_0 = none/0
+img_02_1 = none/0
+img_02_2 = glare/1
+img_02_3 = dark/1
+img_04_0 = none/0
+img_04_1 = none/0
+img_04_2 = compression/2
+img_04_3 = blur/2
+img_07_0 = none/0
+img_07_1 = none/0

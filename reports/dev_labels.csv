@@ -1,0 +1,57 @@
+﻿image_id,group_id,camera_id,light,split,label_folder,defect_type,severity,is_defect,hard_negative,labeler,notes,labeled_at
+img_00_0,img_00,cam_B,day,dev,1,blur,1,1,0,user,,2026-11-14T10:37:27+00:00
+img_00_1,img_00,cam_B,day,dev,1,none,0,0,0,user,,2026-11-14T10:37:27+00:00
+img_00_2,img_00,cam_B,day,dev,1,compression,2,1,0,user,,2026-11-14T10:37:27+00:00
+img_00_3,img_00,cam_B,day,dev,1,blur,2,1,0,user,,2026-11-14T10:37:27+00:00
+img_02_0,img_02,cam_A,day,dev,1,none,0,0,0,user,,2026-11-14T10:37:27+00:00
+img_02_1,img_02,cam_A,day,dev,1,none,0,0,0,user,,2026-11-14T10:37:27+00:00
+img_02_2,img_02,cam_A,day,dev,1,glare,1,1,0,user,,2026-11-14T10:37:27+00:00
+img_02_3,img_02,cam_A,day,dev,1,dark,1,1,0,user,,2026-11-14T10:37:27+00:00
+img_04_0,img_04,cam_A,dusk,dev,1,none,0,0,0,user,,2026-11-14T10:37:27+00:00
+img_04_1,img_04,cam_A,dusk,dev,1,none,0,0,0,user,,2026-11-14T10:37:27+00:00
+img_04_2,img_04,cam_A,dusk,dev,1,compression,2,1,0,user,,2026-11-14T10:37:27+00:00
+img_04_3,img_04,cam_A,dusk,dev,1,blur,2,1,0,user,,2026-11-14T10:37:27+00:00
+img_07_0,img_07,cam_A,day,dev,1,none,0,0,0,user,,2026-11-14T10:37:27+00:00
+img_07_1,img_07,cam_A,day,dev,1,none,0,0,0,user,,2026-11-14T10:37:27+00:00
+img_07_2,img_07,cam_A,day,dev,2,dark,1,1,0,user,1,2026-11-14T09:03:26+00:00
+img_07_3,img_07,cam_A,day,dev,2,blur,2,1,0,user,2,2026-11-14T09:03:26+00:00
+img_08_0,img_08,cam_A,dusk,dev,2,none,0,0,0,user,3,2026-11-14T09:03:26+00:00
+img_08_1,img_08,cam_A,dusk,dev,2,none,0,0,0,user,4,2026-11-14T09:03:26+00:00
+img_08_2,img_08,cam_A,dusk,dev,2,blur,1,1,0,user,5,2026-11-14T09:03:26+00:00
+img_08_3,img_08,cam_A,dusk,dev,2,dark,1,1,0,user,6,2026-11-14T09:03:26+00:00
+img_09_0,img_09,cam_B,day,dev,2,none,0,0,0,user,,2026-11-14T09:04:36+00:00
+img_09_1,img_09,cam_B,day,dev,2,none,0,0,0,user,8,2026-11-14T09:03:26+00:00
+img_09_2,img_09,cam_B,day,dev,2,blur,2,1,0,user,9,2026-11-14T09:03:26+00:00
+img_09_3,img_09,cam_B,day,dev,2,compression,1,1,0,user,,2026-11-14T09:10:57+00:00
+img_10_0,img_10,cam_A,day,dev,2,none,0,0,0,user,11,2026-11-14T09:03:26+00:00
+img_10_1,img_10,cam_A,day,dev,2,none,0,0,0,user,12,2026-11-14T09:03:26+00:00
+img_10_2,img_10,cam_A,day,dev,2,compression,2,1,0,user,13,2026-11-14T09:03:26+00:00
+img_10_3,img_10,cam_A,day,dev,2,dark,1,1,0,user,14,2026-11-14T09:03:26+00:00
+img_11_0,img_11,cam_A,day,dev,4,,1,1,0,user,"severity-only, feature-neutral: all 4 features at group baseline, check label",2026-11-14T10:38:11+00:00
+img_11_1,img_11,cam_A,day,dev,4,none,0,0,0,user,severity-only: 0 = none,2026-11-14T10:38:11+00:00
+img_11_2,img_11,cam_A,day,dev,4,,2,1,0,user,severity-only: type not provided,2026-11-14T10:38:11+00:00
+img_11_3,img_11,cam_A,day,dev,4,,2,1,0,user,severity-only: type not provided,2026-11-14T10:38:11+00:00
+img_12_0,img_12,cam_B,dusk,dev,4,,2,1,0,user,severity-only: type not provided,2026-11-14T10:38:11+00:00
+img_12_1,img_12,cam_B,dusk,dev,4,,1,1,0,user,"severity-only, feature-neutral: all 4 features at group baseline, check label",2026-11-14T10:38:11+00:00
+img_12_2,img_12,cam_B,dusk,dev,4,,2,1,0,user,severity-only: type not provided,2026-11-14T10:38:11+00:00
+img_12_3,img_12,cam_B,dusk,dev,4,,2,1,0,user,severity-only: type not provided,2026-11-14T10:38:11+00:00
+img_14_0,img_14,cam_A,day,dev,4,none,0,0,0,user,severity-only: 0 = none,2026-11-14T10:38:11+00:00
+img_14_1,img_14,cam_A,day,dev,4,none,0,0,0,user,severity-only: 0 = none,2026-11-14T10:38:11+00:00
+img_14_2,img_14,cam_A,day,dev,4,,2,1,0,user,severity-only: type not provided,2026-11-14T10:38:11+00:00
+img_14_3,img_14,cam_A,day,dev,4,,2,1,0,user,severity-only: type not provided,2026-11-14T10:38:11+00:00
+img_18_0,img_18,cam_B,night,dev,4,,1,1,0,user,severity-only: type not provided,2026-11-14T10:38:11+00:00
+img_18_1,img_18,cam_B,night,dev,4,none,0,0,0,user,severity-only: 0 = none,2026-11-14T10:38:11+00:00
+img_18_2,img_18,cam_B,night,dev,3,,1,1,0,user,severity-only: type not provided,2026-11-14T10:37:41+00:00
+img_18_3,img_18,cam_B,night,dev,3,,2,1,0,user,severity-only: type not provided,2026-11-14T10:37:41+00:00
+img_20_0,img_20,cam_A,day,dev,3,none,0,0,0,user,severity-only: 0 = none,2026-11-14T10:37:41+00:00
+img_20_1,img_20,cam_A,day,dev,3,none,0,0,0,user,severity-only: 0 = none,2026-11-14T10:37:41+00:00
+img_20_2,img_20,cam_A,day,dev,3,,2,1,0,user,severity-only: type not provided,2026-11-14T10:37:41+00:00
+img_20_3,img_20,cam_A,day,dev,3,,1,1,0,user,severity-only: type not provided,2026-11-14T10:37:41+00:00
+img_21_0,img_21,cam_B,day,dev,3,,1,1,0,user,severity-only: type not provided,2026-11-14T10:37:41+00:00
+img_21_1,img_21,cam_B,day,dev,3,none,0,0,0,user,severity-only: 0 = none,2026-11-14T10:37:41+00:00
+img_21_2,img_21,cam_B,day,dev,3,,2,1,0,user,severity-only: type not provided,2026-11-14T10:37:41+00:00
+img_21_3,img_21,cam_B,day,dev,3,,2,1,0,user,severity-only: type not provided,2026-11-14T10:37:41+00:00
+img_22_0,img_22,cam_A,dusk,dev,3,none,0,0,0,user,severity-only: 0 = none,2026-11-14T10:37:41+00:00
+img_22_1,img_22,cam_A,dusk,dev,3,none,0,0,0,user,severity-only: 0 = none,2026-11-14T10:37:41+00:00
+img_22_2,img_22,cam_A,dusk,dev,3,,2,1,0,user,severity-only: type not provided,2026-11-14T10:37:41+00:00
+img_22_3,img_22,cam_A,dusk,dev,3,,1,1,0,user,severity-only: type not provided,2026-11-14T10:37:41+00:00

@@ -1,0 +1,46 @@
+{
+  "n_eval": 40,
+  "baseline_flagged": 18,
+  "poc_flagged": 19,
+  "overlap_at_10": 3,
+  "overlap_at_20": 16,
+  "jaccard_at_20": 0.6666666666666666,
+  "overlap_flagged": 15,
+  "jaccard_flagged": 0.6818181818181818,
+  "spearman_rho": 0.5113600783393561,
+  "poc_top20_added": [
+    "img_01_0",
+    "img_01_3",
+    "img_05_3",
+    "img_13_2"
+  ],
+  "baseline_top20_dropped": [
+    "img_03_0",
+    "img_06_0",
+    "img_15_0",
+    "img_19_2"
+  ],
+  "tie_at_20": {
+    "baseline_score": 1.100185,
+    "baseline_n_at_cut": 1,
+    "poc_score": 0.0,
+    "poc_n_at_cut": 21
+  },
+  "type_distribution_top20": {
+    "baseline": {
+      "blur": 18,
+      "dark": 0,
+      "glare": 0,
+      "compression": 0,
+      "none": 2
+    },
+    "poc": {
+      "blur": 4,
+      "dark": 4,
+      "glare": 4,
+      "compression": 7,
+      "none": 1
+    }
+  },
+  "ranking_order": "score desc, image_id asc"
+}

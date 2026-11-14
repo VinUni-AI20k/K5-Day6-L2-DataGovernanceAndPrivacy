@@ -1,0 +1,385 @@
+{
+  "generated_at": "2026-11-14T10:57:32+00:00",
+  "labels_file": "reports\\dev_labels.csv",
+  "labels_sha256": "d1364ac8e50fed4bc73dee851b7ae18625b6949b89b2c6f094d8d5f7cf14a701",
+  "n_images": 56,
+  "n_clean": 22,
+  "n_defect": 34,
+  "n_typed_defect": 15,
+  "n_type_unknown_defect": 19,
+  "features": [
+    {
+      "feature": "dark",
+      "column": "bright_ratio",
+      "lower_is_worse": true,
+      "clean_extreme": 0.9785640697013606,
+      "closest_typed_positive": 0.21247854633149912,
+      "lo_exact": 0.5955213080164299,
+      "lo_frozen": 0.596,
+      "hi_exact": 0.12470675285772544,
+      "hi_frozen": 0.124,
+      "excluded": {
+        "dropped": []
+      },
+      "severity_rule": {
+        "rule": "no typed sev2: shrink from sev1 by 1.2x"
+      }
+    },
+    {
+      "feature": "blur",
+      "column": "lap_ratio",
+      "lower_is_worse": true,
+      "clean_extreme": 0.21348810426086123,
+      "closest_typed_positive": 0.4561447333846465,
+      "lo_exact": 0.20445760823029296,
+      "lo_frozen": 0.205,
+      "hi_exact": 0.032019907054684146,
+      "hi_frozen": 0.032,
+      "excluded": {
+        "dropped": [
+          {
+            "image_id": "img_08_2",
+            "lap_ratio": 0.4561447333846465
+          }
+        ]
+      },
+      "severity_rule": {
+        "rule": "geometric midpoint (gap)",
+        "gap": true
+      }
+    },
+    {
+      "feature": "compression",
+      "column": "block_ratio",
+      "lower_is_worse": false,
+      "clean_extreme": 1.0791338744736232,
+      "closest_typed_positive": 1.8636719704313152,
+      "lo_exact": 1.4714029224524692,
+      "lo_frozen": 1.47,
+      "hi_exact": 2.0519639363623936,
+      "hi_frozen": 2.06,
+      "excluded": {
+        "dropped": []
+      },
+      "severity_rule": {
+        "rule": "geometric midpoint (gap)",
+        "gap": true
+      }
+    },
+    {
+      "feature": "glare",
+      "column": "blob",
+      "lower_is_worse": false,
+      "clean_extreme": 0.0001388888888888889,
+      "closest_typed_positive": 0.004427083333333333,
+      "lo_exact": 0.002282986111111111,
+      "lo_frozen": 0.0022,
+      "hi_exact": 0.0053124999999999995,
+      "hi_frozen": 0.006,
+      "excluded": {
+        "dropped": []
+      },
+      "severity_rule": {
+        "rule": "no typed sev2: shrink from sev1 by 1.2x"
+      }
+    }
+  ],
+  "in_sample": {
+    "clean_flagged": [],
+    "defects_missed": [
+      "img_11_0",
+      "img_12_1"
+    ],
+    "n_positive_score_defects": 32,
+    "type_accuracy_typed_defects": 0.9333333333333333,
+    "type_correct": 14,
+    "type_n": 15,
+    "severity_accuracy_typed_rows": 0.972972972972973,
+    "severity_correct": 36,
+    "severity_n": 37
+  },
+  "cv": {
+    "protocol": "leave-one-group-out, lo refit without the held-out group",
+    "folds": [
+      {
+        "group": "img_00",
+        "n": 4,
+        "fp": 0,
+        "fn": 1,
+        "lo": {
+          "dark": 0.5955,
+          "blur": 0.1094,
+          "compression": 1.4714,
+          "glare": 0.0023
+        },
+        "fallback": {
+          "dark": false,
+          "blur": false,
+          "compression": false,
+          "glare": false
+        }
+      },
+      {
+        "group": "img_02",
+        "n": 4,
+        "fp": 0,
+        "fn": 0,
+        "lo": {
+          "dark": 0.5955,
+          "blur": 0.2045,
+          "compression": 1.4714,
+          "glare": 0.0023
+        },
+        "fallback": {
+          "dark": false,
+          "blur": false,
+          "compression": false,
+          "glare": true
+        }
+      },
+      {
+        "group": "img_04",
+        "n": 4,
+        "fp": 0,
+        "fn": 0,
+        "lo": {
+          "dark": 0.5955,
+          "blur": 0.2045,
+          "compression": 1.4714,
+          "glare": 0.0023
+        },
+        "fallback": {
+          "dark": false,
+          "blur": false,
+          "compression": false,
+          "glare": false
+        }
+      },
+      {
+        "group": "img_07",
+        "n": 4,
+        "fp": 0,
+        "fn": 0,
+        "lo": {
+          "dark": 0.5914,
+          "blur": 0.2045,
+          "compression": 1.4714,
+          "glare": 0.0023
+        },
+        "fallback": {
+          "dark": false,
+          "blur": false,
+          "compression": false,
+          "glare": false
+        }
+      },
+      {
+        "group": "img_08",
+        "n": 4,
+        "fp": 0,
+        "fn": 0,
+        "lo": {
+          "dark": 0.5955,
+          "blur": 0.2045,
+          "compression": 1.4714,
+          "glare": 0.0023
+        },
+        "fallback": {
+          "dark": false,
+          "blur": false,
+          "compression": false,
+          "glare": false
+        }
+      },
+      {
+        "group": "img_09",
+        "n": 4,
+        "fp": 1,
+        "fn": 0,
+        "lo": {
+          "dark": 0.5955,
+          "blur": 0.5807,
+          "compression": 1.6692,
+          "glare": 0.0022
+        },
+        "fallback": {
+          "dark": false,
+          "blur": false,
+          "compression": false,
+          "glare": false
+        }
+      },
+      {
+        "group": "img_10",
+        "n": 4,
+        "fp": 0,
+        "fn": 0,
+        "lo": {
+          "dark": 0.5955,
+          "blur": 0.2045,
+          "compression": 1.4714,
+          "glare": 0.0023
+        },
+        "fallback": {
+          "dark": false,
+          "blur": false,
+          "compression": false,
+          "glare": false
+        }
+      },
+      {
+        "group": "img_11",
+        "n": 4,
+        "fp": 0,
+        "fn": 1,
+        "lo": {
+          "dark": 0.5955,
+          "blur": 0.2045,
+          "compression": 1.4714,
+          "glare": 0.0023
+        },
+        "fallback": {
+          "dark": false,
+          "blur": false,
+          "compression": false,
+          "glare": false
+        }
+      },
+      {
+        "group": "img_12",
+        "n": 4,
+        "fp": 0,
+        "fn": 1,
+        "lo": {
+          "dark": 0.5955,
+          "blur": 0.2045,
+          "compression": 1.4714,
+          "glare": 0.0023
+        },
+        "fallback": {
+          "dark": false,
+          "blur": false,
+          "compression": false,
+          "glare": false
+        }
+      },
+      {
+        "group": "img_14",
+        "n": 4,
+        "fp": 0,
+        "fn": 0,
+        "lo": {
+          "dark": 0.5955,
+          "blur": 0.2045,
+          "compression": 1.4714,
+          "glare": 0.0023
+        },
+        "fallback": {
+          "dark": false,
+          "blur": false,
+          "compression": false,
+          "glare": false
+        }
+      },
+      {
+        "group": "img_18",
+        "n": 4,
+        "fp": 0,
+        "fn": 0,
+        "lo": {
+          "dark": 0.5955,
+          "blur": 0.2045,
+          "compression": 1.4714,
+          "glare": 0.0023
+        },
+        "fallback": {
+          "dark": false,
+          "blur": false,
+          "compression": false,
+          "glare": false
+        }
+      },
+      {
+        "group": "img_20",
+        "n": 4,
+        "fp": 0,
+        "fn": 0,
+        "lo": {
+          "dark": 0.5955,
+          "blur": 0.2045,
+          "compression": 1.4643,
+          "glare": 0.0023
+        },
+        "fallback": {
+          "dark": false,
+          "blur": false,
+          "compression": false,
+          "glare": false
+        }
+      },
+      {
+        "group": "img_21",
+        "n": 4,
+        "fp": 0,
+        "fn": 0,
+        "lo": {
+          "dark": 0.5955,
+          "blur": 0.2045,
+          "compression": 1.4714,
+          "glare": 0.0023
+        },
+        "fallback": {
+          "dark": false,
+          "blur": false,
+          "compression": false,
+          "glare": false
+        }
+      },
+      {
+        "group": "img_22",
+        "n": 4,
+        "fp": 0,
+        "fn": 0,
+        "lo": {
+          "dark": 0.6034,
+          "blur": 0.2045,
+          "compression": 1.4714,
+          "glare": 0.0023
+        },
+        "fallback": {
+          "dark": false,
+          "blur": false,
+          "compression": false,
+          "glare": false
+        }
+      }
+    ],
+    "fp_total": 1,
+    "fn_total": 3,
+    "clean_total": 22,
+    "defect_total": 34
+  },
+  "frozen_constants": {
+    "dark": {
+      "lo": 0.596,
+      "hi": 0.124
+    },
+    "blur": {
+      "lo": 0.205,
+      "hi": 0.032
+    },
+    "compression": {
+      "lo": 1.47,
+      "hi": 2.06
+    },
+    "glare": {
+      "lo": 0.0022,
+      "hi": 0.006
+    }
+  },
+  "notes": [
+    "19 defects have severity but no defect_type; they are used for binary evaluation only, not for fitting type/severity thresholds.",
+    "img_11_0 and img_12_1 are severity 1 but all four features sit at the group baseline; kept as given, flagged for review.",
+    "severity/action is not part of the T02 metric and its accuracy is reported only as a sanity check."
+  ]
+}

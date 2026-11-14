@@ -1,0 +1,16 @@
+﻿# Folder 4 - severity only, source: Downloads/duc.txt
+# "?" = severity known, defect type not provided by the labeler.
+img_11_0 = ?/1     # severity-only, feature-neutral: all 4 features at group baseline, check label
+img_11_1 = none/0  # severity-only: 0 = none
+img_11_2 = ?/2     # severity-only: type not provided
+img_11_3 = ?/2     # severity-only: type not provided
+img_12_0 = ?/2     # severity-only: type not provided
+img_12_1 = ?/1     # severity-only, feature-neutral: all 4 features at group baseline, check label
+img_12_2 = ?/2     # severity-only: type not provided
+img_12_3 = ?/2     # severity-only: type not provided
+img_14_0 = none/0  # severity-only: 0 = none
+img_14_1 = none/0  # severity-only: 0 = none
+img_14_2 = ?/2     # severity-only: type not provided
+img_14_3 = ?/2     # severity-only: type not provided
+img_18_0 = ?/1     # severity-only: type not provided
+img_18_1 = none/0  # severity-only: 0 = none

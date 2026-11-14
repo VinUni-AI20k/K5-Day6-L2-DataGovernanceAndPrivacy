@@ -1,0 +1,15 @@
+image_id,split,light,defect_type,severity,is_defect
+img_07_2,dev,day,dark,1,1
+img_07_3,dev,day,blur,2,1
+img_08_0,dev,dusk,none,0,0
+img_08_1,dev,dusk,none,0,0
+img_08_2,dev,dusk,blur,1,1
+img_08_3,dev,dusk,dark,1,1
+img_09_0,dev,day,none,0,0
+img_09_1,dev,day,none,0,0
+img_09_2,dev,day,blur,2,1
+img_09_3,dev,day,compression,1,1
+img_10_0,dev,day,none,0,0
+img_10_1,dev,day,none,0,0
+img_10_2,dev,day,compression,2,1
+img_10_3,dev,day,dark,1,1

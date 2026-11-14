@@ -1,34 +1,7 @@
-# Secrets — NEVER commit tokens
-.env
-*.token
-
-# Real data downloaded from Hugging Face (contains real people / plates; license-restricted)
-data/real/
-data/cache/
-
-# Instructor-only material (ground truth, generators, hidden eval) lives in the private
-# instructor repo and is copied in as an overlay — never commit it here
-# The ** prefix also catches nested copies of the repo (e.g. a vendored checkout)
-**/fixtures/*/gt/
-**/make_fixtures.py
-**/make_hidden_eval.py
-**/hidden_eval/
-
-# Run outputs
-out/
-runs/
-*.log
-
-# Python
 .venv/
-venv/
 __pycache__/
 *.pyc
-.pytest_cache/
-*.egg-info/
-.ipynb_checkpoints/
-
-# OS / IDE
+out/
+*.log
+.reports_tmp/
 .DS_Store
-.idea/
-.vscode/

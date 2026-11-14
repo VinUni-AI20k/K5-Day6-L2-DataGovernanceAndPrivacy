@@ -1,0 +1,16 @@
+# Folder 3 - severity only, source: Downloads/score_3.txt
+# "?" = severity known, defect type not provided by the labeler.
+img_18_2 = ?/1     # severity-only: type not provided
+img_18_3 = ?/2     # severity-only: type not provided
+img_20_0 = none/0  # severity-only: 0 = none
+img_20_1 = none/0  # severity-only: 0 = none
+img_20_2 = ?/2     # severity-only: type not provided
+img_20_3 = ?/1     # severity-only: type not provided
+img_21_0 = ?/1     # severity-only: type not provided
+img_21_1 = none/0  # severity-only: 0 = none
+img_21_2 = ?/2     # severity-only: type not provided
+img_21_3 = ?/2     # severity-only: type not provided
+img_22_0 = none/0  # severity-only: 0 = none
+img_22_1 = none/0  # severity-only: 0 = none
+img_22_2 = ?/2     # severity-only: type not provided
+img_22_3 = ?/1     # severity-only: type not provided

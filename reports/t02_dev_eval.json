@@ -1,0 +1,500 @@
+{
+  "generated_at": "2026-11-14T10:56:22+00:00",
+  "scope": "56 labelled dev images; eval split (40 images) not scored",
+  "labels_file": "reports\\dev_labels.csv",
+  "labels_sha256": "d1364ac8e50fed4bc73dee851b7ae18625b6949b89b2c6f094d8d5f7cf14a701",
+  "poc_pipeline": "src/poc/t02_v1.py",
+  "poc_pipeline_sha256": "9a20fe76e636becbfcd3b1e41489dd0186baf21213f9cca5b1ed80305860020f",
+  "baseline_pipeline": "src/baselines/t02_laplacian.py",
+  "baseline_pipeline_sha256": "4be61b6c8ccfca69d04fe39fa6c6b27188ebf7d38570ee29900339ccb9f7b5b8",
+  "n_dev": 56,
+  "n_eval_unscored": 40,
+  "n_clean": 22,
+  "n_defect": 34,
+  "n_typed_defect": 15,
+  "n_type_unknown_defect": 19,
+  "primary_budget": 28,
+  "budgets": [
+    20,
+    28
+  ],
+  "models": {
+    "baseline": {
+      "average_precision": 0.9375725593517029,
+      "at_budget": {
+        "20": {
+          "budget": 20,
+          "tp": 19,
+          "n": 20,
+          "recall_den": 34,
+          "precision_den": 20,
+          "recall": 0.5588235294117647,
+          "precision": 0.95,
+          "false_alarms": [
+            "img_09_0"
+          ],
+          "missed": [
+            "img_18_2",
+            "img_00_2",
+            "img_18_0",
+            "img_20_2",
+            "img_08_2",
+            "img_04_2",
+            "img_22_2",
+            "img_11_2",
+            "img_10_2",
+            "img_22_3",
+            "img_12_1",
+            "img_02_2",
+            "img_14_3",
+            "img_11_0",
+            "img_20_3"
+          ]
+        },
+        "28": {
+          "budget": 28,
+          "tp": 27,
+          "n": 28,
+          "recall_den": 34,
+          "precision_den": 28,
+          "recall": 0.7941176470588235,
+          "precision": 0.9642857142857143,
+          "false_alarms": [
+            "img_09_0"
+          ],
+          "missed": [
+            "img_10_2",
+            "img_22_3",
+            "img_12_1",
+            "img_02_2",
+            "img_14_3",
+            "img_11_0",
+            "img_20_3"
+          ]
+        }
+      },
+      "threshold": {
+        "tp": 28,
+        "fp": 1,
+        "fn": 6,
+        "tn": 21,
+        "precision": 0.9655172413793104,
+        "recall": 0.8235294117647058,
+        "f1": 0.888888888888889,
+        "n_flagged": 29,
+        "false_alarms": [
+          "img_09_0"
+        ],
+        "missed": [
+          "img_02_2",
+          "img_11_0",
+          "img_12_1",
+          "img_14_3",
+          "img_20_3",
+          "img_22_3"
+        ]
+      },
+      "type": {
+        "correct": 6,
+        "n": 15,
+        "accuracy": 0.4,
+        "confusion": {
+          "none": {
+            "none": 0,
+            "blur": 0,
+            "compression": 0,
+            "dark": 0,
+            "glare": 0
+          },
+          "blur": {
+            "none": 0,
+            "blur": 6,
+            "compression": 0,
+            "dark": 0,
+            "glare": 0
+          },
+          "compression": {
+            "none": 0,
+            "blur": 4,
+            "compression": 0,
+            "dark": 0,
+            "glare": 0
+          },
+          "dark": {
+            "none": 0,
+            "blur": 4,
+            "compression": 0,
+            "dark": 0,
+            "glare": 0
+          },
+          "glare": {
+            "none": 1,
+            "blur": 0,
+            "compression": 0,
+            "dark": 0,
+            "glare": 0
+          }
+        },
+        "wrong": [
+          {
+            "image_id": "img_00_2",
+            "gt_type": "compression",
+            "gt_severity": 2,
+            "pred_type": "blur"
+          },
+          {
+            "image_id": "img_02_2",
+            "gt_type": "glare",
+            "gt_severity": 1,
+            "pred_type": "none"
+          },
+          {
+            "image_id": "img_02_3",
+            "gt_type": "dark",
+            "gt_severity": 1,
+            "pred_type": "blur"
+          },
+          {
+            "image_id": "img_04_2",
+            "gt_type": "compression",
+            "gt_severity": 2,
+            "pred_type": "blur"
+          },
+          {
+            "image_id": "img_07_2",
+            "gt_type": "dark",
+            "gt_severity": 1,
+            "pred_type": "blur"
+          },
+          {
+            "image_id": "img_08_3",
+            "gt_type": "dark",
+            "gt_severity": 1,
+            "pred_type": "blur"
+          },
+          {
+            "image_id": "img_09_3",
+            "gt_type": "compression",
+            "gt_severity": 1,
+            "pred_type": "blur"
+          },
+          {
+            "image_id": "img_10_2",
+            "gt_type": "compression",
+            "gt_severity": 2,
+            "pred_type": "blur"
+          },
+          {
+            "image_id": "img_10_3",
+            "gt_type": "dark",
+            "gt_severity": 1,
+            "pred_type": "blur"
+          }
+        ]
+      }
+    },
+    "poc_v1": {
+      "average_precision": 0.9831095481670931,
+      "at_budget": {
+        "20": {
+          "budget": 20,
+          "tp": 20,
+          "n": 20,
+          "recall_den": 34,
+          "precision_den": 20,
+          "recall": 0.5882352941176471,
+          "precision": 1.0,
+          "false_alarms": [],
+          "missed": [
+            "img_07_2",
+            "img_20_3",
+            "img_18_2",
+            "img_02_2",
+            "img_09_3",
+            "img_22_3",
+            "img_08_2",
+            "img_18_0",
+            "img_12_0",
+            "img_00_0",
+            "img_12_2",
+            "img_21_0",
+            "img_11_0",
+            "img_12_1"
+          ]
+        },
+        "28": {
+          "budget": 28,
+          "tp": 28,
+          "n": 28,
+          "recall_den": 34,
+          "precision_den": 28,
+          "recall": 0.8235294117647058,
+          "precision": 1.0,
+          "false_alarms": [],
+          "missed": [
+            "img_12_0",
+            "img_00_0",
+            "img_12_2",
+            "img_21_0",
+            "img_11_0",
+            "img_12_1"
+          ]
+        }
+      },
+      "threshold": {
+        "tp": 32,
+        "fp": 0,
+        "fn": 2,
+        "tn": 22,
+        "precision": 1.0,
+        "recall": 0.9411764705882353,
+        "f1": 0.9696969696969697,
+        "n_flagged": 32,
+        "false_alarms": [],
+        "missed": [
+          "img_11_0",
+          "img_12_1"
+        ]
+      },
+      "type": {
+        "correct": 14,
+        "n": 15,
+        "accuracy": 0.9333333333333333,
+        "confusion": {
+          "none": {
+            "none": 0,
+            "blur": 0,
+            "compression": 0,
+            "dark": 0,
+            "glare": 0
+          },
+          "blur": {
+            "none": 0,
+            "blur": 5,
+            "compression": 1,
+            "dark": 0,
+            "glare": 0
+          },
+          "compression": {
+            "none": 0,
+            "blur": 0,
+            "compression": 4,
+            "dark": 0,
+            "glare": 0
+          },
+          "dark": {
+            "none": 0,
+            "blur": 0,
+            "compression": 0,
+            "dark": 4,
+            "glare": 0
+          },
+          "glare": {
+            "none": 0,
+            "blur": 0,
+            "compression": 0,
+            "dark": 0,
+            "glare": 1
+          }
+        },
+        "wrong": [
+          {
+            "image_id": "img_08_2",
+            "gt_type": "blur",
+            "gt_severity": 1,
+            "pred_type": "compression"
+          }
+        ]
+      }
+    }
+  },
+  "slices": {
+    "light": {
+      "baseline": [
+        {
+          "slice": "light=day",
+          "n": 36,
+          "defects": 21,
+          "clean": 15,
+          "recall": 0.7619047619047619,
+          "recall_num": 16,
+          "recall_den": 21,
+          "false_alarm": 0.06666666666666667,
+          "false_alarm_num": 1,
+          "false_alarm_den": 15
+        },
+        {
+          "slice": "light=dusk",
+          "n": 16,
+          "defects": 10,
+          "clean": 6,
+          "recall": 0.8,
+          "recall_num": 8,
+          "recall_den": 10,
+          "false_alarm": 0.0,
+          "false_alarm_num": 0,
+          "false_alarm_den": 6
+        },
+        {
+          "slice": "light=night",
+          "n": 4,
+          "defects": 3,
+          "clean": 1,
+          "recall": 1.0,
+          "recall_num": 3,
+          "recall_den": 3,
+          "false_alarm": 0.0,
+          "false_alarm_num": 0,
+          "false_alarm_den": 1
+        }
+      ],
+      "poc_v1": [
+        {
+          "slice": "light=day",
+          "n": 36,
+          "defects": 21,
+          "clean": 15,
+          "recall": 0.8571428571428571,
+          "recall_num": 18,
+          "recall_den": 21,
+          "false_alarm": 0.0,
+          "false_alarm_num": 0,
+          "false_alarm_den": 15
+        },
+        {
+          "slice": "light=dusk",
+          "n": 16,
+          "defects": 10,
+          "clean": 6,
+          "recall": 0.7,
+          "recall_num": 7,
+          "recall_den": 10,
+          "false_alarm": 0.0,
+          "false_alarm_num": 0,
+          "false_alarm_den": 6
+        },
+        {
+          "slice": "light=night",
+          "n": 4,
+          "defects": 3,
+          "clean": 1,
+          "recall": 1.0,
+          "recall_num": 3,
+          "recall_den": 3,
+          "false_alarm": 0.0,
+          "false_alarm_num": 0,
+          "false_alarm_den": 1
+        }
+      ]
+    },
+    "camera_id": {
+      "baseline": [
+        {
+          "slice": "camera_id=cam_A",
+          "n": 36,
+          "defects": 19,
+          "clean": 17,
+          "recall": 0.6842105263157895,
+          "recall_num": 13,
+          "recall_den": 19,
+          "false_alarm": 0.0,
+          "false_alarm_num": 0,
+          "false_alarm_den": 17
+        },
+        {
+          "slice": "camera_id=cam_B",
+          "n": 20,
+          "defects": 15,
+          "clean": 5,
+          "recall": 0.9333333333333333,
+          "recall_num": 14,
+          "recall_den": 15,
+          "false_alarm": 0.2,
+          "false_alarm_num": 1,
+          "false_alarm_den": 5
+        }
+      ],
+      "poc_v1": [
+        {
+          "slice": "camera_id=cam_A",
+          "n": 36,
+          "defects": 19,
+          "clean": 17,
+          "recall": 0.9473684210526315,
+          "recall_num": 18,
+          "recall_den": 19,
+          "false_alarm": 0.0,
+          "false_alarm_num": 0,
+          "false_alarm_den": 17
+        },
+        {
+          "slice": "camera_id=cam_B",
+          "n": 20,
+          "defects": 15,
+          "clean": 5,
+          "recall": 0.6666666666666666,
+          "recall_num": 10,
+          "recall_den": 15,
+          "false_alarm": 0.0,
+          "false_alarm_num": 0,
+          "false_alarm_den": 5
+        }
+      ]
+    }
+  },
+  "severity_sanity": {
+    "typed_rows_correct": 36,
+    "typed_rows_n": 37,
+    "typed_defects_correct": 14,
+    "typed_defects_n": 15
+  },
+  "baseline_threshold": {
+    "threshold": 760.0,
+    "same_decisions_interval": [
+      745.0,
+      772.7
+    ],
+    "interval_note": "any T in (745, 772.7] gives the same flagged set",
+    "old_threshold": 800.0,
+    "old_tp": 28,
+    "old_fp": 4,
+    "old_extra_flagged": [
+      {
+        "image_id": "img_04_0",
+        "lap": 791.0,
+        "light": "dusk",
+        "camera_id": "cam_A"
+      },
+      {
+        "image_id": "img_04_1",
+        "lap": 782.0,
+        "light": "dusk",
+        "camera_id": "cam_A"
+      },
+      {
+        "image_id": "img_22_1",
+        "lap": 772.7,
+        "light": "dusk",
+        "camera_id": "cam_A"
+      }
+    ]
+  },
+  "frozen_constants": {
+    "dark": {
+      "lo": 0.596,
+      "hi": 0.124
+    },
+    "blur": {
+      "lo": 0.205,
+      "hi": 0.032
+    },
+    "compression": {
+      "lo": 1.47,
+      "hi": 2.06
+    },
+    "glare": {
+      "lo": 0.0022,
+      "hi": 0.006
+    }
+  }
+}
