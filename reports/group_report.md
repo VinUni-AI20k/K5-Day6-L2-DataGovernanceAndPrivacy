@@ -142,7 +142,7 @@ pytest -q
 | Học viên | Git author/email | Module / vai trò | Commit SHA / diff chứng minh | Trình bày? |
 |---|---|---|---|---|
 | Thành viên 1: Trương Thanh Đức | thanhduc0998 / truongthanhduc270998@gmail.com | Lead / Integrator & Decision Gate — `configs/lab.yaml`, `src/pipeline.py` (`load`, `rank`, `review`, `decide`), merge + tag Git | | |
-| Thành viên 2: Võ Khắc Xuân Nguyên | Nguyenvkx / okhacxuannguyen165@gmail.com | Core Algorithm & Baselines — bộ dò mặt/biển số, baseline | | |
+| Thành viên 2: Võ Khắc Xuân Nguyên | Nguyenvkx / vokhacxuannguyen165@gmail.com | Core Algorithm & Baselines — bộ dò mặt/biển số, baseline | | |
 | Thành viên 3: Nguyễn Xuân Khánh | Khanh-AI-ML-DL / khanhblackjaky@gmail.com | Data, Mini-GT, Metrics & QA Tests — `reports/metric_contract.md`, test T07, mini-GT | `c4a80ba` (main) — điền `reports/metric_contract.md` | |
 | Thành viên 4: Huỳnh Nhật Quang | quanghunh / nhatquangh72@gmail.com | Human-in-the-loop, Compliance & Report/Slides — `reports/group_report.md`, `reports/team_contributions.csv`, `reports/review_queue.csv`, `reports/decision_log.csv`, `demo/` | `5218064` (nhánh `quang_2A2603113`) — `group_report.md`, `team_contributions.csv` | |
 
