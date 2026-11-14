@@ -100,6 +100,7 @@
     }
     .callout-warning { background: var(--warning-light); border-color: var(--warning); color: #7c4a03; }
     .callout-success { background: var(--success-light); border-color: var(--success); color: #0f5132; }
+    .callout-info { background: var(--primary-light); border-color: var(--primary); color: #0c4a6e; }
 
     .card {
       background: var(--card-bg);
@@ -119,6 +120,23 @@
       align-items: center;
       gap: 10px;
     }
+
+    /* Workflow Step Boxes */
+    .flow-steps {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 12px;
+      margin: 16px 0;
+    }
+    .flow-card {
+      background: #f8fafc;
+      border: 1px solid #e2e8f0;
+      border-radius: 8px;
+      padding: 14px 16px;
+    }
+    .flow-step-num { font-size: 11px; font-weight: 800; color: #0284c7; text-transform: uppercase; }
+    .flow-step-title { font-size: 14px; font-weight: 700; color: #0f172a; margin-top: 2px; }
+    .flow-step-desc { font-size: 12.5px; color: #64748b; margin-top: 4px; }
 
     /* Member Box */
     .member-block {
@@ -210,13 +228,13 @@
     <p>Field-to-Release PoC · Day 06 Data Lab · Đánh giá & Phân loại hình ảnh thô cảm biến xe tự hành</p>
     <div class="badge-bar">
       <span class="badge">Trưởng nhóm: Hoàng Sỹ Khiêm (Lead)</span>
-      <span class="badge">Budget: B = 20 Frame</span>
+      <span class="badge">Quy trình: Feature Branch & Lead Review</span>
       <span class="badge">Defect Recall@20: 85.0%</span>
       <span class="badge">Test Suite: 53/53 Passed (100%)</span>
     </div>
     <div>
       <a href="https://github.com/hoangkhiem3523/K5-L2-DAY06-HoangSyKhiem-2A202603244-DataGovernanceAndPrivacy" target="_blank" class="btn-repo">
-        🔗 Mở GitHub Repository Nhóm (Click để Clone & Push)
+        🔗 Mở GitHub Repository Nhóm (Click để Clone & Push Branch)
       </a>
     </div>
   </div>
@@ -241,29 +259,52 @@
     </div>
   </div>
 
-  <div class="callout callout-warning">
-    <strong>⚠️ QUY TẮC BẮT BUỘC ĐỂ CẢ NHÓM ĐỦ ĐIỂM (RUBRIC GIẢNG VIÊN):</strong>
-    <p>Giảng viên sẽ chạy lệnh <code>git shortlog -sne --all</code> để kiểm tra đóng góp của từng người. <strong>Mỗi thành viên bắt buộc phải có ít nhất 1–2 commit thực chất</strong> từ tài khoản GitHub của mình. Dưới đây là phân chia nhiệm vụ chi tiết và lệnh Git chuẩn bị sẵn cho từng bạn:</p>
+  <!-- QUY TRÌNH BRANCH & REVIEW -->
+  <div class="callout callout-info">
+    <h3 style="font-size: 15px; margin-bottom: 6px; color: #0369a1;">🚀 QUY TRÌNH LÀM VIỆC NHÓM (FEATURE BRANCH & LEAD REVIEW):</h3>
+    <p>Để đảm bảo code không bị xung đột (conflict) và ai cũng có commit cá nhân rõ ràng trên GitHub:</p>
+    <div class="flow-steps">
+      <div class="flow-card">
+        <div class="flow-step-num">Bước 1</div>
+        <div class="flow-step-title">Tạo Branch riêng</div>
+        <div class="flow-step-desc">Mỗi bạn tạo 1 branch riêng theo tên nhiệm vụ của mình. <strong>Không commit thẳng vào main!</strong></div>
+      </div>
+      <div class="flow-card">
+        <div class="flow-step-num">Bước 2</div>
+        <div class="flow-step-title">Code & Commit</div>
+        <div class="flow-step-desc">Làm xong nhiệm vụ, chạy thử test trên máy, commit với message rõ ràng.</div>
+      </div>
+      <div class="flow-card">
+        <div class="flow-step-num">Bước 3</div>
+        <div class="flow-step-title">Push lên Branch</div>
+        <div class="flow-step-desc">Đẩy code lên branch riêng của mình trên GitHub rồi báo Lead Khiêm.</div>
+      </div>
+      <div class="flow-card">
+        <div class="flow-step-num">Bước 4</div>
+        <div class="flow-step-title">Lead Check & Merge</div>
+        <div class="flow-step-desc">Lead Khiêm chạy test kiểm tra, nếu chuẩn 100% thì merge vào <code>main</code>!</div>
+      </div>
+    </div>
   </div>
 
   <!-- PHÂN CÔNG CHI TIẾT 5 THÀNH VIÊN -->
   <div class="card">
-    <h2>📋 Phân chia Nhiệm vụ & Lệnh Git cho Từng Thành Viên</h2>
+    <h2>📋 Nhiệm vụ Cụ thể & Lệnh Git cho Từng Thành Viên</h2>
 
     <!-- THÀNH VIÊN 1: LEAD (HOÀN THÀNH) -->
     <div class="member-block is-lead">
       <div class="member-header">
         <div>
           <h3>1. Hoàng Sỹ Khiêm (Trưởng nhóm / Core Lead)</h3>
-          <p style="color: #64748b; font-size: 13px;">Lead · Core Algorithm · Pipeline Integration · Contract Verification</p>
+          <p style="color: #64748b; font-size: 13px;">Lead · Core Algorithm · Reviewer & Merger · System Architecture</p>
         </div>
         <span class="member-tag tag-done">ĐÃ HOÀN THÀNH (LEAD) ✅</span>
       </div>
       <ul class="task-list">
         <li><input type="checkbox" checked disabled> Xây dựng pipeline 5 bước (<code>load</code> ➔ <code>process</code> ➔ <code>rank</code> ➔ <code>review</code> ➔ <code>decide</code>) trong <code>src/pipeline.py</code>.</li>
         <li><input type="checkbox" checked disabled> Tối ưu thuật toán nhận diện 4 loại lỗi (Blur, Glare, Dark, Compression), chuẩn hóa camera <code>cam_B</code> và xử lý ảnh đêm <code>night</code>.</li>
-        <li><input type="checkbox" checked disabled> Chạy đánh giá đối chứng, Defect Recall@20 đạt 85.0%, đưa toàn bộ 53 tests về pass 100%.</li>
-        <li><input type="checkbox" checked disabled> Khởi tạo và quản lý repository chính trên GitHub.</li>
+        <li><input type="checkbox" checked disabled> Đạt Recall@20 = 85.0%, đưa toàn bộ 53 tests về pass 100%.</li>
+        <li><input type="checkbox" checked disabled> <strong>Nhiệm vụ tiếp theo:</strong> Nhận thông báo từ 4 thành viên, kiểm tra branch của từng bạn và merge vào nhánh <code>main</code>.</li>
       </ul>
       <div class="file-tag">
         <strong>File phụ trách chính:</strong> <code>src/pipeline.py</code>, <code>configs/lab.yaml</code>, <code>src/main.py</code>
@@ -275,30 +316,32 @@
       <div class="member-header">
         <div>
           <h3>2. Thành viên 2 (Data & Provenance Specialist)</h3>
-          <p style="color: #64748b; font-size: 13px;">Dữ liệu đầu vào · Kiểm định SHA-256 · Thống kê phân bố Dataset</p>
+          <p style="color: #64748b; font-size: 13px;">Dữ liệu đầu vào · Kiểm định SHA-256 · Script thống kê Dataset</p>
         </div>
-        <span class="member-tag tag-todo">CẦN 1 COMMIT ⏳</span>
+        <span class="member-tag tag-todo">TỰ LÀM & PUSH BRANCH ⏳</span>
       </div>
       <ul class="task-list">
-        <li><input type="checkbox"> Clone repo về máy của bạn và chạy <code>python -m tools.verify_manifests</code> kiểm tra hash SHA-256.</li>
-        <li><input type="checkbox"> Tạo một file script mới <code>tools/check_data_stats.py</code> để in ra số lượng ảnh theo từng điều kiện (Day, Dusk, Night, Camera A, Camera B).</li>
-        <li><input type="checkbox"> Commit file script đó lên GitHub để ghi nhận đóng góp phần Data & Provenance.</li>
+        <li><input type="checkbox"> Clone repo về máy, tạo branch: <code>feature/data-provenance</code>.</li>
+        <li><input type="checkbox"> Chạy lệnh <code>python -m tools.verify_manifests</code> kiểm tra mã băm SHA-256.</li>
+        <li><input type="checkbox"> Tạo file script mới <code>tools/check_data_stats.py</code> đọc <code>fixtures/t02_raw_qc/images.csv</code> và in ra phân bố ảnh theo Camera (A/B) và Ánh sáng (Day/Dusk/Night).</li>
+        <li><input type="checkbox"> Commit và push lên branch <code>feature/data-provenance</code>, sau đó nhắn Lead Khiêm check & merge!</li>
       </ul>
       <div class="file-tag">
-        <strong>File phụ trách:</strong> <code>tools/check_data_stats.py</code> (tạo mới), <code>fixtures/t02_raw_qc/manifest.csv</code>
+        <strong>File bạn tự tạo & code:</strong> <code>tools/check_data_stats.py</code>
       </div>
-      <pre><code># Hướng dẫn thao tác cho Thành viên 2:
+      <pre><code># Lệnh Git cho Thành viên 2:
 git clone https://github.com/hoangkhiem3523/K5-L2-DAY06-HoangSyKhiem-2A202603244-DataGovernanceAndPrivacy.git
 cd K5-L2-DAY06-HoangSyKhiem-2A202603244-DataGovernanceAndPrivacy
 
-# Tạo file tools/check_data_stats.py (đoạn code mẫu):
-# import pandas as pd
-# df = pd.read_csv("fixtures/t02_raw_qc/images.csv")
-# print(df.groupby(["camera_id", "light", "split"]).size())
+# Tạo branch mới riêng cho bạn:
+git checkout -b feature/data-provenance
 
+# Tạo file tools/check_data_stats.py và viết code thống kê
 git add tools/check_data_stats.py
 git commit -m "feat(data): add dataset distribution inspection script"
-git push origin main</code></pre>
+git push -u origin feature/data-provenance
+
+# 👉 Xong thì báo Khiêm: "Khiêm ơi t push branch feature/data-provenance rồi, check và merge giúp t!"</code></pre>
     </div>
 
     <!-- THÀNH VIÊN 3: QA & TEST LEAD -->
@@ -308,18 +351,20 @@ git push origin main</code></pre>
           <h3>3. Thành viên 3 (QA & Testing Lead)</h3>
           <p style="color: #64748b; font-size: 13px;">Kiểm thử phần mềm · Bổ sung Edge Test Cases · Đảm bảo 100% Pass</p>
         </div>
-        <span class="member-tag tag-todo">CẦN 1 COMMIT ⏳</span>
+        <span class="member-tag tag-todo">TỰ LÀM & PUSH BRANCH ⏳</span>
       </div>
       <ul class="task-list">
-        <li><input type="checkbox"> Clone repo về máy, chạy <code>pytest -v</code> kiểm tra 53 unit tests hiện tại.</li>
-        <li><input type="checkbox"> Mở file <code>tests/test_t02_pipeline.py</code>, viết thêm 1 hàm test mới (ví dụ kiểm tra trường hợp ảnh lóa nặng có tỷ lệ bão hòa cao thì phải gắn cờ `glare` và hành động `RECAPTURE`).</li>
-        <li><input type="checkbox"> Chạy lại <code>pytest -v</code> đảm bảo toàn bộ tests đều xanh (54+ passed) rồi commit push.</li>
+        <li><input type="checkbox"> Clone repo về máy, tạo branch: <code>feature/qa-unit-tests</code>.</li>
+        <li><input type="checkbox"> Chạy lệnh <code>pytest -v</code> kiểm tra 53 unit tests hiện có.</li>
+        <li><input type="checkbox"> Mở file <code>tests/test_t02_pipeline.py</code>, thêm 1 test case kiểm tra biên (ví dụ: ảnh lóa sáng mạnh toàn bộ khung hình có giá trị pixel 255 thì phải gắn cờ `glare` và hành động `RECAPTURE`).</li>
+        <li><input type="checkbox"> Chạy lại <code>pytest -v</code> đảm bảo toàn bộ tests đều xanh (54 passed).</li>
+        <li><input type="checkbox"> Commit và push lên branch <code>feature/qa-unit-tests</code>, sau đó nhắn Lead Khiêm check & merge!</li>
       </ul>
       <div class="file-tag">
-        <strong>File phụ trách:</strong> <code>tests/test_t02_pipeline.py</code>, <code>tests/test_cli.py</code>
+        <strong>File bạn phụ trách:</strong> <code>tests/test_t02_pipeline.py</code>
       </div>
-      <pre><code># Hướng dẫn thao tác cho Thành viên 3:
-git pull origin main
+      <pre><code># Lệnh Git cho Thành viên 3:
+git checkout -b feature/qa-unit-tests
 
 # Mở tests/test_t02_pipeline.py và thêm hàm test:
 # def test_t02_severe_glare_saturation(tmp_path):
@@ -332,7 +377,9 @@ git pull origin main
 pytest -v
 git add tests/test_t02_pipeline.py
 git commit -m "test(t02): add unit test case for severe glare saturation detection"
-git push origin main</code></pre>
+git push -u origin feature/qa-unit-tests
+
+# 👉 Xong thì báo Khiêm: "Khiêm ơi t push branch feature/qa-unit-tests rồi, check và merge giúp t!"</code></pre>
     </div>
 
     <!-- THÀNH VIÊN 4: HUMAN REVIEWER -->
@@ -340,26 +387,29 @@ git push origin main</code></pre>
       <div class="member-header">
         <div>
           <h3>4. Thành viên 4 (Human-in-the-Loop Reviewer)</h3>
-          <p style="color: #64748b; font-size: 13px;">Thẩm định Contact Sheet · Audit Log · Bổ sung nhận xét chuyên gia</p>
+          <p style="color: #64748b; font-size: 13px;">Thẩm định Contact Sheet · Bổ sung nhận xét thực tế của Reviewer</p>
         </div>
-        <span class="member-tag tag-todo">CẦN 1 COMMIT ⏳</span>
+        <span class="member-tag tag-todo">TỰ LÀM & PUSH BRANCH ⏳</span>
       </div>
       <ul class="task-list">
-        <li><input type="checkbox"> Mở file <code>out/poc/contact_sheet.html</code> bằng trình duyệt web để xem 20 ảnh lỗi trực quan.</li>
-        <li><input type="checkbox"> Mở file <code>reports/review_queue.csv</code>, bổ sung tên của bạn vào cột <code>reviewer</code> ở một số dòng bạn đã thẩm định.</li>
+        <li><input type="checkbox"> Tạo branch: <code>feature/human-review</code>.</li>
+        <li><input type="checkbox"> Mở file <code>out/poc/contact_sheet.html</code> bằng trình duyệt web xem 20 ảnh lỗi trực quan.</li>
+        <li><input type="checkbox"> Mở file <code>reports/review_queue.csv</code>, điền tên của bạn vào cột <code>reviewer</code> ở một số dòng bạn đã thẩm định.</li>
         <li><input type="checkbox"> Ghi chú thêm nhận xét chi tiết vào cột <code>review_note</code> (ví dụ: "Đã kiểm tra mắt thường: biển số bị chói sáng đèn pha", "Mờ nhòe do rung camera").</li>
-        <li><input type="checkbox"> Commit file <code>reports/review_queue.csv</code> lên GitHub.</li>
+        <li><input type="checkbox"> Commit và push lên branch <code>feature/human-review</code>, sau đó nhắn Lead Khiêm check & merge!</li>
       </ul>
       <div class="file-tag">
-        <strong>File phụ trách:</strong> <code>reports/review_queue.csv</code>, <code>out/poc/review_queue_reviewed.csv</code>, <code>out/poc/audit_log.jsonl</code>
+        <strong>File bạn phụ trách:</strong> <code>reports/review_queue.csv</code>
       </div>
-      <pre><code># Hướng dẫn thao tác cho Thành viên 4:
-git pull origin main
+      <pre><code># Lệnh Git cho Thành viên 4:
+git checkout -b feature/human-review
 
-# Chỉnh sửa nhận xét thẩm định trong reports/review_queue.csv
+# Mở reports/review_queue.csv, cập nhật reviewer và review_note
 git add reports/review_queue.csv
 git commit -m "docs(review): audit and add reviewer notes for top-20 QC candidates"
-git push origin main</code></pre>
+git push -u origin feature/human-review
+
+# 👉 Xong thì báo Khiêm: "Khiêm ơi t push branch feature/human-review rồi, check và merge giúp t!"</code></pre>
     </div>
 
     <!-- THÀNH VIÊN 5: REPORT & PRESENTATION -->
@@ -369,9 +419,10 @@ git push origin main</code></pre>
           <h3>5. Thành viên 5 (Documentation & Presentation Lead)</h3>
           <p style="color: #64748b; font-size: 13px;">Hoàn thiện Danh sách nhóm · Chuẩn bị Slide Thuyết trình Demo</p>
         </div>
-        <span class="member-tag tag-todo">CẦN 1 COMMIT ⏳</span>
+        <span class="member-tag tag-todo">TỰ LÀM & PUSH BRANCH ⏳</span>
       </div>
       <ul class="task-list">
+        <li><input type="checkbox"> Tạo branch: <code>feature/report-roster</code>.</li>
         <li><input type="checkbox"> Mở file <code>reports/group_report.md</code> và <code>reports/team_contributions.csv</code>.</li>
         <li><input type="checkbox"> Điền chính xác họ tên thật, mã sinh viên và email của tất cả 5 thành viên trong nhóm vào Bảng 2.</li>
         <li><input type="checkbox"> Chuẩn bị slide thuyết trình (Google Slides hoặc PowerPoint, 3–5 slides):
@@ -380,32 +431,43 @@ git push origin main</code></pre>
           <br>• Slide 3: Bảng 1 so sánh Baseline vs PoC (Recall 50% ➔ 85%).
           <br>• Slide 4: Phân tích 4 Failure Modes (Cam B, Ảnh đêm, Lóa đèn, Nén JPEG) và Quyết định REWORK.
         </li>
-        <li><input type="checkbox"> Commit cập nhật thông tin thành viên lên GitHub.</li>
+        <li><input type="checkbox"> Commit và push lên branch <code>feature/report-roster</code>, sau đó nhắn Lead Khiêm check & merge!</li>
       </ul>
       <div class="file-tag">
-        <strong>File phụ trách:</strong> <code>reports/group_report.md</code>, <code>reports/team_contributions.csv</code>, <code>reports/metric_contract.md</code>
+        <strong>File bạn phụ trách:</strong> <code>reports/group_report.md</code>, <code>reports/team_contributions.csv</code>
       </div>
-      <pre><code># Hướng dẫn thao tác cho Thành viên 5:
-git pull origin main
+      <pre><code># Lệnh Git cho Thành viên 5:
+git checkout -b feature/report-roster
 
-# Điền tên thật thành viên vào reports/group_report.md và reports/team_contributions.csv
+# Cập nhật tên và email thành viên vào reports/group_report.md và reports/team_contributions.csv
 git add reports/group_report.md reports/team_contributions.csv
 git commit -m "docs: finalize group report member roster and contribution matrix"
-git push origin main</code></pre>
+git push -u origin feature/report-roster
+
+# 👉 Xong thì báo Khiêm: "Khiêm ơi t push branch feature/report-roster rồi, check và merge giúp t!"</code></pre>
     </div>
 
   </div>
 
-  <!-- CHECKLIST NỘP BÀI -->
-  <div class="card">
-    <h2>🎯 Checklist Đối chiếu Rubric Chấm điểm của Giảng viên</h2>
-    <ul class="task-list">
-      <li><input type="checkbox" checked disabled> <strong>Đúng 1 lệnh chạy chính:</strong> <code>python -m src.main --track t02 --output out/poc --offline</code> chạy exit code 0.</li>
-      <li><input type="checkbox" checked disabled> <strong>Không vi phạm GT Guard:</strong> Tuyệt đối không đọc <code>fixtures/*/gt/</code> trong pipeline.</li>
-      <li><input type="checkbox" checked disabled> <strong>Chạy hoàn toàn Offline:</strong> Có cờ <code>--offline</code>, không gọi mạng internet.</li>
-      <li><input type="checkbox" checked disabled> <strong>Đủ bộ file kết quả:</strong> Có đủ <code>ranked_review.csv</code>, <code>review_queue.csv</code>, <code>contact_sheet.html</code>, <code>decision.json</code>, <code>decision_log.csv</code>.</li>
-      <li><input type="checkbox" checked disabled> <strong>Pass 100% Unit Tests:</strong> Lệnh <code>pytest -q</code> chạy 0 failures.</li>
-    </ul>
+  <!-- PHẦN DÀNH CHO LEAD: HƯỚNG DẪN CHECK VÀ MERGE -->
+  <div class="card" style="border-left: 6px solid #1a73e8;">
+    <h2>👑 Dành riêng cho Lead Hoàng Sỹ Khiêm: Cách Check & Merge Branch</h2>
+    <p style="color: #475569; font-size: 14px; margin-bottom: 14px;">Khi các thành viên báo đã push branch xong, bạn chỉ cần chạy các lệnh sau (hoặc bảo trợ lý AI chạy giúp bạn):</p>
+    <pre><code># 1. Tải toàn bộ branch mới từ GitHub về máy Lead:
+git fetch origin
+
+# 2. Chuyển sang branch của thành viên để kiểm tra code (ví dụ branch của TV2):
+git checkout feature/data-provenance
+
+# 3. Chạy test thử xem code của bạn đó có làm hỏng test nào không:
+pytest -v
+
+# 4. Nếu test 100% pass, chuyển về main và merge:
+git checkout main
+git merge feature/data-provenance
+
+# 5. Đẩy code đã merge lên GitHub main:
+git push origin main</code></pre>
   </div>
 
   <div class="footer">
