@@ -11,7 +11,7 @@
 |---|---|
 | Group ID | G02 |
 | Challenge | T08 · Retention & Delete Request Simulator |
-| Thành viên (6) + vai trò | P1. Bui Thanh Tan (Lead/Integrator) · P2. Nguyen Viet Minh Hoang - 2A202603281 (Data & fixtures) · P3. Nhat Nguyen / Edelxz (Core: lineage & policy) · P4. Nguyen Tien Dat / datpro-sudo (Core: review & thực thi) · P5. Nguyen Cong Bao Long (QA/metric + baseline) · P6. NhatNguyen28122003 (Human reviewer + report + slide) |
+| Thành viên (6) + vai trò | P1. Bui Thanh Tan (Lead/Integrator) · P2. Nguyen Viet Minh Hoang - 2A202603281 (Data & fixtures) · P3 Nguyen Van Nhat 2A202603278 (Core: lineage & policy) · P4 Nguyen Tien Dat 2A202603289 (Core: review & thực thi) · P5. Nguyen Cong Bao Long (QA/metric + baseline) · P6. Nguyen Van Nhat 2A202603273 (Human reviewer + report + slide) |
 | Git URL | https://github.com/tantan294/K5-L2-ABC-DataGovernanceAndPrivacy |
 | Tag `demo-180m` (commit) | ____ (P1 tạo bằng `make tag-demo`) |
 | Tag `final-24h` (commit) | ____ (P1 tạo bằng `make tag-final`) |
