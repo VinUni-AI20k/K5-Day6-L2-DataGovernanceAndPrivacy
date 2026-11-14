@@ -1,0 +1,137 @@
+{
+  "run_name": "baseline",
+  "track": "t02",
+  "created_at": "2026-11-14T07:41:58+00:00",
+  "git_sha": "41a89d9",
+  "seed": 42,
+  "n_items": 96,
+  "runtime_seconds": 0.0766,
+  "runtime_per_100_items_s": 0.0798,
+  "machine": {
+    "python": "3.11.9",
+    "platform": "Windows-10-10.0.26300-SP0",
+    "processor": "Intel64 Family 6 Model 154 Stepping 3, GenuineIntel"
+  },
+  "config": {
+    "budget": 20,
+    "split": "eval"
+  },
+  "metrics": [
+    {
+      "name": "Defect Recall@B",
+      "value": 0.5,
+      "direction": "higher",
+      "unit": "GT defects in top-B / GT defects",
+      "numerator": 10,
+      "denominator": 20,
+      "n": 40,
+      "slice": "all",
+      "primary": true,
+      "notes": "",
+      "extra": {}
+    },
+    {
+      "name": "Precision@B",
+      "value": 0.5,
+      "direction": "higher",
+      "unit": "GT defects in top-B / B",
+      "numerator": 10,
+      "denominator": 20,
+      "n": 40,
+      "slice": "all",
+      "primary": false,
+      "notes": "",
+      "extra": {}
+    },
+    {
+      "name": "False alarm in top-B",
+      "value": 0.3,
+      "direction": "lower",
+      "unit": "clean images in top-B / clean images",
+      "numerator": 3,
+      "denominator": 10,
+      "n": 20,
+      "slice": "light=day",
+      "primary": false,
+      "notes": "",
+      "extra": {}
+    },
+    {
+      "name": "False alarm in top-B",
+      "value": 0.5,
+      "direction": "lower",
+      "unit": "clean images in top-B / clean images",
+      "numerator": 1,
+      "denominator": 2,
+      "n": 4,
+      "slice": "light=dusk",
+      "primary": false,
+      "notes": "",
+      "extra": {}
+    },
+    {
+      "name": "False alarm in top-B",
+      "value": 0.75,
+      "direction": "lower",
+      "unit": "clean images in top-B / clean images",
+      "numerator": 6,
+      "denominator": 8,
+      "n": 16,
+      "slice": "light=night",
+      "primary": false,
+      "notes": "",
+      "extra": {}
+    }
+  ],
+  "extra": {
+    "gt": "C:\\Users\\Gaming F15\\.gemini\\antigravity\\brain\\a1d1fb62-3ce9-41ce-a1d3-95de95337f67\\scratch\\labels.csv",
+    "pred": "out\\baseline\\ranked_review.csv",
+    "notes": [
+      "B=20, eval N=40"
+    ],
+    "slices": [
+      {
+        "slice": "light=day",
+        "n": 20,
+        "recall_in_topB": 0.4,
+        "false_alarm_in_topB": 0.3
+      },
+      {
+        "slice": "light=dusk",
+        "n": 4,
+        "recall_in_topB": 1.0,
+        "false_alarm_in_topB": 0.5
+      },
+      {
+        "slice": "light=night",
+        "n": 16,
+        "recall_in_topB": 0.5,
+        "false_alarm_in_topB": 0.75
+      },
+      {
+        "slice": "defect=blur",
+        "n": 5,
+        "recall_in_topB": 0.8,
+        "false_alarm_in_topB": NaN
+      },
+      {
+        "slice": "defect=compression",
+        "n": 8,
+        "recall_in_topB": 0.375,
+        "false_alarm_in_topB": NaN
+      },
+      {
+        "slice": "defect=dark",
+        "n": 4,
+        "recall_in_topB": 0.75,
+        "false_alarm_in_topB": NaN
+      },
+      {
+        "slice": "defect=glare",
+        "n": 3,
+        "recall_in_topB": 0.0,
+        "false_alarm_in_topB": NaN
+      }
+    ]
+  }
+}

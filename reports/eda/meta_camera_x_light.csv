@@ -1,0 +1,7 @@
+camera_id,light,n_images
+cam_A,day,44
+cam_A,dusk,12
+cam_A,night,8
+cam_B,day,12
+cam_B,dusk,8
+cam_B,night,12

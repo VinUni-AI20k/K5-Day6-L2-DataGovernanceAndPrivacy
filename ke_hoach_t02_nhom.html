@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Phân công Nhóm G01 — Track T02 Raw QC Triage</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      line-height: 1.5;
+      color: #0f172a;
+      background-color: #f8fafc;
+      padding: 24px 16px;
+    }
+    .container { max-width: 860px; margin: 0 auto; }
+    .header {
+      background: #0f172a;
+      color: #fff;
+      padding: 24px;
+      border-radius: 10px;
+      margin-bottom: 20px;
+    }
+    .header h1 { font-size: 20px; font-weight: 700; margin-bottom: 6px; }
+    .header p { opacity: 0.9; font-size: 13.5px; }
+    .btn-repo {
+      display: inline-block;
+      background: #38bdf8;
+      color: #0f172a;
+      text-decoration: none;
+      padding: 6px 14px;
+      border-radius: 6px;
+      font-weight: 700;
+      font-size: 12.5px;
+      margin-top: 12px;
+    }
+    .rule-box {
+      background: #fffbeb;
+      border-left: 4px solid #f59e0b;
+      padding: 12px 16px;
+      border-radius: 6px;
+      margin-bottom: 20px;
+      font-size: 13px;
+      color: #92400e;
+    }
+    .card {
+      background: #fff;
+      border: 1px solid #e2e8f0;
+      border-radius: 8px;
+      padding: 18px;
+      margin-bottom: 16px;
+    }
+    .card.is-lead { border-left: 4px solid #16a34a; }
+    .card-title {
+      font-size: 15px;
+      font-weight: 700;
+      color: #0f172a;
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 8px;
+      padding-bottom: 6px;
+      border-bottom: 1px solid #f1f5f9;
+    }
+    .tag { font-size: 11px; font-weight: 700; padding: 2px 8px; border-radius: 4px; }
+    .tag-done { background: #dcfce7; color: #166534; }
+    .tag-todo { background: #fef3c7; color: #92400e; }
+    .file-scope { font-size: 12.5px; color: #475569; margin-bottom: 8px; }
+    .file-scope code { color: #d946ef; font-weight: 600; }
+    ul { padding-left: 18px; font-size: 13px; color: #334155; margin-bottom: 10px; }
+    li { margin-bottom: 3px; }
+    pre {
+      background: #0f172a;
+      color: #f8fafc;
+      padding: 10px 12px;
+      border-radius: 6px;
+      font-family: Consolas, monospace;
+      font-size: 12px;
+      overflow-x: auto;
+      line-height: 1.4;
+    }
+  </style>
+</head>
+<body>
+<div class="container">
+
+  <div class="header">
+    <h1>Kế hoạch Phân công Nhóm G01 · Day 06 Lab (T02 Raw QC Triage)</h1>
+    <p>Quy trình: <strong>Tạo branch riêng ➔ Làm xong push lên branch ➔ Báo Khiêm check test & merge vào main</strong></p>
+    <a href="https://github.com/hoangkhiem3523/K5-L2-DAY06-HoangSyKhiem-2A202603244-DataGovernanceAndPrivacy" target="_blank" class="btn-repo">
+      🔗 Mở GitHub Repo
+    </a>
+  </div>
+
+  <div class="rule-box">
+    <strong>⚠️ LƯU Ý:</strong> Không push thẳng vào nhánh <code>main</code>. Mỗi người làm trên branch riêng theo lệnh bên dưới, làm xong báo Khiêm merge.
+  </div>
+
+  <!-- 1. KHIÊM -->
+  <div class="card is-lead">
+    <div class="card-title">
+      <span>1. Hoàng Sỹ Khiêm (Lead)</span>
+      <span class="tag tag-done">ĐÃ XONG KHUNG CHÍNH</span>
+    </div>
+    <div class="file-scope"><strong>File:</strong> <code>src/pipeline.py</code>, <code>configs/lab.yaml</code>, <code>src/main.py</code></div>
+    <ul>
+      <li>Xây dựng pipeline 5 bước (load ➔ process ➔ rank ➔ review ➔ decide), Defect Recall đạt 85%.</li>
+      <li>Quản lý review và merge các branch của thành viên vào nhánh <code>main</code>.</li>
+    </ul>
+  </div>
+
+  <!-- 2. PHÚ -->
+  <div class="card">
+    <div class="card-title">
+      <span>2. Phú (Data & Baseline)</span>
+      <span class="tag tag-todo">NHẬN VIỆC</span>
+    </div>
+    <div class="file-scope"><strong>File:</strong> <code>fixtures/t02_raw_qc/</code>, <code>tools/inspect_data.py</code></div>
+    <ul>
+      <li>Thống kê 96 ảnh thô theo camera (cam_A, cam_B) và điều kiện ánh sáng (day, dusk, night).</li>
+      <li>Chạy baseline, ghi nhận 2 ca lỗi điển hình của baseline: ảnh đêm bị báo lỗi nhầm và ảnh lóa bị bỏ sót.</li>
+    </ul>
+    <pre><code>git checkout -b feature/phu-data
+# Viết code tools/inspect_data.py xong chạy:
+git add tools/inspect_data.py
+git commit -m "feat(data): add dataset inspection and baseline failure analysis"
+git push -u origin feature/phu-data</code></pre>
+  </div>
+
+  <!-- 3. HƯNG -->
+  <div class="card">
+    <div class="card-title">
+      <span>3. Hưng (Core Algorithm - cùng Khiêm)</span>
+      <span class="tag tag-todo">NHẬN VIỆC</span>
+    </div>
+    <div class="file-scope"><strong>File:</strong> <code>src/pipeline.py</code></div>
+    <ul>
+      <li>Rà soát thuật toán trong <code>src/pipeline.py</code> (Blur, Glare, Dark, Compression).</li>
+      <li>Bổ sung chú thích giải thích công thức toán các hàm tính điểm lỗi hoặc viết thêm hàm validate input.</li>
+    </ul>
+    <pre><code>git checkout -b feature/hung-core
+# Chỉnh sửa src/pipeline.py xong chạy:
+git add src/pipeline.py
+git commit -m "feat(core): add technical docstrings and input validation helper"
+git push -u origin feature/hung-core</code></pre>
+  </div>
+
+  <!-- 4. THIÊN -->
+  <div class="card">
+    <div class="card-title">
+      <span>4. Thiên (QA & Testing)</span>
+      <span class="tag tag-todo">NHẬN VIỆC</span>
+    </div>
+    <div class="file-scope"><strong>File:</strong> <code>tests/test_t02_pipeline.py</code></div>
+    <ul>
+      <li>Chạy <code>pytest -v</code> kiểm tra toàn bộ test suite.</li>
+      <li>Viết thêm 2 unit test cases kiểm tra trường hợp biên (ảnh bão hòa pixel 255, ảnh lúc hoàng hôn) trong <code>tests/test_t02_pipeline.py</code>.</li>
+    </ul>
+    <pre><code>git checkout -b feature/thien-qa
+# Thêm test vào tests/test_t02_pipeline.py, chạy pytest -v xong chạy:
+git add tests/test_t02_pipeline.py
+git commit -m "test(t02): add unit tests for extreme glare and dusk edge cases"
+git push -u origin feature/thien-qa</code></pre>
+  </div>
+
+  <!-- 5. ĐỨC -->
+  <div class="card">
+    <div class="card-title">
+      <span>5. Đức (Human Review & Báo cáo)</span>
+      <span class="tag tag-todo">NHẬN VIỆC</span>
+    </div>
+    <div class="file-scope"><strong>File:</strong> <code>reports/review_queue.csv</code>, <code>reports/group_report.md</code>, <code>reports/team_contributions.csv</code></div>
+    <ul>
+      <li>Mở <code>reports/review_queue.csv</code>, điền tên "Đức" vào cột reviewer và viết nhận xét kiểm duyệt cho 20 ảnh.</li>
+      <li>Điền danh sách họ tên thật, MSSV, email của 5 thành viên vào <code>reports/group_report.md</code>.</li>
+      <li>Chuẩn bị 3–4 slide tóm tắt để nhóm thuyết trình.</li>
+    </ul>
+    <pre><code>git checkout -b feature/duc-report
+# Chỉnh sửa xong chạy:
+git add reports/review_queue.csv reports/group_report.md reports/team_contributions.csv
+git commit -m "docs: audit review queue notes and update group member roster"
+git push -u origin feature/duc-report</code></pre>
+  </div>
+
+</div>
+</body>
+</html>

@@ -1,0 +1,7 @@
+split,light,n_images
+dev,day,36
+dev,dusk,16
+dev,night,4
+eval,day,20
+eval,dusk,4
+eval,night,16

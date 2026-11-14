@@ -1,0 +1,9 @@
+failure_mode,image_id,camera_id,light,lap_var,baseline_dev_rank_of_56,in_top20_of_dev,verdict
+glare_missed,img_22_3,cam_A,dusk,873.3,34,False,glare lớn phủ vùng phải
+glare_missed,img_02_2,cam_A,day,950.1,38,False,glare cục bộ ở xe giữa
+glare_missed,img_20_3,cam_A,day,1266.4,50,False,glare cục bộ ở xe trái
+glare_missed,img_18_2,cam_B,night,335.2,21,False,glare ở đèn pha xe (ảnh đêm)
+camB_false_alarm,img_12_0,cam_B,dusk,166.4,10,True,"sạch (cam_B, dusk)"
+camB_false_alarm,img_09_0,cam_B,day,187.0,12,True,"sạch (cam_B, day)"
+camB_false_alarm,img_21_0,cam_B,day,220.7,14,True,"sạch (cam_B, day)"
+camB_false_alarm,img_00_0,cam_B,day,266.9,18,True,"sạch (cam_B, day)"
