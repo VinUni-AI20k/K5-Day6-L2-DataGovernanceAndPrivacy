@@ -49,6 +49,15 @@ def render_contact_sheet(
     thumb_width: int = 280,
     boxes_by_item: dict[str, list[dict]] | None = None,
     embed: bool = True,
+    decision_options: Iterable[str] | None = None,
+    decision_col: str = "reviewer_decision",
+    reason_codes_col: str | None = None,
+    reviewer_col: str = "reviewer",
+    note_col: str = "review_note",
+    reviewed_at_col: str = "reviewed_at",
+    session_duration_col: str | None = None,
+    export_filename: str = "review_queue_reviewed.csv",
+    reason_codes_allowed: Iterable[str] | None = None,
 ) -> Path:
     """Write a self-contained review page.
 
@@ -63,6 +72,8 @@ def render_contact_sheet(
     out_html.parent.mkdir(parents=True, exist_ok=True)
     root = Path(image_root) if image_root else Path(".")
     fields = list(fields)
+    decisions = list(decision_options) if decision_options is not None else DECISIONS
+    has_override = "override_value" in queue.columns
     cards = []
     for _, row in queue.iterrows():
         imgs = []
@@ -81,19 +92,43 @@ def render_contact_sheet(
         meta = "".join(
             f"<div><b>{html.escape(f)}</b>: {html.escape(str(row[f]))}</div>" for f in fields if f in row
         )
-        opts = "".join(f'<option value="{d}">{d or "— decision —"}</option>' for d in DECISIONS)
+        opts = "".join(f'<option value="{html.escape(d)}">{html.escape(d) or "— decision —"}</option>' for d in decisions)
         item_id = html.escape(str(row.get("item_id", "")))
+        reason_input = (
+            f'<input class="reasons" placeholder="{html.escape(reason_codes_col)} (codes separated by ;)" '
+            f'value="{html.escape(str(row.get(reason_codes_col, "")))}">'
+            if reason_codes_col else ""
+        )
+        override_input = '<input class="ov" placeholder="override value (optional)">' if has_override else ""
         cards.append(
             f'<div class="card" data-item="{item_id}" data-rank="{html.escape(str(row.get("rank", "")))}" '
             f'data-score="{html.escape(str(row.get("score", "")))}">'
             f'<div class="imgs">{"".join(imgs)}</div><div class="meta">{meta}</div>'
             f'<select class="dec">{opts}</select>'
-            f'<input class="ov" placeholder="override value (optional)">'
-            f'<input class="note" placeholder="reason / note"></div>'
+            f'{reason_input}{override_input}'
+            f'<input class="note" placeholder="{html.escape(note_col)}"></div>'
         )
-    rows_json = json.dumps(queue.astype(str).to_dict(orient="records"))
+    columns = list(queue.columns)
+    for col in [reviewer_col, decision_col, note_col, reviewed_at_col]:
+        if col not in columns:
+            columns.append(col)
+    if reason_codes_col and reason_codes_col not in columns:
+        columns.append(reason_codes_col)
+    if session_duration_col and session_duration_col not in columns:
+        columns.append(session_duration_col)
+    rows_json = json.dumps(queue.astype(str).to_dict(orient="records")).replace("<", "\\u003c")
     page = _TEMPLATE.replace("__TITLE__", html.escape(title)).replace("__CARDS__", "\n".join(cards))
-    page = page.replace("__ROWS__", rows_json).replace("__N__", str(len(queue)))
+    page = page.replace("__ROWS__", rows_json).replace("__COLS__", json.dumps(columns))
+    page = page.replace("__N__", str(len(queue)))
+    page = page.replace("__REVIEWER_COL__", json.dumps(reviewer_col))
+    page = page.replace("__DECISION_COL__", json.dumps(decision_col))
+    page = page.replace("__REASON_COL__", json.dumps(reason_codes_col or ""))
+    page = page.replace("__NOTE_COL__", json.dumps(note_col))
+    page = page.replace("__REVIEWED_AT_COL__", json.dumps(reviewed_at_col))
+    page = page.replace("__SESSION_COL__", json.dumps(session_duration_col or ""))
+    page = page.replace("__EXPORT_FILENAME__", json.dumps(export_filename))
+    page = page.replace("__HAS_OVERRIDE__", json.dumps(has_override))
+    page = page.replace("__REASON_CODES_ALLOWED__", json.dumps(sorted(set(reason_codes_allowed or []))))
     out_html.write_text(page, encoding="utf-8")
     return out_html
 
@@ -117,26 +152,54 @@ button{padding:6px 12px}
 <div class="grid">__CARDS__</div>
 <script>
 const ROWS = __ROWS__;
-const COLS = ["rank","item_id","score","reason","suggested_action","slice","evidence_path",
-              "reviewer","reviewer_decision","override_value","review_note","reviewed_at"];
+const COLS = __COLS__;
+const REVIEWER_COL = __REVIEWER_COL__;
+const DECISION_COL = __DECISION_COL__;
+const REASON_COL = __REASON_COL__;
+const NOTE_COL = __NOTE_COL__;
+const REVIEWED_AT_COL = __REVIEWED_AT_COL__;
+const SESSION_COL = __SESSION_COL__;
+const EXPORT_FILENAME = __EXPORT_FILENAME__;
+const HAS_OVERRIDE = __HAS_OVERRIDE__;
+const REASON_CODES_ALLOWED = new Set(__REASON_CODES_ALLOWED__);
+const PAGE_OPENED_AT = performance.now();
 function esc(v){v = (v===undefined||v===null)?"":String(v); return /[",\\n]/.test(v)?'"'+v.replace(/"/g,'""')+'"':v;}
+function validDecision(c, dec){
+  if(!REASON_COL) return true;
+  const raw = c.querySelector('.reasons').value;
+  const codes = raw.split(';').map(x=>x.trim().toLowerCase().replace(/\\s+/g,'_')).filter(Boolean);
+  if(!codes.length){alert('Select at least one review reason code.'); return false;}
+  if(codes.some(x=>!REASON_CODES_ALLOWED.has(x))){alert('Unknown review reason code.'); return false;}
+  if(new Set(codes).size!==codes.length){alert('Duplicate review reason code.'); return false;}
+  if(codes.includes('no_defect') && dec!=='KEEP'){alert('no_defect is valid only with KEEP.'); return false;}
+  if((dec==='HOLD'||dec==='RECAPTURE') && !c.querySelector('.note').value.trim()){
+    alert('A note is required for HOLD and RECAPTURE.'); return false;
+  }
+  return true;
+}
 function exportCsv(){
   const reviewer = document.getElementById('reviewer').value.trim();
   if(!reviewer){alert('Nhập tên reviewer trước khi export'); return;}
   const now = new Date().toISOString();
   const cards = document.querySelectorAll('.card');
   const lines = [COLS.join(',')];
+  let invalid = false;
   cards.forEach((c,i)=>{
     const r = Object.assign({}, ROWS[i]);
     const dec = c.querySelector('.dec').value;
-    r.reviewer = dec ? reviewer : ''; r.reviewer_decision = dec;
-    r.override_value = c.querySelector('.ov').value; r.review_note = c.querySelector('.note').value;
-    r.reviewed_at = dec ? now : '';
+    if(dec && !validDecision(c, dec)){invalid = true; return;}
+    r[REVIEWER_COL] = dec ? reviewer : ''; r[DECISION_COL] = dec;
+    if(HAS_OVERRIDE) r.override_value = c.querySelector('.ov').value;
+    r[NOTE_COL] = c.querySelector('.note').value;
+    r[REVIEWED_AT_COL] = dec ? now : '';
+    if(REASON_COL) r[REASON_COL] = c.querySelector('.reasons').value;
+    if(SESSION_COL) r[SESSION_COL] = dec ? Math.round((performance.now()-PAGE_OPENED_AT)/1000) : '';
     lines.push(COLS.map(k=>esc(r[k])).join(','));
   });
+  if(invalid) return;
   const blob = new Blob([lines.join('\\n')+'\\n'], {type:'text/csv'});
   const a = document.createElement('a'); a.href = URL.createObjectURL(blob);
-  a.download = 'review_queue_reviewed.csv'; a.click();
+  a.download = EXPORT_FILENAME; a.click();
 }
 </script></body></html>
 """

@@ -11,6 +11,7 @@ from __future__ import annotations
 
 import getpass
 import json
+import math
 from dataclasses import asdict, dataclass, field
 from datetime import datetime, timezone
 from pathlib import Path
@@ -35,6 +36,17 @@ REVIEW_COLUMNS = [
 
 # Keep this list small and explicit; extend per track in your config if needed.
 DEFAULT_ALLOWED_DECISIONS = {"approve", "reject", "edit", "escalate", "skip"}
+
+T02_STAGES = ("qc", "senior_qc", "domain_owner")
+T02_ACTIONS = {"KEEP", "RECAPTURE", "HOLD"}
+T02_REASON_CODES = {
+    "blur", "glare", "dark", "compression", "insufficient_evidence", "other", "no_defect"
+}
+T02_REVIEW_COLUMNS = [
+    "review_stage", "queue_id", "rank", "image_id", "score", "reason", "light", "camera_id",
+    "evidence_path", "review_history", "reviewer", "action", "review_reason_codes", "review_note",
+    "reviewed_at", "review_session_seconds",
+]
 
 
 def make_review_queue(
@@ -88,6 +100,82 @@ def load_review_decisions(path: str | Path, allowed: Iterable[str] = DEFAULT_ALL
         raise ValueError(f"{len(no_owner)} reviewed rows have no `reviewer` (owner is mandatory)")
     done["reviewer_decision"] = done["reviewer_decision"].str.strip().str.lower()
     return done
+
+
+def load_t02_review_decisions(
+    path: str | Path,
+    expected_stage: str,
+    expected_queue_id: str,
+    expected_item_ids: Iterable[str],
+) -> pd.DataFrame:
+    """Validate and normalize one stage-specific T02 review export."""
+    if expected_stage not in T02_STAGES:
+        raise ValueError(f"unsupported T02 review stage {expected_stage!r}")
+    q = pd.read_csv(path, dtype=str, keep_default_na=False)
+    missing = [c for c in T02_REVIEW_COLUMNS if c not in q.columns]
+    if missing:
+        raise ValueError(f"review file {path} missing required T02 columns: {missing}")
+    expected = {str(x) for x in expected_item_ids}
+    for row_num, row in q.iterrows():
+        line = row_num + 2
+        stage = row["review_stage"].strip()
+        queue_id = row["queue_id"].strip()
+        item_id = row["image_id"].strip()
+        if stage != expected_stage:
+            raise ValueError(f"review file {path} row {line}: stage {stage!r} does not match {expected_stage!r}")
+        if queue_id != expected_queue_id:
+            raise ValueError(f"review file {path} row {line}: queue_id {queue_id!r} does not match {expected_queue_id!r}")
+        if not item_id:
+            raise ValueError(f"review file {path} row {line}: missing image_id")
+        if item_id not in expected:
+            raise ValueError(f"review file {path} row {line}: image_id {item_id!r} is not in this queue")
+    dup = q[q["image_id"].duplicated(keep=False)]
+    if len(dup):
+        raise ValueError(f"review file {path} has duplicate image_id values: {sorted(dup.image_id.unique().tolist())}")
+
+    done = q[q["action"].str.strip() != ""].copy()
+    done["action"] = done["action"].str.strip().str.upper()
+    bad_actions = sorted(set(done["action"]) - T02_ACTIONS)
+    if bad_actions:
+        raise ValueError(f"review file {path} has invalid action(s) {bad_actions}; use KEEP/RECAPTURE/HOLD")
+    for row_num, row in done.iterrows():
+        line = row_num + 2
+        reviewer = row["reviewer"].strip()
+        note = row["review_note"].strip()
+        codes = [part.strip().lower().replace(" ", "_") for part in row["review_reason_codes"].split(";") if part.strip()]
+        if not reviewer:
+            raise ValueError(f"review file {path} row {line}: reviewer is required")
+        if not codes:
+            raise ValueError(f"review file {path} row {line}: at least one review_reason_code is required")
+        unknown = sorted(set(codes) - T02_REASON_CODES)
+        if unknown:
+            raise ValueError(f"review file {path} row {line}: invalid review_reason_code(s) {unknown}")
+        if len(codes) != len(set(codes)):
+            raise ValueError(f"review file {path} row {line}: duplicate review_reason_code")
+        if "no_defect" in codes and row["action"] != "KEEP":
+            raise ValueError(f"review file {path} row {line}: no_defect is valid only with KEEP")
+        if row["action"] in {"HOLD", "RECAPTURE"} and not note:
+            raise ValueError(f"review file {path} row {line}: review_note is required for {row['action']}")
+        reviewed_at = row["reviewed_at"].strip()
+        if not reviewed_at:
+            raise ValueError(f"review file {path} row {line}: reviewed_at is required")
+        try:
+            parsed_at = datetime.fromisoformat(reviewed_at[:-1] + "+00:00" if reviewed_at.endswith("Z") else reviewed_at)
+        except ValueError:
+            raise ValueError(f"review file {path} row {line}: reviewed_at must be an ISO-8601 timestamp with timezone") from None
+        if parsed_at.tzinfo is None or parsed_at.utcoffset() is None:
+            raise ValueError(f"review file {path} row {line}: reviewed_at must be an ISO-8601 timestamp with timezone")
+        try:
+            duration = float(row["review_session_seconds"])
+        except (TypeError, ValueError):
+            raise ValueError(f"review file {path} row {line}: review_session_seconds must be a non-negative number") from None
+        if not math.isfinite(duration) or duration < 0:
+            raise ValueError(f"review file {path} row {line}: review_session_seconds must be a non-negative number")
+        done.at[row_num, "reviewer"] = reviewer
+        done.at[row_num, "review_note"] = note
+        done.at[row_num, "review_reason_codes"] = ";".join(codes)
+        done.at[row_num, "review_session_seconds"] = str(duration)
+    return done.reset_index(drop=True)
 
 
 def apply_overrides(

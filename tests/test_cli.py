@@ -14,11 +14,26 @@ from src.common.gt_guard import GroundTruthAccessError, disable_gt_guard, enable
 from src.common.offline import NetworkBlockedError, disable_offline_guard, enable_offline_guard
 
 
-def test_template_pipeline_fails_clearly_not_silently(tmp_path):
+def test_t02_pipeline_runs_offline_and_writes_contract_outputs(tmp_path):
     rc = runner.main(["--track", "t02", "--output", str(tmp_path), "--offline"])
-    assert rc == 3                                   # NotImplemented -> explicit exit code
+    assert rc == 0
     info = json.loads((tmp_path / "run_info.json").read_text())
-    assert info["status"] == 3 and info["seed"] == 42
+    assert info["status"] == 0 and info["seed"] == 42
+    ranked = pd.read_csv(tmp_path / "ranked_review.csv")
+    queue = pd.read_csv(tmp_path / "review_queue.csv")
+    assert len(ranked) == 96 and ranked.image_id.is_unique and ranked.score.map(pd.notna).all()
+    assert len(queue) == 20 and queue.review_stage.eq("qc").all()
+    for name in ["contact_sheet.html", "senior_contact_sheet.html", "domain_owner_contact_sheet.html",
+                 "decision.json", "decision_log.csv", "audit_log.jsonl"]:
+        assert (tmp_path / name).exists(), name
+
+
+def test_t02_laplacian_baseline_runs_end_to_end(tmp_path):
+    assert runner.main(["--track", "t02", "--pipeline", "src.baseline_t02", "--output", str(tmp_path), "--offline"]) == 0
+    ranked = pd.read_csv(tmp_path / "ranked_review.csv")
+    info = json.loads((tmp_path / "run_info.json").read_text())
+    assert len(ranked) == 96 and ranked.score.map(pd.notna).all()
+    assert info["stats"]["baseline_laplacian_threshold"] >= 0
 
 
 def _run_baseline(out):
