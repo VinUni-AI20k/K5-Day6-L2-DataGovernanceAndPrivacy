@@ -141,12 +141,10 @@ pytest -q
 
 | Học viên | Git author/email | Module / vai trò | Commit SHA / diff chứng minh | Trình bày? |
 |---|---|---|---|---|
-| Thành viên 1: Trương Thanh Đức | thanhduc0998 / ____ | Lead / Integrator & Decision Gate — `configs/lab.yaml`, `src/pipeline.py` (`load`, `rank`, `review`, `decide`), merge + tag Git | | |
-| Thành viên 2: Võ Khắc Xuân Nguyên | nguyenvkx / ____ | Core Algorithm & Baselines — bộ dò mặt/biển số, baseline | | |
+| Thành viên 1: Trương Thanh Đức | thanhduc0998 / truongthanhduc270998@gmail.com | Lead / Integrator & Decision Gate — `configs/lab.yaml`, `src/pipeline.py` (`load`, `rank`, `review`, `decide`), merge + tag Git | | |
+| Thành viên 2: Võ Khắc Xuân Nguyên | Nguyenvkx / okhacxuannguyen165@gmail.com | Core Algorithm & Baselines — bộ dò mặt/biển số, baseline | | |
 | Thành viên 3: Nguyễn Xuân Khánh | Khanh-AI-ML-DL / khanhblackjaky@gmail.com | Data, Mini-GT, Metrics & QA Tests — `reports/metric_contract.md`, test T07, mini-GT | `c4a80ba` (main) — điền `reports/metric_contract.md` | |
 | Thành viên 4: Huỳnh Nhật Quang | quanghunh / nhatquangh72@gmail.com | Human-in-the-loop, Compliance & Report/Slides — `reports/group_report.md`, `reports/team_contributions.csv`, `reports/review_queue.csv`, `reports/decision_log.csv`, `demo/` | `5218064` (nhánh `quang_2A2603113`) — `group_report.md`, `team_contributions.csv` | |
-
-Trạng thái Git lúc viết (GitHub, 2026-11-14 ~20:00): `main` = `c4a80ba`. Các commit `5b0530c`, `de67a78`, `e288e44` (trên `main`: `configs/lab.yaml`, `src/pipeline.py`) và `b8923c5`, `a93726a` (nhánh `vokhacxuannguyen_2A202603122`) đều mang tên tác giả Git `sbgroup <foundersbgroup@gmail.com>`. Cần xác nhận `sbgroup` là thành viên nào và điền vào bảng: ____ . Tên `thanhduc0998` và `nguyenvkx` chưa xuất hiện trong `git shortlog -sne --all`.
 
 ## 11 · References
 
