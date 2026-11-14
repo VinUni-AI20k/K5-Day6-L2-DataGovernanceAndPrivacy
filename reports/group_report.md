@@ -64,7 +64,7 @@
 
 - Baseline: `src/baselines/t08_raw_only.py` — xóa raw_video có filename chứa subject, không duyệt lineage, không kiểm ngoại lệ (đề §4). Commit `59afdc6` (P5).
 - PoC: `src/pipeline.py` — BFS lineage + policy precedence + review queue + dry-run/tombstone + GO/HOLD. Commits `73eece7` (P3), `398da62`/`d31f355` (P4). Tham số chốt trong `configs/tracks/t08.yaml`: `dry_run: true`, `permitted_acl: [data-platform]`, `legal_hold_inherit: true`.
-- Cùng budget / cùng heldout / cùng seed: **xác nhận** — cùng `fixtures/t08_deletion` (sha256 khớp), seed 42, `--offline`, git sha `47fd94e`, cùng ngày 2026-11-14.
+- Cùng budget / cùng heldout / cùng seed: **xác nhận** — cùng `fixtures/t08_deletion` (sha256 khớp), seed 42, `--offline`, git sha `790a4f0`, chạy lại ngày 2026-11-15 (lần đầu `47fd94e`, 2026-11-14).
 
 **Bảng 1 · Baseline vs PoC** — chưa có `table1_baseline_vs_poc.md` vì cần GT ẩn của giảng viên. Số dưới là **tự kiểm** bằng `python -m tools.t08_selfcheck` trên 3 request có đáp án nội bộ (DR-002, DR-004, DR-008 = 48 cặp), cộng số đếm trên cả 10 request:
 
@@ -171,7 +171,7 @@ pytest -q
 - **Cột không tái lập theo seed:** `days_to_deadline` trong `request_summary.csv` và `deleted_at` của tombstone tính theo giờ lúc chạy (`datetime.now()`), nên lệch so với `reports/request_summary.csv` tùy thời điểm. Mọi số đếm và cột `status` còn lại trùng khớp.
 
 - `pytest -q`: **54 passed, 39 skipped in 6.69s**; `tests/test_t08_pipeline.py`: 7 passed. Chạy 2 lần cho `actions.csv` giống hệt.
-- Máy: AMD64 Family 25, Windows 11, Python 3.13.14 · git sha `47fd94e`.
+- Máy: AMD64 Family 25, Windows 11, Python 3.13.14 · git sha `790a4f0` (chạy lại 2026-11-15; lần đầu `47fd94e`).
 
 ## 09 · Limitations & ethics
 
