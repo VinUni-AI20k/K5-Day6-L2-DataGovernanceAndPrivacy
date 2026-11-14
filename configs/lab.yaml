@@ -2,8 +2,8 @@
 # Group config — EDIT ME (one per group). Values here override
 # the track defaults loaded from `track_config`.
 # ============================================================
-group_id: G00                     # e.g. G07
-owner: "TODO: TruongThanhDuc (role)"   # mandatory for every Decision
+group_id: G99                     # TODO: đổi thành mã nhóm (vd. G01) nếu lớp có phân mã
+owner: "TruongThanhDuc (Lead / Integrator)"   # mandatory for every Decision
 track_config: tracks/t07.yaml     # pick your challenge: tracks/t01.yaml ... tracks/t14.yaml
 track: t07                        # must match track_config
 input: fixtures/t07_redaction        # or data/real/... if your instructor provided a real pack
@@ -13,4 +13,12 @@ offline: true                     # demo/eval must not touch the network
 strict_provenance: true           # fail if manifest.csv hashes do not match
 
 # Track params (merged over track_config.params). Freeze before evaluation.
-params: {}
+params:
+  budget: 15
+  min_coverage: 0.9
+  blur_radius: 12
+  dark_mean_threshold: 55.0
+  blur_laplacian_threshold: 60.0
+  high_risk_score_threshold: 0.55
+  max_redacted_area_frac: 0.35
+  require_review_for_high_risk: true
