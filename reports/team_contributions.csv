@@ -1,6 +1,6 @@
 ﻿member,git_author_name,git_email,role,modules_files,commit_shas,evidence_note,presenter
 Member 1,KhoiLe,tuankhoi000@gmail.com,Lead / Integrator,src/pipeline.py; configs/lab.yaml; end-to-end integration,13ef41c63ac2f532a5c269313e78ecf9eebd3893,Phân công dự kiến; cập nhật theo đóng góp thực tế.,
-Member 2,quangts2531,nguyenvietquang25032001@gmail.com,Data & Provenance,fixtures/t02_raw_qc/; src/common/manifest.py; src/common/io.py,,Phân công dự kiến; cập nhật theo đóng góp thực tế.,
+Member 2,quangts2531,nguyenvietquang25032001@gmail.com,Data & Provenance,fixtures/t02_raw_qc/; src/common/manifest.py; src/common/io.py,,Repo evidence: src/common/manifest.py builds and verifies a provenance manifest (required metadata and SHA-256 checks); src/common/io.py provides the SHA-256 file hashing helper; T02 fixtures are under fixtures/t02_raw_qc/.,
 Member 3,,,Core Algorithm & Baseline,src/pipeline.py; src/baseline_t02.py; src/common/image_ops.py,,Phân công dự kiến; cập nhật theo đóng góp thực tế.,
 Member 4,,,Human Review & Audit,src/common/review.py; review queue; audit log,,Phân công dự kiến; cập nhật theo đóng góp thực tế.,
 Member 5,,,Metric & Evaluation,docs/tracks/T02.md; src/metrics/tracks.py; evaluation protocol,,Phân công dự kiến; cập nhật theo đóng góp thực tế.,

@@ -89,6 +89,7 @@ def pii_miss_rate(gt: pd.DataFrame, red: pd.DataFrame, image_sizes: dict, min_co
     Returns value + per-region coverage DataFrame for slicing.
     """
     gt = gt.copy()
+    # Regions explicitly marked as exempt from redaction do not count as PII misses.
     if "must_redact" in gt.columns:
         gt = gt[gt["must_redact"].astype(int) == 1]
     red_by_img = {k: v[["x", "y", "w", "h"]].values.tolist() for k, v in red.groupby("image_id")}
@@ -107,6 +108,7 @@ def over_redaction_rate(gt: pd.DataFrame, red: pd.DataFrame, image_sizes: dict) 
     gt_by = {k: v[["x", "y", "w", "h"]].values.tolist() for k, v in gt.groupby("image_id")}
     for img, sub in red.groupby("image_id"):
         shape = image_sizes[img]
+        # Compare pixel unions so overlapping boxes are not counted multiple times.
         rm = _mask(sub[["x", "y", "w", "h"]].values.tolist(), shape)
         gm = _mask(gt_by.get(img, []), shape)
         total += int(rm.sum())

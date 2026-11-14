@@ -31,6 +31,8 @@ def load(ctx: RunContext) -> dict:
     images_path = ctx.input_dir / "images.csv"
     if not images_path.exists():
         raise FileNotFoundError(f"T02 metadata not found: {images_path}")
+    # Read identifiers and metadata as strings to preserve values such as IDs
+    # with leading zeroes and to avoid accidental type inference by pandas.
     images = pd.read_csv(images_path, dtype={"image_id": str, "path": str, "camera_id": str, "light": str, "split": str})
     required = ["image_id", "path", "camera_id", "light", "split"]
     missing = [c for c in required if c not in images.columns]
@@ -48,6 +50,8 @@ def load(ctx: RunContext) -> dict:
         raise ValueError(f"images have missing paths: {missing_paths.image_id.tolist()}")
 
     manifest_df = pd.read_csv(manifest, dtype=str) if manifest.exists() else None
+    # Check both file hashes and that each image referenced by metadata is
+    # included in the provenance manifest before processing it.
     problems = verify_manifest(manifest) if manifest.exists() else [{"problem": "no_manifest"}]
     if manifest_df is not None and "path" in manifest_df.columns:
         listed_paths = set(manifest_df["path"].fillna("").astype(str))
@@ -71,6 +75,8 @@ def _image_path(ctx: RunContext, row: pd.Series) -> Path:
     candidate = Path(str(row["path"]))
     resolved = (candidate if candidate.is_absolute() else root / candidate).resolve()
     try:
+        # Reject paths that escape the input folder, even when they use '..'
+        # or resolve through symlinks.
         resolved.relative_to(root)
     except ValueError:
         raise ValueError(f"image path escapes input folder for image_id={row.get('image_id', '')!r}: {row['path']!r}") from None
