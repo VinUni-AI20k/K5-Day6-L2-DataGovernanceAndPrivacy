@@ -139,7 +139,7 @@ pytest -q
 
 | Học viên | Git author/email | Module / vai trò | Commit SHA / diff chứng minh | Trình bày? |
 |---|---|---|---|---|
-| Nguyễn Thế Tùng | entity-solo@student.vu.edu.vn | Lead/Integrator: calibrate, pipeline, report | `b0ce8bf` (init), `d75586b` (final fill review) | ☑ |
+| Nguyễn Thế Tùng | 26ai.tungnt4@vinuni.edu.vn | Lead/Integrator: calibrate, pipeline, report | `b0ce8bf` (init), `d75586b` (final fill review) | ☑ |
 | Member 2 | | Data & fixtures: label 56 dev, Evalimg.txt GT | `a3f2c1d` (label script) | |
 | Member 3 | | Core algorithm: t02_v1.py, feature normalization | `9a20fe76e636becb` (poc v1) | |
 | Member 4 | | Metric + tests: eval_t02, metrics_json | `4be61b6c8ccfca69` (baseline) | |
