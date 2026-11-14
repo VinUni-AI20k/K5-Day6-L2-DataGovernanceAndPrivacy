@@ -9,7 +9,7 @@
 | Mục | Giá trị |
 |---|---|
 | Group ID | G__ |
-| Challenge | T__ · ______________________ |
+| Challenge | T14 · Auto-Annotation + Human QC |
 | Thành viên (5–6) + vai trò | 1. ____ (Lead/Integrator) · 2. ____ (Data & fixtures) · 3. ____ (Core algorithm) · 4. ____ (QA/metric) · 5. ____ (Review + report) · 6. ____ |
 | Git URL | ____ |
 | Tag `demo-180m` (commit) | ____ |
@@ -33,7 +33,7 @@
 
 - Schema & class mapping: ____
 - Seed: 42 · Cách chia split (theo scene/group/segment?): ____
-- `manifest.csv` verified (sha256): có / không — lệnh: `python -m tools.verify_manifests`
+- `manifest.csv` verified (sha256): có / không — lệnh: `python -m tools.preflight`
 - Dữ liệu thật dùng (nếu có) và cách xây GT cho nó: ____
 
 ## 03 · Research & design

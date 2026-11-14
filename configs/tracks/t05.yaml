@@ -1,9 +1,0 @@
-# Defaults for T05 — see docs/tracks/T05.md
-# Pipeline must write out/suspect_pairs.csv. Freeze params BEFORE looking at eval results.
-track: t05
-input: fixtures/t05_near_duplicate
-pred_file: suspect_pairs.csv
-params:
-  test_fraction: 0.3
-  budget: 20
-eval_params: {}

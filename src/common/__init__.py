@@ -1,4 +1,4 @@
-"""Reusable building blocks shared by all 14 tracks.
+"""Reusable building blocks for the T14 pipeline.
 
 Nothing in here is a solution for any track: these are plumbing helpers
 (I/O, manifest/provenance, offline guard, review queue, contact sheet,

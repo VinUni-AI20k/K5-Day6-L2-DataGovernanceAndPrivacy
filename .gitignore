@@ -2,10 +2,6 @@
 .env
 *.token
 
-# Real data downloaded from Hugging Face (contains real people / plates; license-restricted)
-data/real/
-data/cache/
-
 # Instructor-only material (ground truth, generators, hidden eval) lives in the private
 # instructor repo and is copied in as an overlay — never commit it here
 # The ** prefix also catches nested copies of the repo (e.g. a vendored checkout)

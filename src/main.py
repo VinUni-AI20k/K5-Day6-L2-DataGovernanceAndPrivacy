@@ -1,6 +1,6 @@
 """One-command PoC runner (lab contract).
 
-    python -m src.main --input fixtures/t02_raw_qc --config configs/lab.yaml --output out/
+    python -m src.main --input fixtures/t14_auto_annotation --config configs/lab.yaml --output out/ --track t14
     python -m src.main --offline --seed 42                       # values from configs/lab.yaml
 
 Exit codes: 0 OK · 2 bad/missing input · 3 pipeline not implemented · 4 network blocked (--offline)
@@ -32,7 +32,7 @@ DEFAULT_CONFIG = "configs/lab.yaml"
 def parse_args(argv=None) -> argparse.Namespace:
     ap = argparse.ArgumentParser(description="Day06 Data Lab — one-command PoC")
     ap.add_argument("--config", default=DEFAULT_CONFIG, help="YAML config (default configs/lab.yaml)")
-    ap.add_argument("--track", help="t01..t14 (overrides config)")
+    ap.add_argument("--track", help="t14 (overrides config)")
     ap.add_argument("--input", help="input folder (overrides config)")
     ap.add_argument("--output", help="output folder (overrides config)")
     ap.add_argument("--seed", type=int, help="random seed (overrides config; default 42)")

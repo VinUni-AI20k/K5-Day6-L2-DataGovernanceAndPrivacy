@@ -1,5 +1,0 @@
-car
-pedestrian
-motorbike
-sign
-truck

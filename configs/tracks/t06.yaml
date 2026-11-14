@@ -1,9 +1,0 @@
-# Defaults for T06 — see docs/tracks/T06.md
-# Pipeline must write out/release_decisions.csv. Freeze params BEFORE looking at eval results.
-track: t06
-input: fixtures/t06_release_gate
-pred_file: release_decisions.csv
-params:
-  parent_release: releases/v1.0
-eval_params:
-  split: eval

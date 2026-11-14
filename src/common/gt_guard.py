@@ -1,6 +1,6 @@
 """Ground-truth guard: the pipeline (src.main) must never read fixtures/*/gt/.
 
-Only src.evaluate (and the controlled AuditOracle for T12-style audits) may.
+Only src.evaluate may.
 Enabled by default in src.main; disable with --allow-gt-read (and explain why in the report).
 
 This is an honesty check, NOT a security boundary: it only patches builtins.open / io.open in
@@ -36,7 +36,7 @@ def _guarded_open(file, *args, **kwargs):  # type: ignore[no-untyped-def]
     if isinstance(file, (str, bytes, os.PathLike)) and _is_gt(file):
         raise GroundTruthAccessError(
             f"Pipeline tried to read ground truth: {file}. GT is only for src.evaluate. "
-            "Use the dev split / your own labels, or the AuditOracle for budgeted audits."
+            "Use the dev split / your own labels."
         )
     return _original_open(file, *args, **kwargs)
 

@@ -5,7 +5,7 @@
 
 | Mục | Khai báo của nhóm |
 |---|---|
-| Track | T__ |
+| Track | T14 |
 | Primary metric (tên đúng như evaluator in ra) | |
 | Tăng tốt hay giảm tốt? | higher / lower |
 | Đơn vị đánh giá (image / region / pair / release / batch / case …) | |

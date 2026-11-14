@@ -1,4 +1,0 @@
-file_id,path,source,license,split,group_id,sha256
-candidates,candidates.csv,synthetic:tools/make_fixtures.py (seed 42),"CC0-1.0 (synthetic, generated for AI20K Day06)",na,na,79d7a5cba8d80a8dddd761cd7ceead5021116b5be382a2f61737fcb74e08b64a
-holdout_candidates,holdout_candidates.csv,synthetic:tools/make_fixtures.py (seed 42),"CC0-1.0 (synthetic, generated for AI20K Day06)",na,na,fc1d7b4c7b5c376ff13661b7eae92b18c0d695b5b3d0100fa7ae6d01a15837ab
-targets,targets.csv,synthetic:tools/make_fixtures.py (seed 42),"CC0-1.0 (synthetic, generated for AI20K Day06)",na,na,b3d193dc1b272be96447f2bba1d9b0c9cb5677f02149fde06e85d2f822e94566

@@ -1,7 +1,7 @@
 """Score predictions against ground truth with the shared metric contract.
 
-    python -m src.evaluate --track t02 --pred out/ranked_review.csv
-    python -m src.evaluate --track t02 --gt fixtures/t02_raw_qc/gt/labels.csv --pred out/ranked_review.csv \
+    python -m src.evaluate --track t14 --pred out/predictions.csv
+    python -m src.evaluate --track t14 --gt fixtures/t14_auto_annotation/gt/gt_boxes.csv --pred out/predictions.csv \
         --run-name poc --out reports/metrics_poc.json
     python -m src.evaluate --gt fixtures/eval_gt.csv --pred out/predictions.csv   # track from configs/lab.yaml
 """
@@ -21,12 +21,10 @@ from .metrics.tracks import default_gt_path, get_track, infer_track_from_path
 def main(argv=None) -> int:
     ap = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
     ap.add_argument("--track")
-    ap.add_argument("--gt", help="ground-truth file (default: track's fixtures/<track>/gt/...)")
+    ap.add_argument("--gt", help="ground-truth file (default: fixtures/t14_auto_annotation/gt/gt_boxes.csv)")
     ap.add_argument("--pred", required=True)
     ap.add_argument("--config", default="configs/lab.yaml")
-    ap.add_argument("--split", help="eval split filter (eval/dev/heldout/all) where applicable")
-    ap.add_argument("--budget", type=int, help="review budget B (ranking tracks)")
-    ap.add_argument("--k", type=int, help="selection size K (T01/T13)")
+    ap.add_argument("--split", help="eval split filter (eval/dev/heldout/all)")
     ap.add_argument("--run-name", default="poc")
     ap.add_argument("--out", help="write metrics JSON here (e.g. reports/metrics_poc.json)")
     ap.add_argument("--slices-out", help="write slice table CSV here")
@@ -51,7 +49,7 @@ def main(argv=None) -> int:
         return 2
     same_track = str(cfg.get("track", "")).lower()[:3] == spec.track
     params = {**spec.params, **((cfg.get("eval_params") or {}) if same_track else {})}
-    for k in ("split", "budget", "k"):
+    for k in ("split",):
         v = getattr(a, k)
         if v is not None:
             params[k] = v

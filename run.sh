@@ -1,17 +1,13 @@
 #!/usr/bin/env bash
-# One-command reproduce: run PoC offline, evaluate, run tests.
-#   ./run.sh            (track from configs/lab.yaml)
-#   ./run.sh t11
+# One-command reproduce T14: run PoC offline, evaluate (neu co gt/), run tests.
 set -euo pipefail
 cd "$(dirname "$0")"
 PY=${PY:-.venv/bin/python}
-TRACK=${1:-$($PY -c "from src.common.io import load_config;print(load_config('configs/lab.yaml')['track'])")}
-PRED=$($PY -c "from src.metrics.tracks import get_track;print(get_track('$TRACK').pred_file)")
-$PY -m src.main --config configs/lab.yaml --track "$TRACK" --output out/poc --run-name poc --offline --seed 42
-# Ground truth ships only with the instructor overlay; without it, evaluation is skipped instead of aborting.
-if compgen -G "fixtures/*/gt" > /dev/null; then
-  $PY -m src.evaluate --track "$TRACK" --pred "out/poc/$PRED" --run-name poc --out reports/metrics_poc.json
+$PY -m src.main --config configs/lab.yaml --track t14 --output out/poc --run-name poc --offline --seed 42
+# Ground truth chi co trong overlay giang vien; khong co thi bo qua buoc cham.
+if [ -f fixtures/t14_auto_annotation/gt/gt_boxes.csv ]; then
+  $PY -m src.evaluate --track t14 --pred out/poc/predictions.csv --run-name poc --out reports/metrics_poc.json
 else
-  echo "run.sh: fixtures/*/gt not found (instructor overlay not installed) - skipping evaluation" >&2
+  echo "run.sh: fixtures/t14_auto_annotation/gt not found (overlay giang vien chua cai) - bo qua evaluate" >&2
 fi
 $PY -m pytest -q

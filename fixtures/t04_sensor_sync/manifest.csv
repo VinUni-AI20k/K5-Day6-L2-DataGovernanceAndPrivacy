@@ -1,7 +1,0 @@
-file_id,path,source,license,split,group_id,sha256
-README_units,README_units.md,synthetic:tools/make_fixtures.py (seed 42),"CC0-1.0 (synthetic, generated for AI20K Day06)",na,na,2ef260690561cf33035c1e50d356ff91b4fcce4e7f2b16ffd58f828c4de13286
-camera,camera.csv,synthetic:tools/make_fixtures.py (seed 42),"CC0-1.0 (synthetic, generated for AI20K Day06)",na,na,e4c089f1a1ea05ee1d7db06238df245e8b0454d17a6e006b136dcffd1fd7fa49
-imu,imu.csv,synthetic:tools/make_fixtures.py (seed 42),"CC0-1.0 (synthetic, generated for AI20K Day06)",na,na,be14bd9f72c29f3ec1ddeeb77397d874b6ec6e93d2506e4157bbfbc7dfa7e112
-segments,segments.csv,synthetic:tools/make_fixtures.py (seed 42),"CC0-1.0 (synthetic, generated for AI20K Day06)",na,na,0436b9c059f495028fd3a1494cd0235c7f0d384274da843145f39081a922e06f
-camera_clock_reset,shock/camera_clock_reset.csv,synthetic:tools/make_fixtures.py (seed 42),"CC0-1.0 (synthetic, generated for AI20K Day06)",na,na,5a8b17a0b8fbc6834cab20a4053c81417f842f7b9c0b0cfedc01c3bd41d1fda1
-imu_clock_reset,shock/imu_clock_reset.csv,synthetic:tools/make_fixtures.py (seed 42),"CC0-1.0 (synthetic, generated for AI20K Day06)",na,na,4ad95c969674c742bad5820b5548c9633d39969175d9aebb4145d64529e4ea25
