@@ -129,7 +129,7 @@ pytest -q
 
 - Output của `pytest -q`: *exit 0, **0 failed**; test của nhóm `tests/test_t02_poc.py` = **4 passed** (success: flag ảnh dark + severity 2, policy REWORK/HOLD/GO; edge: nhóm 1 ảnh không crash, blockiness = 0 trên ảnh phẳng). Các test hạ tầng thiếu GT overlay giảng viên tự skip.*
 - Máy / CPU / OS / Python: *Windows 11, Python 3.12.10, Intel i5-13600KF (AMD64, Family 25 Model 80).*
-- git sha: *xem tag `final-24h` trên repo (commit cuối cùng); freeze nguồn = `6d445f4` (tag `demo-180m`).*
+- git sha: *xem tag `final-24h` trên repo (commit cuối cùng); freeze nguồn = `d6ad742` (tag `demo-180m`).*
 
 ## 09 · Limitations & ethics
 
