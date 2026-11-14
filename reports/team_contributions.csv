@@ -1,6 +1,8 @@
-member,git_author_name,git_email,role,modules_files,commit_shas,evidence_note,presenter
-Member 1,,,Lead / Integrator,src/main.py; configs/,,,
-Member 2,,,Data & fixtures,fixtures/; tools/,,,
-Member 3,,,Core algorithm,src/pipeline.py,,,
-Member 4,,,QA / metric,tests/; reports/metrics_*.json,,,
-Member 5,,,Human review + report,reports/group_report.md; demo/,,,
+﻿member,git_author_name,git_email,role,modules_files,commit_shas,evidence_note,presenter
+Member 1,rifujin123,tuankhoi000@gmail.com,Lead / Integrator,src/pipeline.py; configs/lab.yaml; end-to-end integration,,Phân công dự kiến; cập nhật theo đóng góp thực tế.,
+Member 2,,,Data & Provenance,fixtures/t02_raw_qc/; src/common/manifest.py; src/common/io.py,,Phân công dự kiến; cập nhật theo đóng góp thực tế.,
+Member 3,,,Core Algorithm & Baseline,src/pipeline.py; src/baseline_t02.py; src/common/image_ops.py,,Phân công dự kiến; cập nhật theo đóng góp thực tế.,
+Member 4,,,Human Review & Audit,src/common/review.py; review queue; audit log,,Phân công dự kiến; cập nhật theo đóng góp thực tế.,
+Member 5,,,Metric & Evaluation,docs/tracks/T02.md; src/metrics/tracks.py; evaluation protocol,,Phân công dự kiến; cập nhật theo đóng góp thực tế.,
+Member 6,,,QA & Reproducibility,tests/; tools/; offline and GT guard verification,,Phân công dự kiến; cập nhật theo đóng góp thực tế.,
+Member 7,,,Demo & Documentation,docs/ONBOARDING_T02.md; demo/t02_qc_triage_demo.html; logs.md,,Phân công dự kiến; cập nhật theo đóng góp thực tế.,
