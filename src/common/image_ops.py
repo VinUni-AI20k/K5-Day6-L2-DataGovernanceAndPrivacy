@@ -52,6 +52,51 @@ def brightness_stats(img: np.ndarray) -> dict:
     }
 
 
+def local_glare_stats(img: np.ndarray, grid: int = 4) -> dict:
+    """Return global and local saturated-pixel fractions.
+
+    The local maximum catches a small blown-out region that can be hidden by a
+    low whole-image saturation fraction. The grid is fixed and label-free.
+    """
+    gray = to_gray(img)
+    saturated = gray > 245
+    h, w = gray.shape
+    tile_values = []
+    for yi in range(grid):
+        y0, y1 = round(yi * h / grid), round((yi + 1) * h / grid)
+        for xi in range(grid):
+            x0, x1 = round(xi * w / grid), round((xi + 1) * w / grid)
+            tile = saturated[y0:y1, x0:x1]
+            if tile.size:
+                tile_values.append(float(tile.mean()))
+    return {
+        "frac_saturated": float(saturated.mean()),
+        "local_saturated_max": max(tile_values, default=0.0),
+    }
+
+
+def jpeg_blockiness(img: np.ndarray, block: int = 8) -> float:
+    """Estimate JPEG blocking as boundary contrast minus adjacent contrast.
+
+    JPEG grids are aligned to 8-pixel boundaries. A positive value means the
+    mean edge across those boundaries is stronger than nearby edges.
+    """
+    gray = to_gray(img)
+    horizontal = np.abs(np.diff(gray, axis=1))
+    vertical = np.abs(np.diff(gray, axis=0))
+    h_idx = np.arange(1, gray.shape[1])
+    v_idx = np.arange(1, gray.shape[0])
+    h_boundary = horizontal[:, (h_idx % block) == 0]
+    h_other = horizontal[:, (h_idx % block) != 0]
+    v_boundary = vertical[(v_idx % block) == 0, :]
+    v_other = vertical[(v_idx % block) != 0, :]
+    boundary = np.concatenate([h_boundary.ravel(), v_boundary.ravel()])
+    other = np.concatenate([h_other.ravel(), v_other.ravel()])
+    if not boundary.size or not other.size:
+        return 0.0
+    return max(0.0, float(boundary.mean() - other.mean()))
+
+
 def color_histogram(img: np.ndarray, bins: int = 16) -> np.ndarray:
     """Concatenated, L1-normalised per-channel histogram (len = 3*bins)."""
     hs = [np.histogram(img[..., c], bins=bins, range=(0, 256))[0] for c in range(3)]

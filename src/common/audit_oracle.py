@@ -29,6 +29,8 @@ class AuditOracle:
         except FileNotFoundError as e:
             raise FileNotFoundError(f"{gt_csv} not found: hidden audit labels ship only with the instructor overlay; "
                                     "T12 audits run in the instructor's grading environment (docs/INSTRUCTOR_SETUP.md)") from e
+        # Keep labels private in memory; callers receive only labels they
+        # explicitly request through inspect(), where the audit budget applies.
         self._label = {r[id_col]: int(r[label_col]) for r in rows}
         self._group = {r[id_col]: r[group_col] for r in rows} if group_col else {}
         self.budget_per_group = budget_per_group
@@ -40,6 +42,8 @@ class AuditOracle:
     def inspect(self, ids: list[str], actor: str = "auditor") -> dict[str, int]:
         out = {}
         for i in ids:
+            # Repeated inspection returns the cached label without consuming
+            # the budget a second time.
             if i in self.seen:
                 out[i] = self.seen[i]
                 continue

@@ -29,6 +29,8 @@ def build_manifest(
     root = Path(root)
     rows = []
     for f in sorted(str(Path(x)) for x in files):
+        # Store provenance fields and a content hash so later checks can detect
+        # missing files or changes to the data after the manifest was created.
         rows.append(
             {
                 "file_id": Path(f).stem,
@@ -60,6 +62,7 @@ def verify_manifest(manifest_path: str | Path) -> list[dict]:
     if missing_cols:
         return [{"problem": "schema", "detail": f"missing columns {missing_cols}"}]
     for row in df.itertuples(index=False):
+        # Manifest paths are interpreted relative to the folder containing it.
         fp = root / row.path
         if not fp.exists():
             problems.append({"problem": "missing_file", "path": row.path})

@@ -292,6 +292,8 @@ def eval_t07(gt_path: Path, pred_path: Path, cfg: dict) -> EvalOutput:
     red = pd.read_csv(pred_path)
     _need(red, ["image_id", "x", "y", "w", "h"], "redactions.csv")
     split = cfg.get("split", "eval")
+    # Score redactions only on the configured split; this keeps evaluation
+    # aligned with the intended holdout partition.
     pool = set(imgs.image_id) if split in (None, "all") else set(imgs.loc[imgs.split == split, "image_id"])
     red = red[red.image_id.isin(pool)]
     cov = float(cfg.get("min_coverage", 0.9))
@@ -326,6 +328,7 @@ def eval_t08(gt_path: Path, pred_path: Path, cfg: dict) -> EvalOutput:
     done = int((must.action == "delete").sum())
     exc = m[m.expected_action != "delete"]
     key_gt = set(zip(gt.request_id, gt.artefact_id))
+    # Deleting an artefact absent from the request scope is also a false delete.
     stray = pred[(pred.action == "delete") & ~pd.Series([k in key_gt for k in zip(pred.request_id, pred.artefact_id)], index=pred.index)]
     false_del = int((exc.action == "delete").sum()) + len(stray)
     ms = [
