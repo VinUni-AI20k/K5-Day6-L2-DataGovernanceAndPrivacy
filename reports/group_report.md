@@ -88,9 +88,9 @@
 
 | Slice | N | Baseline | PoC | Ghi chú |
 |---|---|---|---|---|
-| type = face / plate | | | | |
-| condition = small / dark / blur / occluded | | | | |
-| kích thước vùng nhỏ / vừa / lớn | | | | |
+| type = face / plate | Chờ GT | CSV skin không có cột type | 162 hộp mặt / 58 hộp biển số | |
+| condition = small / dark / blur / occluded | Chờ GT | Chờ GT | Chờ GT | |
+| kích thước vùng nhỏ / vừa / lớn | Chờ GT | Chờ GT | Chờ GT | |
 
 Số liệu mô tả output của PoC (đếm từ `out/poc/redactions.csv`, chưa phải metric vì chưa có GT — **chạy lại `make run TRACK=t07` trên máy nhóm để xác nhận trước khi nộp**): 222 vùng được che trên 60 ảnh, gồm 164 `face` và 58 `plate`; dev 98 face + 33 plate, eval 66 face + 25 plate; 6/60 ảnh không có vùng nào được che.
 
@@ -99,7 +99,7 @@ Số liệu mô tả output của PoC (đếm từ `out/poc/redactions.csv`, ch�
 - **Failure case 3 — che thừa (over-redaction) do nhầm vật không phải PII.** Bánh xe máy bị dò thành `face` ở `pii_35#5` (conf 0,353) và `pii_00#5` (conf 0,498); đầu người đi bộ nhìn từ sau (hard negative, không có nét mặt) bị che ở `pii_05#0` (conf 0,902), `pii_35#4` (conf 0,8), `pii_56#1` (conf 0,468); biển báo tròn đỏ bị che ở `pii_56#0` (conf 0,958). Root cause: điều kiện "cặp đốm tối + vùng tô đầy gần ô-van" cũng đúng với hai bánh xe hoặc một hình tròn đơn sắc. Các ca conf thấp lọt vào top-15 để người duyệt bác bỏ, nhưng các ca conf cao (0,8–0,96) thì **không** vào hàng chờ, nên `score = 1 − conf` chưa phải thước đo rủi ro đáng tin.
 - Failure mode thứ ba theo đề (upload raw PII lên cloud): rủi ro quy trình, xem mục 09.
 - Ảnh minh họa cho các failure case: ____ (đặt trong `demo/`)
-- Latency / compute (máy, CPU, ms/item): ____ (lấy từ `out/poc/run_info.json`)
+- Latency / compute (máy, CPU, ms/item): 0,8463 (lấy từ `out/poc/run_info.json`)
 
 ## 07 · Human & decision
 
