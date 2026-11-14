@@ -1,0 +1,94 @@
+<!doctype html>
+<html lang="vi">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>T14 Admin</title>
+<style>
+  :root { --bg:#f6f7f9; --card:#fff; --ink:#15181d; --mute:#5b6472; --line:#d9dde3; --ok:#14733a; --bad:#b42318; --warn:#9a5b00; }
+  * { box-sizing:border-box; }
+  body { margin:0; background:var(--bg); color:var(--ink); font:15px/1.5 system-ui,-apple-system,"Segoe UI",sans-serif; }
+  .wrap { max-width:1100px; margin:0 auto; padding:16px; }
+  h1 { font-size:18px; margin:0 0 10px; }
+  input, select, button { font:inherit; }
+  input, select { border:1px solid var(--line); border-radius:6px; padding:6px 8px; background:#fff; color:var(--ink); }
+  button { border:1px solid var(--ink); background:var(--ink); color:#fff; border-radius:6px; padding:6px 12px; cursor:pointer; }
+  button.ghost { background:#fff; color:var(--ink); }
+  .bar { display:flex; flex-wrap:wrap; gap:10px; align-items:center; margin-bottom:12px; }
+  .kpi span { display:inline-block; background:var(--card); border:1px solid var(--line); border-radius:8px; padding:4px 10px; margin-right:6px; }
+  table { width:100%; border-collapse:collapse; background:var(--card); border:1px solid var(--line); }
+  th, td { text-align:left; padding:6px 8px; border-bottom:1px solid var(--line); vertical-align:top; font-size:14px; }
+  th { background:#eef0f3; }
+  .s-conflict, .s-escalated { color:var(--bad); font-weight:600; }
+  .s-ok, .s-final { color:var(--ok); } .s-pending { color:var(--mute); }
+  .msg { min-height:22px; margin:8px 0; } .err { color:var(--bad); } .good { color:var(--ok); }
+  .final { display:flex; gap:4px; flex-wrap:wrap; }
+  .final input { width:120px; }
+  .tbl { overflow-x:auto; }
+</style>
+</head>
+<body><div class="wrap">
+  <h1>T14 · Admin: tiến độ, xung đột, chốt cuối</h1>
+  <div class="bar">
+    <input id="pass" type="password" placeholder="passcode admin" autocomplete="off">
+    <input id="me" placeholder="tên admin" maxlength="40">
+    <button id="load">Tải</button>
+    <button class="ghost" id="export">Tải review_queue_reviewed.csv</button>
+    <button class="ghost" id="audit">Tải audit (JSON)</button>
+  </div>
+  <div id="msg" class="msg"></div>
+  <div class="kpi" id="kpi"></div>
+  <p style="color:var(--mute);font-size:13px">Trạng thái: <b>ok</b> = mọi người duyệt giống nhau · <b>conflict</b> = khác nhau, cần admin chốt · <b>escalated</b> = có người nhờ admin xem · <b>final</b> = admin đã chốt (ưu tiên cao nhất).</p>
+  <div class="tbl"><table id="t"><thead><tr><th>#</th><th>Box</th><th>Trạng thái</th><th>Quyết định của từng người</th><th>Chốt (admin)</th></tr></thead><tbody></tbody></table></div>
+</div>
+<script>
+const $ = (id) => document.getElementById(id);
+let pass = "", classes = [];
+const store = { get(k){ try { return localStorage.getItem(k) || ""; } catch { return ""; } }, set(k,v){ try { localStorage.setItem(k,v); } catch {} } };
+$("me").value = store.get("t14_admin_name");
+const say = (t, c) => { $("msg").textContent = t; $("msg").className = "msg " + (c || ""); };
+async function api(path, opt = {}) {
+  const r = await fetch("/api" + path, { ...opt, headers: { "x-passcode": pass, "content-type": "application/json" } });
+  if (!r.ok) { const j = await r.json().catch(() => ({})); const e = new Error(j.error || r.status); e.items = j.items; throw e; }
+  return r;
+}
+const txt = (s) => String(s ?? "").replace(/[&<>"]/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]));
+const dl = async (path, file, type) => {
+  try { const r = await api(path); const b = await r.blob(); const a = document.createElement("a"); a.href = URL.createObjectURL(new Blob([b], { type })); a.download = file; a.click(); say("Đã tải " + file, "good"); }
+  catch (e) { say("Không tải được: " + e.message + (e.items ? " (" + e.items.join(", ") + ")" : ""), "err"); }
+};
+$("export").onclick = () => { pass = $("pass").value; dl("/export", "review_queue_reviewed.csv", "text/csv"); };
+$("audit").onclick = () => { pass = $("pass").value; dl("/audit", "audit.json", "application/json"); };
+$("load").onclick = load;
+
+async function load() {
+  pass = $("pass").value; store.set("t14_admin_name", $("me").value);
+  try {
+    const q = await (await fetch("/queue.json", { cache: "no-store" })).json(); classes = q.classes;
+    const byId = Object.fromEntries(q.items.map((i) => [i.item_id, i]));
+    const s = await (await api("/status")).json();
+    $("kpi").innerHTML = ["total", "pending", "ok", "final", "conflict", "escalated"].map((k) => `<span>${k}: <b>${s[k]}</b></span>`).join("");
+    const tb = document.querySelector("#t tbody"); tb.innerHTML = "";
+    const order = { conflict: 0, escalated: 1, pending: 2, ok: 3, final: 4 };
+    s.items.sort((a, b) => order[a.state] - order[b.state] || byId[a.item_id].rank - byId[b.item_id].rank).forEach((it) => {
+      const meta = byId[it.item_id];
+      const votes = Object.values(it.reviewers).map((r) => `${txt(r.reviewer)}: <b>${r.decision}</b>${r.override_value ? " → " + txt(r.override_value) : ""}${r.note ? " (" + txt(r.note) + ")" : ""}`).join("<br>") || "—";
+      const fin = it.admin ? `${it.admin.decision}${it.admin.override_value ? " → " + txt(it.admin.override_value) : ""} (${txt(it.admin.reviewer)})` : "";
+      const tr = document.createElement("tr");
+      tr.innerHTML = `<td>${meta.rank}</td><td>${txt(it.item_id)}<br><small>${txt(meta.target.class)} ${meta.target.conf.toFixed(2)} · ${txt(meta.reason)}</small></td>
+        <td class="s-${it.state}">${it.state}</td><td>${votes}</td>
+        <td>${fin}<div class="final"><select><option>approve</option><option>reject</option><option>edit</option></select>
+        <input placeholder="class[,x,y,w,h] nếu sửa"><button>Chốt</button></div></td>`;
+      tr.querySelector("button").onclick = async () => {
+        const me = $("me").value.trim(); if (me.length < 2) { say("Nhập tên admin", "err"); return; }
+        try {
+          await api("/decision", { method: "POST", body: JSON.stringify({ reviewer: me, item_id: it.item_id, decision: tr.querySelector("select").value, override_value: tr.querySelector("input").value, note: "admin final" }) });
+          say("Đã chốt " + it.item_id, "good"); load();
+        } catch (e) { say("Lỗi: " + e.message, "err"); }
+      };
+      tb.appendChild(tr);
+    });
+    say("Đã tải " + new Date().toLocaleTimeString(), "good");
+  } catch (e) { say("Không tải được: " + e.message, "err"); }
+}
+</script></body></html>

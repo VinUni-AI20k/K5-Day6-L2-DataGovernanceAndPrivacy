@@ -1,0 +1,8 @@
+name = "t14-review"
+compatibility_date = "2025-01-01"
+pages_build_output_dir = "public"
+
+[[d1_databases]]
+binding = "DB"
+database_name = "t14-review"
+database_id = "REPLACE_AFTER_d1_create"

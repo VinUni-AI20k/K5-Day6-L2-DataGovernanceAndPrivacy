@@ -1,0 +1,164 @@
+<!doctype html>
+<html lang="vi">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>T14 Review</title>
+<style>
+  :root { --bg:#f6f7f9; --card:#fff; --ink:#15181d; --mute:#5b6472; --line:#d9dde3; --ok:#14733a; --bad:#b42318; --warn:#9a5b00; --acc:#1f4fd8; }
+  * { box-sizing:border-box; }
+  body { margin:0; background:var(--bg); color:var(--ink); font:15px/1.5 system-ui,-apple-system,"Segoe UI",sans-serif; }
+  header { position:sticky; top:0; z-index:5; background:var(--card); border-bottom:1px solid var(--line); padding:10px 16px; }
+  .wrap { max-width:1100px; margin:0 auto; padding:0 16px; }
+  h1 { font-size:18px; margin:0 0 6px; }
+  .bar { display:flex; flex-wrap:wrap; gap:10px; align-items:center; }
+  input, select, textarea, button { font:inherit; }
+  input, select, textarea { border:1px solid var(--line); border-radius:6px; padding:6px 8px; background:#fff; color:var(--ink); }
+  button { border:1px solid var(--ink); background:var(--ink); color:#fff; border-radius:6px; padding:6px 12px; cursor:pointer; }
+  button.ghost { background:#fff; color:var(--ink); }
+  button.approve { background:var(--ok); border-color:var(--ok); }
+  button.reject { background:var(--bad); border-color:var(--bad); }
+  button:disabled { opacity:.5; cursor:default; }
+  .grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(480px,1fr)); gap:14px; padding:14px 0 60px; }
+  @media (max-width:560px) { .grid { grid-template-columns:1fr; } }
+  .card { background:var(--card); border:1px solid var(--line); border-radius:10px; padding:12px; }
+  .card.done { border-color:var(--ok); }
+  canvas { width:100%; height:auto; border:1px solid var(--line); border-radius:6px; background:#eee; display:block; }
+  .meta { color:var(--mute); font-size:13px; margin:6px 0; }
+  .tag { display:inline-block; border:1px solid var(--line); border-radius:999px; padding:0 8px; margin-right:4px; font-size:12px; }
+  .row { display:flex; flex-wrap:wrap; gap:6px; margin-top:8px; align-items:center; }
+  .edit { display:none; margin-top:8px; gap:6px; flex-wrap:wrap; }
+  .edit.on { display:flex; }
+  .edit input { width:64px; }
+  .status { font-size:13px; margin-top:6px; min-height:20px; }
+  .status.ok { color:var(--ok); } .status.err { color:var(--bad); }
+  #login { max-width:420px; margin:60px auto; background:var(--card); border:1px solid var(--line); border-radius:10px; padding:20px; }
+  #login label { display:block; margin:10px 0 4px; }
+  #login input { width:100%; }
+  .legend i { display:inline-block; width:10px; height:10px; margin:0 4px 0 10px; }
+</style>
+</head>
+<body>
+<div id="login">
+  <h1>T14 · Duyệt box</h1>
+  <p class="meta">Nhập tên của bạn và passcode do nhóm gửi. Mỗi lần bấm được lưu lại kèm tên và thời gian.</p>
+  <label for="name">Tên người duyệt</label><input id="name" autocomplete="name" maxlength="40">
+  <label for="pass">Passcode</label><input id="pass" type="password" autocomplete="off">
+  <div class="row"><button id="go">Vào duyệt</button></div>
+  <div id="lerr" class="status err"></div>
+</div>
+
+<div id="app" hidden>
+  <header><div class="wrap">
+    <h1>T14 · Duyệt box nghi ngờ</h1>
+    <div class="bar">
+      <span id="who"></span><span id="prog"></span>
+      <label><input type="checkbox" id="onlyTodo"> chỉ hiện box chưa duyệt</label>
+      <span class="legend"><i style="background:#d92d20"></i>box cần duyệt<i style="background:#7a828f"></i>box khác</span>
+      <button class="ghost" id="out">Đổi người</button>
+    </div>
+  </div></header>
+  <div class="wrap"><div class="grid" id="grid"></div></div>
+</div>
+
+<script>
+const $ = (id) => document.getElementById(id);
+const store = { get(k){ try { return localStorage.getItem(k) || ""; } catch { return ""; } },
+                set(k,v){ try { localStorage.setItem(k,v); } catch {} } };
+let Q, mine = {}, name = "", pass = "", role = "reviewer";
+
+async function api(path, opt = {}) {
+  const r = await fetch("/api" + path, { ...opt, headers: { "x-passcode": pass, "content-type": "application/json" } });
+  const j = await r.json().catch(() => ({}));
+  if (!r.ok) throw new Error(j.error || r.status);
+  return j;
+}
+
+$("name").value = store.get("t14_name");
+$("go").onclick = async () => {
+  name = $("name").value.trim(); pass = $("pass").value;
+  if (name.length < 2) { $("lerr").textContent = "Nhập tên (≥ 2 ký tự)"; return; }
+  try {
+    const m = await api("/mine?reviewer=" + encodeURIComponent(name));
+    role = m.role; mine = m.mine; store.set("t14_name", name);
+    Q = await (await fetch("/queue.json", { cache: "no-store" })).json();
+    $("login").hidden = true; $("app").hidden = false; render();
+  } catch (e) { $("lerr").textContent = "Không vào được: " + e.message; }
+};
+$("pass").addEventListener("keydown", (e) => { if (e.key === "Enter") $("go").click(); });
+$("out").onclick = () => location.reload();
+$("onlyTodo").onchange = () => render();
+
+function draw(cv, it) {
+  const img = new Image();
+  img.onload = () => {
+    cv.width = img.width; cv.height = img.height;
+    const c = cv.getContext("2d"); c.drawImage(img, 0, 0);
+    const s = img.width / it.width;
+    const box = (b, col, lw, lab) => {
+      c.strokeStyle = col; c.lineWidth = lw; c.strokeRect(b.x * s, b.y * s, b.w * s, b.h * s);
+      if (lab) { c.font = "bold " + Math.round(13 * s) + "px sans-serif"; c.fillStyle = col; c.fillText(lab, b.x * s, Math.max(12, b.y * s - 3)); }
+    };
+    it.others.forEach((o) => box(o, "#7a828f", 1, o.class));
+    box(it.target, "#d92d20", 3, it.target.class + " " + it.target.conf.toFixed(2));
+  };
+  img.src = it.image;
+}
+
+function label(m) {
+  if (!m) return "";
+  const t = { approve: "Giữ", reject: "Xóa", edit: "Sửa", escalate: "Cần admin xem", skip: "Bỏ qua" }[m.decision] || m.decision;
+  return "Đã lưu: " + t + (m.override_value ? " → " + m.override_value : "") + (m.note ? " · " + m.note : "");
+}
+
+function render() {
+  $("who").textContent = name + (role === "admin" ? " (admin)" : "");
+  const done = Q.items.filter((i) => mine[i.item_id] && mine[i.item_id].decision !== "skip").length;
+  $("prog").textContent = "Đã duyệt " + done + "/" + Q.items.length;
+  const g = $("grid"); g.innerHTML = "";
+  Q.items.filter((i) => !$("onlyTodo").checked || !mine[i.item_id] || mine[i.item_id].decision === "skip").forEach((it) => {
+    const d = document.createElement("div");
+    d.className = "card" + (mine[it.item_id] && mine[it.item_id].decision !== "skip" ? " done" : "");
+    const opts = Q.classes.map((c) => `<option>${c}</option>`).join("");
+    d.innerHTML = `<canvas></canvas>
+      <div class="meta"><b>#${it.rank}</b> ${it.item_id} · ${it.target.class} (conf ${it.target.conf.toFixed(2)}) ·
+        <span class="tag">${it.reason.split(";").join('</span><span class="tag">')}</span> gợi ý: ${it.suggested_action}</div>
+      <div class="row">
+        <button class="approve" data-d="approve">Giữ (đúng)</button>
+        <button class="reject" data-d="reject">Xóa (sai)</button>
+        <button class="ghost" data-d="editbtn">Sửa…</button>
+        <button class="ghost" data-d="escalate">Cần admin xem</button>
+        <button class="ghost" data-d="skip">Bỏ qua</button>
+      </div>
+      <div class="edit"><select class="cls"><option value="">giữ class</option>${opts}</select>
+        <input class="x" placeholder="x"><input class="y" placeholder="y"><input class="w" placeholder="w"><input class="h" placeholder="h">
+        <button data-d="edit">Lưu sửa</button></div>
+      <div class="row"><input class="note" placeholder="ghi chú (tùy chọn)" style="flex:1;min-width:160px"></div>
+      <div class="status ${mine[it.item_id] ? "ok" : ""}">${label(mine[it.item_id])}</div>`;
+    draw(d.querySelector("canvas"), it);
+    d.querySelector(".note").value = (mine[it.item_id] || {}).note || "";
+    d.addEventListener("click", async (e) => {
+      const b = e.target.closest("button"); if (!b) return;
+      const dec = b.dataset.d, st = d.querySelector(".status");
+      if (dec === "editbtn") { d.querySelector(".edit").classList.toggle("on"); return; }
+      let ov = "";
+      if (dec === "edit") {
+        const cls = d.querySelector(".cls").value;
+        const n = ["x", "y", "w", "h"].map((k) => d.querySelector("." + k).value.trim());
+        if (n.some(Boolean) && !n.every(Boolean)) { st.className = "status err"; st.textContent = "Nhập đủ x, y, w, h hoặc để trống cả 4"; return; }
+        ov = [cls, ...(n.every(Boolean) ? n : [])].filter(Boolean).join(",");
+        if (!ov) { st.className = "status err"; st.textContent = "Chọn class mới hoặc nhập box"; return; }
+      }
+      try {
+        b.disabled = true;
+        await api("/decision", { method: "POST", body: JSON.stringify({ reviewer: name, item_id: it.item_id, decision: dec, override_value: ov, note: d.querySelector(".note").value }) });
+        mine[it.item_id] = { decision: dec, override_value: ov, note: d.querySelector(".note").value };
+        const keepScroll = scrollY; render(); scrollTo(0, keepScroll);
+      } catch (err) { st.className = "status err"; st.textContent = "Lỗi: " + err.message; b.disabled = false; }
+    });
+    g.appendChild(d);
+  });
+}
+</script>
+</body>
+</html>
