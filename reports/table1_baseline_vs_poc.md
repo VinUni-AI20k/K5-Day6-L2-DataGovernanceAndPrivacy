@@ -1,4 +1,4 @@
-Baseline: `baseline` (git 5de3566, seed 42) · PoC: `poc_v1` (git 5de3566, seed 42)
+Baseline: `baseline` (git e9e08fd, seed 42) · PoC: `poc_v1` (git e9e08fd, seed 42)
 
 | Metric (unit) | Slice | Baseline | PoC | Δ abs | Δ rel | Better | N |
 |---|---|---|---|---|---|---|---|
@@ -8,4 +8,4 @@ Baseline: `baseline` (git 5de3566, seed 42) · PoC: `poc_v1` (git 5de3566, seed 
 | False alarm in top-B (clean images in top-B / clean images) | light=day | 0.0000 | 0.0000 | 0.0000 | baseline=0 | lower | 20 |
 | False alarm in top-B (clean images in top-B / clean images) | light=dusk | 0.0000 | 0.0000 | 0.0000 | baseline=0 | lower | 4 |
 | False alarm in top-B (clean images in top-B / clean images) | light=night | 0.0000 | 0.0000 | 0.0000 | baseline=0 | lower | 16 |
-| Runtime / 100 items (s) | all | 0.3390 | 0.7657 | | | lower | |
+| Runtime / 100 items (s) | all | 0.3694 | 0.7231 | | | lower | |
