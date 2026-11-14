@@ -1,6 +1,7 @@
 member,git_author_name,git_email,role,modules_files,commit_shas,evidence_note,presenter
-Member 1,,,Lead / Integrator,src/main.py; configs/,,,
-Member 2,,,Data & fixtures,fixtures/; tools/,,,
-Member 3,,,Core algorithm,src/pipeline.py,,,
-Member 4,,,QA / metric,tests/; reports/metrics_*.json,,,
-Member 5,,,Human review + report,reports/group_report.md; demo/,,,
+P1,Tân Tân,127222526+tantan294@users.noreply.github.com,Lead / Integrator,configs/lab.yaml; .gitattributes; merge PRs,d12b691; d9ca826,Merge PR #1 (hoang) va PR #2 (nhat); chot config G02/T08,yes
+P2 Nguyen Viet Minh Hoang (2A202603281),hoanghamhok,dkfbrip@gmail.com,Data & fixtures,reports/t08_exceptions.md; reports/t08_internal_key.csv; tools/t08_selfcheck.py; src/t08_poc.py,f7a517c; 76b93d1; 822693a,Danh sach 8 loai ngoai le E1-E8 + dap an noi bo 3 request + self-check,
+P3,Nhat Nguyen,102636374+Edelxz@users.noreply.github.com,Core: lineage & policy,src/pipeline.py (load/process/classify); reports/t08_interface.md,73eece7,BFS lineage theo subject + policy precedence,
+P4,Đạt (datpro-sudo),nguyentiendat.qc2004@gmail.com,Core: review & thuc thi,src/pipeline.py (rank/review/execute/decide),398da62; d31f355,Review queue + dry-run tombstone idempotent + GO/HOLD,
+P5,NguyenCongBaoLong,katsu0139@gmail.com,QA / metric + baseline,src/baselines/t08_raw_only.py; tests/test_t08_pipeline.py; reports/t08_ablation.md; reports/metric_contract.md,59afdc6,Baseline raw-only + 7 test T08 + ablation legal_hold_inherit,
+P6,NhatNguyen28122003,nhata4dx@gmail.com,Human reviewer + report + slide,reports/review_queue.csv; reports/decision_log.csv; reports/audit_review_entries.jsonl; reports/group_report.md; reports/t08_slides.md,(commit P6 - dien sau khi commit),Ky duyet 56 ngoai le (52 approve / 4 escalate) -> decision HOLD->GO; viet muc 03-11 + 2 failure case + so sanh DROP,yes
