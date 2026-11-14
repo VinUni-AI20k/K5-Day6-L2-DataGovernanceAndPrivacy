@@ -1,0 +1,18 @@
+[
+  {
+    "request_id": "REQ-A",
+    "subject_id": "A",
+    "identity_verified": true,
+    "received_at": "2026-11-01T09:00:00+07:00",
+    "deadline": "2026-12-01T09:00:00+07:00",
+    "channel": "app"
+  },
+  {
+    "request_id": "REQ-B",
+    "subject_id": "B",
+    "identity_verified": true,
+    "received_at": "2026-11-01T09:00:00+07:00",
+    "deadline": "2026-12-01T09:00:00+07:00",
+    "channel": "app"
+  }
+]
