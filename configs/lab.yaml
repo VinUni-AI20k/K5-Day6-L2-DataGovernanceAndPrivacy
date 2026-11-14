@@ -2,8 +2,8 @@
 # Group config — EDIT ME (one per group). Values here override
 # the track defaults loaded from `track_config`.
 # ============================================================
-group_id: G00                     # e.g. G07
-owner: "TODO: tên người ký duyệt (role)"   # mandatory for every Decision
+group_id: NhomDay6                     # e.g. G07
+owner: "Lê Đức Thanh - Lead"   # mandatory for every Decision
 track_config: tracks/t02.yaml     # pick your challenge: tracks/t01.yaml ... tracks/t14.yaml
 track: t02                        # must match track_config
 input: fixtures/t02_raw_qc        # or data/real/... if your instructor provided a real pack
