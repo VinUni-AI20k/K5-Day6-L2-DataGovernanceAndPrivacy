@@ -10,7 +10,7 @@
 | Group ID | G01 |
 | Challenge | T02 · Raw QC Triage: ảnh mờ, lóa và thiếu sáng |
 | Thành viên (5) + vai trò | 1. Hoang Sy Khiem (Lead / Integrator / Core Algorithm) · 2. Nguyen Van A (Data & Provenance) · 3. Tran Thi B (QA & Metrics Lead) · 4. Le Van C (Human-in-the-loop Reviewer) · 5. Pham Minh D (Documentation & Ethics) |
-| Git URL | https://github.com/hoangkhiem3523/K5-Day6-L2-DataGovernanceAndPrivacy |
+| Git URL | https://github.com/hoangkhiem3523/K5-L2-DAY06-HoangSyKhiem-2A202603244-DataGovernanceAndPrivacy |
 | Tag `demo-180m` (commit) | `41a89d9` |
 | Tag `final-24h` (commit) | `41a89d9` |
 | Deadline (giờ VN) | 2026-11-14 23:59 (GMT+7) |
