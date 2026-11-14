@@ -1,4 +1,4 @@
-# T08 · Delete Request Simulator — G02 (5 slide)
+# T08 · Delete Request Simulator — ABC (5 slide)
 
 ---
 
@@ -39,11 +39,11 @@ Policy: **legal hold > hold kế thừa > identity > ACL > origin unknown > nhi�
 | Legal hold + bản sao (DR-002, DR-005) | 31 | approve → giữ, hẹn xóa khi legal gỡ hold |
 | `a0156` backup do vendor-x giữ | 1 | **escalate** → chuyển yêu cầu sang vendor-x |
 | 3 embedding không rõ nguồn (DR-004) | 3 | **escalate** → data owner xác minh trong 7 ngày |
-| Frame/annotation chung 2 người | 12 | approve escalate → che/tách |
-| Training export 9–10 người | 9 | approve escalate → export mới + đánh giá unlearning |
+| Frame/annotation chung 2 người | 12 | approve (giữ escalate) → che/tách |
+| Training export 9–10 người | 9 | approve (giữ escalate) → export mới + đánh giá unlearning |
 
 - Reviewer phát hiện thêm: frame `a0067`/`a0123` có **cả 2 người cùng yêu cầu xóa** → gộp yêu cầu; export `a0211`/`a0212` chứa subj_03/07 đang hold → **không sửa bản gốc**.
-- `decision.json`: **HOLD** (56 chờ ký) → **GO** (0 chờ), owner = P6; 56 dòng `review:*` trong `audit_log.jsonl`.
+- `decision.json`: **HOLD** (56 chờ ký) → **GO** (0 chờ), reviewer = P6; owner lấy từ `lab.yaml` (log 14/11 ghi P6, chạy lại trên `main` ghi P1 — Lead); 56 dòng `review:*` trong `audit_log.jsonl` (52 approve / 4 escalate).
 
 ---
 
@@ -60,5 +60,5 @@ Policy: **legal hold > hold kế thừa > identity > ACL > origin unknown > nhi�
 
 - 35% cặp (56/158) phải người duyệt → scale 10× cần duyệt theo cụm (1 quyết định / 1 hold) + SLA.
 - Ablation `legal_hold_inherit=false`: 128 delete, tự kiểm false-delete 13 → nhóm chọn giữ thừa (xóa sau được) hơn xóa nhầm (không phục hồi).
-- Tái lập: `python -m src.main --config configs/lab.yaml --output out/poc --offline --seed 42` · `pytest -q` → 54 passed, 39 skipped · chạy 2 lần cho kết quả giống hệt.
+- Tái lập: chạy PoC → HOLD · chép `reports/review_queue.csv` → `out/poc/review_queue_reviewed.csv` · chạy lại → GO (lệnh đầy đủ ở report mục 08) · `pytest -q` → 54 passed, 39 skipped · chạy 2 lần cho `actions.csv` giống hệt.
 - Tiếp theo: tự mở lại request khi gỡ hold · stub thông báo vendor-x · demo `dry_run: false` với tombstone + resume.
