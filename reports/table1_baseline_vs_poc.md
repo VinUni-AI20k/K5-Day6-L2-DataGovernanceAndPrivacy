@@ -1,18 +1,11 @@
-# T02 — Baseline vs PoC v1 (40 nhan eval, B=20)
+Baseline: `baseline` (git 5de3566, seed 42) · PoC: `poc_v1` (git 5de3566, seed 42)
 
-Tu dong tao boi `src.compare`, khong duoc sua tay.
-
-| Chuan | Baseline | PoC v1 | Chenh lech |
-|---|---:|---:|---:|
-| Defect Recall@B (all) | 0.8696 | 0.8696 | +0.0000 |
-| Defect-type accuracy (GT defects) (all) | 0.3043 | 0.8696 | +0.5652 |
-| False alarm in top-B (light=day) | 0.0000 | 0.0000 | +0.0000 |
-| False alarm in top-B (light=dusk) | 0.0000 | 0.0000 | +0.0000 |
-| False alarm in top-B (light=night) | 0.0000 | 0.0000 | +0.0000 |
-| Precision@B (all) | 1.0000 | 1.0000 | +0.0000 |
-
-## Ket luan
-
-- PoC v1 va baseline bang nhau tren Recall@20 (0.8696) va Precision@20 (1.0000), false alarm = 0 tat ca slice.
-- PoC v1 thang ro tren Defect-type accuracy: 0.8696 vs 0.3043 (+0.5653).
-- Nguong da freeze tren 56 nhan dev, khong chinh tren eval.
+| Metric (unit) | Slice | Baseline | PoC | Δ abs | Δ rel | Better | N |
+|---|---|---|---|---|---|---|---|
+| **Defect Recall@B** (GT defects in top-B / GT defects) | all | 0.8696 | 0.8696 | 0.0000 | +0.0% | higher | 40 |
+| Precision@B (GT defects in top-B / B) | all | 1.0000 | 1.0000 | 0.0000 | +0.0% | higher | 40 |
+| Defect-type accuracy (GT defects) (fraction) | all | 0.3043 | 0.8696 | 0.5652 | +185.7% | higher | 23 |
+| False alarm in top-B (clean images in top-B / clean images) | light=day | 0.0000 | 0.0000 | 0.0000 | baseline=0 | lower | 20 |
+| False alarm in top-B (clean images in top-B / clean images) | light=dusk | 0.0000 | 0.0000 | 0.0000 | baseline=0 | lower | 4 |
+| False alarm in top-B (clean images in top-B / clean images) | light=night | 0.0000 | 0.0000 | 0.0000 | baseline=0 | lower | 16 |
+| Runtime / 100 items (s) | all | 0.3390 | 0.7657 | | | lower | |
