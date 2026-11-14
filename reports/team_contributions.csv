@@ -1,6 +1,7 @@
 member,git_author_name,git_email,role,modules_files,commit_shas,evidence_note,presenter
-Member 1,,,Lead / Integrator,src/main.py; configs/,,,
-Member 2,,,Data & fixtures,fixtures/; tools/,,,
-Member 3,,,Core algorithm,src/pipeline.py,,,
-Member 4,,,QA / metric,tests/; reports/metrics_*.json,,,
-Member 5,,,Human review + report,reports/group_report.md; demo/,,,
+Member 1,,,Tech Lead / Integrator,src/main.py; configs/lab.yaml; configs/tracks/t03.yaml; Makefile,,E2E contract & offline runner,yes
+Member 2,,,Data Governance & Provenance,fixtures/t03_synthetic/; tools/verify_manifests.py; src/common/manifest.py,,SHA256 verification & transform_manifest,
+Member 3,,,Synthetic Generator & Baseline,src/common/corruptions.py; src/pipeline_baseline.py,,Synthetic dev generation & baseline evaluation,
+Member 4,,,Quality Gate Algorithm (Core PoC),src/pipeline.py (process); src/common/image_ops.py,,Glare/Erase detection & F1 optimization,
+Member 5,,,Human-in-the-Loop & Decision Policy,src/pipeline.py (rank/review/decide); src/common/review.py; src/common/contact_sheet.py; src/common/decision.py,,Review queue & offline contact sheet & audit log,
+Member 6,,,QA Benchmarking & Reporting,tests/test_t03.py; reports/group_report.md; reports/metric_contract.md; demo/,,Automated test suite & group report & demo slides,yes
