@@ -11,7 +11,7 @@
 | Challenge | T02 · Raw QC Triage |
 | Thành viên + vai trò | 1. Nguyễn Thế Tùng, 2A202603320 (Lead/Integrator) · 2. ____ · 3. ____ · 4. ____ |
 | Git URL | https://github.com/entity-solo/K5-L2B-DAY06-NguyenTheTung-2A202603320-DataGovernanceAndPrivacy |
-| Tag `demo-180m` (commit) | `6d445f4` (freeze PoC + baseline + eval trước HITL) |
+| Tag `demo-180m` (commit) | `d6ad742` (freeze PoC + baseline + eval trước HITL) |
 | Tag `final-24h` (commit) | tag `final-24h` trên repo = commit cuối cùng |
 | Deadline (giờ VN) | 2026-11-14T17:00:00+07:00 |
 
@@ -48,10 +48,10 @@
 ## 04 · Baseline vs PoC
 
 **Baseline (mô tả, version/config, commit):**
-`src/baselines/t02_laplacian.py` — ảnh có `laplacian_variance < 760` bị flag. T = 760 re-freeze trên 56 nhãn dev (mọi T ∈ (745, 772.7] cho cùng tập quyết định). Commit `6d445f4`.
+`src/baselines/t02_laplacian.py` — ảnh có `laplacian_variance < 760` bị flag. T = 760 re-freeze trên 56 nhãn dev (mọi T ∈ (745, 772.7] cho cùng tập quyết định). Commit `d6ad742`.
 
 **PoC v1 (mô tả, version/config, commit):**
-`src/poc/t02_v1.py` — 4 feature nhóm + ngưỡng frozen: dark `{0.596, 0.124}`, blur `{0.205, 0.032}`, compression `{1.47, 2.06}`, glare `{0.0022, 0.006}` (lo, hi). Calibrate trên đủ 56 nhãn dev (`tools/_t02_calibrate.py`, LOSO: FP 1/22, FN 3/34). Commit `6d445f4`.
+`src/poc/t02_v1.py` — 4 feature nhóm + ngưỡng frozen: dark `{0.596, 0.124}`, blur `{0.205, 0.032}`, compression `{1.47, 2.06}`, glare `{0.0022, 0.006}` (lo, hi). Calibrate trên đủ 56 nhãn dev (`tools/_t02_calibrate.py`, LOSO: FP 1/22, FN 3/34). Commit `d6ad742`.
 
 **Cùng budget / cùng heldout / cùng seed: xác nhận** ✅ *Cùng seed 42, cùng B=20, cùng pool 96 ảnh, cùng GT eval 40 nhãn (`reports/eval_gt_from_Evalimg.txt.csv`); run_info ghi git sha như nhau cho 2 run.*
 
@@ -71,7 +71,7 @@ Ghi chú trung thực: *Recall@20 và Precision@20 bằng nhau cho cả hai mode
 ## 05 · Evaluation protocol
 
 - Công thức primary metric, đơn vị, TP/FP/FN, denominator: *Defect Recall@B = #GT defect trong top-B / #GT defect tổng (denominator = 23 trên eval N=40, B=20). TP = defect nằm trong top-20; FP = ảnh clean nằm trong top-20; FN = defect nằm ngoài top-20.*
-- Threshold / budget B / K và lúc chốt: *Ngưỡng lo/hi và baseline T=760 freeze trên 56 nhãn dev TRƯỚC khi nhận 40 eval labels; B=20 chốt từ đề. Lúc chốt: commit `6d445f4` (tag `demo-180m`).*
+- Threshold / budget B / K và lúc chốt: *Ngưỡng lo/hi và baseline T=760 freeze trên 56 nhãn dev TRƯỚC khi nhận 40 eval labels; B=20 chốt từ đề. Lúc chốt: commit `d6ad742` (tag `demo-180m`).*
 - Độ bất định (CI/bootstrap/variance) khi N nhỏ: *N=40 (23 defect) quá nhỏ để bootstrap đáng tin → báo đầy đủ num/den (20/23) thay vì số làm tròn; mọi chênh lệch < 2 mẫu giữa 2 model được coi là không có ý nghĩa.*
 - Lệnh evaluate chính xác:
   `python -m src.evaluate --track t02 --gt reports/eval_gt_from_Evalimg.txt.csv --pred out/poc_v1/ranked_review.csv --run-name poc_v1 --out reports/metrics_poc.json`
@@ -144,7 +144,7 @@ pytest -q
 
 | Học viên | Git author/email | Module / vai trò | Commit SHA / diff chứng minh | Trình bày? |
 |---|---|---|---|---|
-| Nguyễn Thế Tùng (2A202603320) | 26ai.tungnt4@vinuni.edu.vn (commit: entity-solo@users.noreply.github.com) | Lead/Integrator: labels + calibration + PoC v1 + baseline re-freeze + eval + report | `6d445f4` (PoC + eval hoàn chỉnh), `2bf7a89` (review queue + decision log) | ☑ |
+| Nguyễn Thế Tùng (2A202603320) | 26ai.tungnt4@vinuni.edu.vn (commit: entity-solo@users.noreply.github.com) | Lead/Integrator: labels + calibration + PoC v1 + baseline re-freeze + eval + report | `d6ad742` (PoC + eval hoàn chỉnh), `944d9da` (review queue + decision log) | ☑ |
 | Member 2 | ____ | Data & fixtures | — | |
 | Member 3 | ____ | Core algorithm | — | |
 | Member 4 | ____ | QA/metric | — | |
