@@ -1,0 +1,88 @@
+{
+  "generated_at": null,
+  "track": "t02",
+  "n_items": null,
+  "budget": null,
+  "metrics": [
+    {
+      "name": "Defect Recall@B",
+      "value": 0.8695652173913043,
+      "direction": "higher",
+      "unit": "GT defects in top-B / GT defects",
+      "numerator": 20,
+      "denominator": 23,
+      "n": 40,
+      "slice": "all",
+      "primary": true,
+      "notes": "",
+      "extra": {}
+    },
+    {
+      "name": "Precision@B",
+      "value": 1.0,
+      "direction": "higher",
+      "unit": "GT defects in top-B / B",
+      "numerator": 20,
+      "denominator": 20,
+      "n": 40,
+      "slice": "all",
+      "primary": false,
+      "notes": "",
+      "extra": {}
+    },
+    {
+      "name": "Defect-type accuracy (GT defects)",
+      "value": 0.8695652173913043,
+      "direction": "higher",
+      "unit": "fraction",
+      "numerator": null,
+      "denominator": null,
+      "n": 23,
+      "slice": "all",
+      "primary": false,
+      "notes": "",
+      "extra": {}
+    },
+    {
+      "name": "False alarm in top-B",
+      "value": 0.0,
+      "direction": "lower",
+      "unit": "clean images in top-B / clean images",
+      "numerator": 0,
+      "denominator": 10,
+      "n": 20,
+      "slice": "light=day",
+      "primary": false,
+      "notes": "",
+      "extra": {}
+    },
+    {
+      "name": "False alarm in top-B",
+      "value": 0.0,
+      "direction": "lower",
+      "unit": "clean images in top-B / clean images",
+      "numerator": 0,
+      "denominator": 1,
+      "n": 4,
+      "slice": "light=dusk",
+      "primary": false,
+      "notes": "",
+      "extra": {}
+    },
+    {
+      "name": "False alarm in top-B",
+      "value": 0.0,
+      "direction": "lower",
+      "unit": "clean images in top-B / clean images",
+      "numerator": 0,
+      "denominator": 6,
+      "n": 16,
+      "slice": "light=night",
+      "primary": false,
+      "notes": "",
+      "extra": {}
+    }
+  ],
+  "slices": [],
+  "notes": []
+}
