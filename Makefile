@@ -4,10 +4,10 @@ TRACK ?= t02
 OUT ?= out
 PRED = $(shell $(PY) -c "from src.metrics.tracks import get_track;print(get_track('$(TRACK)').pred_file)")
 
-.PHONY: help setup preflight test fixtures verify baseline run eval-baseline eval-poc compare real-data tag-demo tag-final
+.PHONY: help setup preflight test fixtures verify baseline baseline-t02 run eval-baseline eval-poc compare real-data tag-demo tag-final
 
 help:
-	@echo "make setup | preflight | test | verify | baseline TRACK=t11 | run TRACK=t02 | eval-baseline | eval-poc | compare"
+	@echo "make setup | preflight | test | verify | baseline TRACK=t11 | baseline-t02 | run TRACK=t02 | eval-baseline | eval-poc | compare"
 
 setup:
 	python3 -m venv .venv && $(PY) -m pip install -q --upgrade pip && $(PY) -m pip install -q -r requirements.txt
@@ -27,6 +27,9 @@ fixtures:            ## instructor only: regenerate fixtures (needs the private 
 
 baseline:            ## random baseline wiring example (t01, t02, t11, t13)
 	$(PY) -m src.main --track $(TRACK) --pipeline src.examples.random_baseline --output $(OUT)/baseline --run-name baseline --offline --seed 42
+
+baseline-t02:        ## whole-image Laplacian baseline for T02
+	$(PY) -m src.main --track t02 --pipeline src.t02.baseline --output $(OUT)/baseline_laplacian --run-name baseline --offline --seed 42
 
 run:                 ## your PoC (src/pipeline.py)
 	$(PY) -m src.main --config configs/lab.yaml --track $(TRACK) --output $(OUT)/poc --run-name poc --offline --seed 42
