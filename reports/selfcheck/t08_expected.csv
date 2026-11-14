@@ -1,0 +1,159 @@
+request_id,artefact_id,type,n_subjects,legal_hold,acl,origin_known,parent_ids,expected_action,label_note
+DR-001,a0011,frame,2,,data-platform,True,a0001,escalate,R7 dung chung 2 nguoi
+DR-001,a0014,annotation,2,,data-platform,True,a0011,escalate,R7 dung chung 2 nguoi
+DR-001,a0015,raw_video,1,,data-platform,True,,delete,
+DR-001,a0016,backup,1,,data-platform,True,a0015,delete,
+DR-001,a0017,frame,1,,data-platform,True,a0015,delete,
+DR-001,a0018,face_crop,1,,data-platform,True,a0017,delete,
+DR-001,a0019,embedding,1,,data-platform,True,a0018,delete,
+DR-001,a0020,annotation,1,,data-platform,True,a0017,delete,
+DR-001,a0021,frame,1,,data-platform,True,a0015,delete,
+DR-001,a0022,face_crop,1,,data-platform,True,a0021,delete,
+DR-001,a0023,embedding,1,,data-platform,True,a0022,delete,
+DR-001,a0024,annotation,1,,data-platform,True,a0021,delete,
+DR-001,a0025,frame,1,,data-platform,True,a0015,delete,
+DR-001,a0026,face_crop,1,,data-platform,True,a0025,delete,
+DR-001,a0027,embedding,1,,data-platform,True,a0026,delete,
+DR-001,a0028,annotation,1,,data-platform,True,a0025,delete,
+DR-001,a0212,training_export,9,,data-platform,True,a0018;a0022;a0106;a0026;a0186;a0088;a0012;a0152;a0008;a0074;a0064;a0032,retain_legal_hold,"R3 export la hau due cua a0106 (subj_07, hold LH-2026-07)"
+DR-002,a0043,raw_video,1,LH-2026-03,data-platform,True,,retain_legal_hold,R2 R2/R3 subj_03: raw a0043 LH-2026-03 + ca cay con
+DR-002,a0044,backup,1,,data-platform,True,a0043,retain_legal_hold,R3 R2/R3 subj_03: raw a0043 LH-2026-03 + ca cay con
+DR-002,a0045,frame,1,,data-platform,True,a0043,retain_legal_hold,R3 R2/R3 subj_03: raw a0043 LH-2026-03 + ca cay con
+DR-002,a0046,face_crop,1,,data-platform,True,a0045,retain_legal_hold,R3 R2/R3 subj_03: raw a0043 LH-2026-03 + ca cay con
+DR-002,a0047,embedding,1,,data-platform,True,a0046,retain_legal_hold,R3 R2/R3 subj_03: raw a0043 LH-2026-03 + ca cay con
+DR-002,a0048,annotation,1,,data-platform,True,a0045,retain_legal_hold,R3 R2/R3 subj_03: raw a0043 LH-2026-03 + ca cay con
+DR-002,a0049,frame,1,,data-platform,True,a0043,retain_legal_hold,R3 R2/R3 subj_03: raw a0043 LH-2026-03 + ca cay con
+DR-002,a0050,face_crop,1,,data-platform,True,a0049,retain_legal_hold,R3 R2/R3 subj_03: raw a0043 LH-2026-03 + ca cay con
+DR-002,a0051,embedding,1,,data-platform,True,a0050,retain_legal_hold,R3 R2/R3 subj_03: raw a0043 LH-2026-03 + ca cay con
+DR-002,a0052,annotation,1,,data-platform,True,a0049,retain_legal_hold,R3 R2/R3 subj_03: raw a0043 LH-2026-03 + ca cay con
+DR-002,a0053,frame,1,,data-platform,True,a0043,retain_legal_hold,R3 R2/R3 subj_03: raw a0043 LH-2026-03 + ca cay con
+DR-002,a0054,face_crop,1,,data-platform,True,a0053,retain_legal_hold,R3 R2/R3 subj_03: raw a0043 LH-2026-03 + ca cay con
+DR-002,a0055,embedding,1,,data-platform,True,a0054,retain_legal_hold,R3 R2/R3 subj_03: raw a0043 LH-2026-03 + ca cay con
+DR-002,a0056,annotation,1,,data-platform,True,a0053,retain_legal_hold,R3 R2/R3 subj_03: raw a0043 LH-2026-03 + ca cay con
+DR-002,a0211,training_export,10,,data-platform,True,a0166;a0068;a0152;a0092;a0106;a0046;a0176;a0200;a0130;a0148;a0060;a0082,retain_legal_hold,R3 R2/R3 subj_03: raw a0043 LH-2026-03 + ca cay con
+DR-003,a0057,raw_video,1,,data-platform,True,,delete,
+DR-003,a0058,backup,1,,data-platform,True,a0057,delete,
+DR-003,a0059,frame,1,,data-platform,True,a0057,delete,
+DR-003,a0060,face_crop,1,,data-platform,True,a0059,delete,
+DR-003,a0061,embedding,1,,data-platform,True,a0060,delete,
+DR-003,a0062,annotation,1,,data-platform,True,a0059,delete,
+DR-003,a0063,frame,1,,data-platform,True,a0057,delete,
+DR-003,a0064,face_crop,1,,data-platform,True,a0063,delete,
+DR-003,a0065,embedding,1,,data-platform,True,a0064,delete,
+DR-003,a0066,annotation,1,,data-platform,True,a0063,delete,
+DR-003,a0067,frame,2,,data-platform,True,a0057,escalate,R7 dung chung 2 nguoi
+DR-003,a0068,face_crop,1,,data-platform,True,a0067,delete,
+DR-003,a0069,embedding,1,,data-platform,True,a0068,delete,
+DR-003,a0070,annotation,2,,data-platform,True,a0067,escalate,R7 dung chung 2 nguoi
+DR-003,a0211,training_export,10,,data-platform,True,a0166;a0068;a0152;a0092;a0106;a0046;a0176;a0200;a0130;a0148;a0060;a0082,retain_legal_hold,"R3 export la hau due cua a0046 (crop subj_03, hold LH-2026-03)"
+DR-003,a0212,training_export,9,,data-platform,True,a0018;a0022;a0106;a0026;a0186;a0088;a0012;a0152;a0008;a0074;a0064;a0032,retain_legal_hold,"R3 export la hau due cua a0106 (subj_07, hold LH-2026-07)"
+DR-004,a0067,frame,2,,data-platform,True,a0057,escalate,R7 dung chung 2 nguoi
+DR-004,a0070,annotation,2,,data-platform,True,a0067,escalate,R7 dung chung 2 nguoi
+DR-004,a0071,raw_video,1,,data-platform,True,,delete,
+DR-004,a0072,backup,1,,data-platform,True,a0071,delete,
+DR-004,a0073,frame,1,,data-platform,True,a0071,delete,
+DR-004,a0074,face_crop,1,,data-platform,True,a0073,delete,
+DR-004,a0075,embedding,1,,data-platform,False,a0074,escalate,R5 embedding origin_known=false
+DR-004,a0076,annotation,1,,data-platform,True,a0073,delete,
+DR-004,a0077,frame,1,,data-platform,True,a0071,delete,
+DR-004,a0078,face_crop,1,,data-platform,True,a0077,delete,
+DR-004,a0079,embedding,1,,data-platform,False,a0078,escalate,R5 embedding origin_known=false
+DR-004,a0080,annotation,1,,data-platform,True,a0077,delete,
+DR-004,a0081,frame,1,,data-platform,True,a0071,delete,
+DR-004,a0082,face_crop,1,,data-platform,True,a0081,delete,
+DR-004,a0083,embedding,1,,data-platform,False,a0082,escalate,R5 embedding origin_known=false
+DR-004,a0084,annotation,1,,data-platform,True,a0081,delete,
+DR-004,a0211,training_export,10,,data-platform,True,a0166;a0068;a0152;a0092;a0106;a0046;a0176;a0200;a0130;a0148;a0060;a0082,retain_legal_hold,"R3 export la hau due cua a0046 (crop subj_03, hold LH-2026-03)"
+DR-004,a0212,training_export,9,,data-platform,True,a0018;a0022;a0106;a0026;a0186;a0088;a0012;a0152;a0008;a0074;a0064;a0032,retain_legal_hold,"R3 export la hau due cua a0106 (subj_07, hold LH-2026-07)"
+DR-005,a0099,raw_video,1,LH-2026-07,data-platform,True,,retain_legal_hold,R2 R2/R3 subj_07: raw a0099 LH-2026-07 + ca cay con
+DR-005,a0100,backup,1,,data-platform,True,a0099,retain_legal_hold,R3 R2/R3 subj_07: raw a0099 LH-2026-07 + ca cay con
+DR-005,a0101,frame,1,,data-platform,True,a0099,retain_legal_hold,R3 R2/R3 subj_07: raw a0099 LH-2026-07 + ca cay con
+DR-005,a0102,face_crop,1,,data-platform,True,a0101,retain_legal_hold,R3 R2/R3 subj_07: raw a0099 LH-2026-07 + ca cay con
+DR-005,a0103,embedding,1,,data-platform,True,a0102,retain_legal_hold,R3 R2/R3 subj_07: raw a0099 LH-2026-07 + ca cay con
+DR-005,a0104,annotation,1,,data-platform,True,a0101,retain_legal_hold,R3 R2/R3 subj_07: raw a0099 LH-2026-07 + ca cay con
+DR-005,a0105,frame,1,,data-platform,True,a0099,retain_legal_hold,R3 R2/R3 subj_07: raw a0099 LH-2026-07 + ca cay con
+DR-005,a0106,face_crop,1,,data-platform,True,a0105,retain_legal_hold,R3 R2/R3 subj_07: raw a0099 LH-2026-07 + ca cay con
+DR-005,a0107,embedding,1,,data-platform,True,a0106,retain_legal_hold,R3 R2/R3 subj_07: raw a0099 LH-2026-07 + ca cay con
+DR-005,a0108,annotation,1,,data-platform,True,a0105,retain_legal_hold,R3 R2/R3 subj_07: raw a0099 LH-2026-07 + ca cay con
+DR-005,a0109,frame,1,,data-platform,True,a0099,retain_legal_hold,R3 R2/R3 subj_07: raw a0099 LH-2026-07 + ca cay con
+DR-005,a0110,face_crop,1,,data-platform,True,a0109,retain_legal_hold,R3 R2/R3 subj_07: raw a0099 LH-2026-07 + ca cay con
+DR-005,a0111,embedding,1,,data-platform,True,a0110,retain_legal_hold,R3 R2/R3 subj_07: raw a0099 LH-2026-07 + ca cay con
+DR-005,a0112,annotation,1,,data-platform,True,a0109,retain_legal_hold,R3 R2/R3 subj_07: raw a0099 LH-2026-07 + ca cay con
+DR-005,a0211,training_export,10,,data-platform,True,a0166;a0068;a0152;a0092;a0106;a0046;a0176;a0200;a0130;a0148;a0060;a0082,retain_legal_hold,R3 R2/R3 subj_07: raw a0099 LH-2026-07 + ca cay con
+DR-005,a0212,training_export,9,,data-platform,True,a0018;a0022;a0106;a0026;a0186;a0088;a0012;a0152;a0008;a0074;a0064;a0032,retain_legal_hold,R3 R2/R3 subj_07: raw a0099 LH-2026-07 + ca cay con
+DR-006,a0113,raw_video,1,,data-platform,True,,delete,
+DR-006,a0114,backup,1,,data-platform,True,a0113,delete,
+DR-006,a0115,frame,1,,data-platform,True,a0113,delete,
+DR-006,a0116,face_crop,1,,data-platform,True,a0115,delete,
+DR-006,a0117,embedding,1,,data-platform,True,a0116,delete,
+DR-006,a0118,annotation,1,,data-platform,True,a0115,delete,
+DR-006,a0119,frame,1,,data-platform,True,a0113,delete,
+DR-006,a0120,face_crop,1,,data-platform,True,a0119,delete,
+DR-006,a0121,embedding,1,,data-platform,True,a0120,delete,
+DR-006,a0122,annotation,1,,data-platform,True,a0119,delete,
+DR-006,a0123,frame,2,,data-platform,True,a0113,escalate,R7 dung chung 2 nguoi
+DR-006,a0124,face_crop,1,,data-platform,True,a0123,delete,
+DR-006,a0125,embedding,1,,data-platform,True,a0124,delete,
+DR-006,a0126,annotation,2,,data-platform,True,a0123,escalate,R7 dung chung 2 nguoi
+DR-007,a0123,frame,2,,data-platform,True,a0113,escalate,R7 dung chung 2 nguoi
+DR-007,a0126,annotation,2,,data-platform,True,a0123,escalate,R7 dung chung 2 nguoi
+DR-007,a0127,raw_video,1,,data-platform,True,,delete,
+DR-007,a0128,backup,1,,data-platform,True,a0127,delete,
+DR-007,a0129,frame,1,,data-platform,True,a0127,delete,
+DR-007,a0130,face_crop,1,,data-platform,True,a0129,delete,
+DR-007,a0131,embedding,1,,data-platform,True,a0130,delete,
+DR-007,a0132,annotation,1,,data-platform,True,a0129,delete,
+DR-007,a0133,frame,1,,data-platform,True,a0127,delete,
+DR-007,a0134,face_crop,1,,data-platform,True,a0133,delete,
+DR-007,a0135,embedding,1,,data-platform,True,a0134,delete,
+DR-007,a0136,annotation,1,,data-platform,True,a0133,delete,
+DR-007,a0137,frame,1,,data-platform,True,a0127,delete,
+DR-007,a0138,face_crop,1,,data-platform,True,a0137,delete,
+DR-007,a0139,embedding,1,,data-platform,True,a0138,delete,
+DR-007,a0140,annotation,1,,data-platform,True,a0137,delete,
+DR-007,a0211,training_export,10,,data-platform,True,a0166;a0068;a0152;a0092;a0106;a0046;a0176;a0200;a0130;a0148;a0060;a0082,retain_legal_hold,"R3 export la hau due cua a0046 (crop subj_03, hold LH-2026-03)"
+DR-008,a0155,raw_video,1,,data-platform,True,,delete,
+DR-008,a0156,backup,1,,vendor-x,True,a0155,escalate,"R4 backup ACL vendor-x, data-platform khong co quyen xoa"
+DR-008,a0157,frame,1,,data-platform,True,a0155,delete,
+DR-008,a0158,face_crop,1,,data-platform,True,a0157,delete,
+DR-008,a0159,embedding,1,,data-platform,True,a0158,delete,
+DR-008,a0160,annotation,1,,data-platform,True,a0157,delete,
+DR-008,a0161,frame,1,,data-platform,True,a0155,delete,
+DR-008,a0162,face_crop,1,,data-platform,True,a0161,delete,
+DR-008,a0163,embedding,1,,data-platform,True,a0162,delete,
+DR-008,a0164,annotation,1,,data-platform,True,a0161,delete,
+DR-008,a0165,frame,1,,data-platform,True,a0155,delete,
+DR-008,a0166,face_crop,1,,data-platform,True,a0165,delete,
+DR-008,a0167,embedding,1,,data-platform,True,a0166,delete,
+DR-008,a0168,annotation,1,,data-platform,True,a0165,delete,
+DR-008,a0211,training_export,10,,data-platform,True,a0166;a0068;a0152;a0092;a0106;a0046;a0176;a0200;a0130;a0148;a0060;a0082,retain_legal_hold,"R3 export la hau due cua a0046 (crop subj_03, hold LH-2026-03)"
+DR-009,a0169,raw_video,1,,data-platform,True,,delete,
+DR-009,a0170,backup,1,,data-platform,True,a0169,delete,
+DR-009,a0171,frame,1,,data-platform,True,a0169,delete,
+DR-009,a0172,face_crop,1,,data-platform,True,a0171,delete,
+DR-009,a0173,embedding,1,,data-platform,True,a0172,delete,
+DR-009,a0174,annotation,1,,data-platform,True,a0171,delete,
+DR-009,a0175,frame,1,,data-platform,True,a0169,delete,
+DR-009,a0176,face_crop,1,,data-platform,True,a0175,delete,
+DR-009,a0177,embedding,1,,data-platform,True,a0176,delete,
+DR-009,a0178,annotation,1,,data-platform,True,a0175,delete,
+DR-009,a0179,frame,2,,data-platform,True,a0169,escalate,R7 dung chung 2 nguoi
+DR-009,a0180,face_crop,1,,data-platform,True,a0179,delete,
+DR-009,a0181,embedding,1,,data-platform,True,a0180,delete,
+DR-009,a0182,annotation,2,,data-platform,True,a0179,escalate,R7 dung chung 2 nguoi
+DR-009,a0211,training_export,10,,data-platform,True,a0166;a0068;a0152;a0092;a0106;a0046;a0176;a0200;a0130;a0148;a0060;a0082,retain_legal_hold,"R3 export la hau due cua a0046 (crop subj_03, hold LH-2026-03)"
+DR-010,a0197,raw_video,1,,data-platform,True,,delete,
+DR-010,a0198,backup,1,,data-platform,True,a0197,delete,
+DR-010,a0199,frame,1,,data-platform,True,a0197,delete,
+DR-010,a0200,face_crop,1,,data-platform,True,a0199,delete,
+DR-010,a0201,embedding,1,,data-platform,True,a0200,delete,
+DR-010,a0202,annotation,1,,data-platform,True,a0199,delete,
+DR-010,a0203,frame,1,,data-platform,True,a0197,delete,
+DR-010,a0204,face_crop,1,,data-platform,True,a0203,delete,
+DR-010,a0205,embedding,1,,data-platform,True,a0204,delete,
+DR-010,a0206,annotation,1,,data-platform,True,a0203,delete,
+DR-010,a0207,frame,1,,data-platform,True,a0197,delete,
+DR-010,a0208,face_crop,1,,data-platform,True,a0207,delete,
+DR-010,a0209,embedding,1,,data-platform,True,a0208,delete,
+DR-010,a0210,annotation,1,,data-platform,True,a0207,delete,
+DR-010,a0211,training_export,10,,data-platform,True,a0166;a0068;a0152;a0092;a0106;a0046;a0176;a0200;a0130;a0148;a0060;a0082,retain_legal_hold,"R3 export la hau due cua a0046 (crop subj_03, hold LH-2026-03)"
