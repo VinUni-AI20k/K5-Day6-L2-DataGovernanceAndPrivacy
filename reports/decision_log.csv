@@ -1,1 +1,21 @@
-ts,scope,status,reason_code,reason,owner,evidence
+﻿ts,scope,status,reason_code,reason,owner,evidence
+2026-11-14T11:29:05+00:00,t02_eval,RECAPTURE,GT severity=2,GT severity=2,,fixtures/t02_raw_qc/images/img_17_2.jpg
+2026-11-14T11:29:05+00:00,t02_eval,RECAPTURE,GT severity=2,GT severity=2,,fixtures/t02_raw_qc/images/img_06_2.jpg
+2026-11-14T11:29:05+00:00,t02_eval,RECAPTURE,GT severity=2,GT severity=2,,fixtures/t02_raw_qc/images/img_05_2.jpg
+2026-11-14T11:29:05+00:00,t02_eval,REVIEW,GT severity=1,GT severity=1,,fixtures/t02_raw_qc/images/img_05_3.jpg
+2026-11-14T11:29:05+00:00,t02_eval,RECAPTURE,GT severity=2,GT severity=2,,fixtures/t02_raw_qc/images/img_13_2.jpg
+2026-11-14T11:29:05+00:00,t02_eval,RECAPTURE,GT severity=2,GT severity=2,,fixtures/t02_raw_qc/images/img_01_3.jpg
+2026-11-14T11:29:05+00:00,t02_eval,RECAPTURE,GT severity=2,GT severity=2,,fixtures/t02_raw_qc/images/img_23_2.jpg
+2026-11-14T11:29:05+00:00,t02_eval,RECAPTURE,GT severity=2,GT severity=2,,fixtures/t02_raw_qc/images/img_15_3.jpg
+2026-11-14T11:29:05+00:00,t02_eval,RECAPTURE,GT severity=2,GT severity=2,,fixtures/t02_raw_qc/images/img_13_3.jpg
+2026-11-14T11:29:05+00:00,t02_eval,RECAPTURE,GT severity=2,GT severity=2,,fixtures/t02_raw_qc/images/img_15_2.jpg
+2026-11-14T11:29:05+00:00,t02_eval,RECAPTURE,GT severity=2,GT severity=2,,fixtures/t02_raw_qc/images/img_23_3.jpg
+2026-11-14T11:29:05+00:00,t02_eval,RECAPTURE,GT severity=2,GT severity=2,,fixtures/t02_raw_qc/images/img_17_3.jpg
+2026-11-14T11:29:05+00:00,t02_eval,REVIEW,GT severity=1,GT severity=1,,fixtures/t02_raw_qc/images/img_19_3.jpg
+2026-11-14T11:29:05+00:00,t02_eval,RECAPTURE,GT severity=2,GT severity=2,,fixtures/t02_raw_qc/images/img_16_2.jpg
+2026-11-14T11:29:05+00:00,t02_eval,REVIEW,GT severity=1,GT severity=1,,fixtures/t02_raw_qc/images/img_01_2.jpg
+2026-11-14T11:29:05+00:00,t02_eval,REVIEW,GT severity=1,GT severity=1,,fixtures/t02_raw_qc/images/img_16_3.jpg
+2026-11-14T11:29:05+00:00,t02_eval,REVIEW,GT severity=1,GT severity=1,,fixtures/t02_raw_qc/images/img_03_3.jpg
+2026-11-14T11:29:05+00:00,t02_eval,RECAPTURE,GT severity=2,GT severity=2,,fixtures/t02_raw_qc/images/img_06_3.jpg
+2026-11-14T11:29:05+00:00,t02_eval,REVIEW,GT severity=1,GT severity=1,,fixtures/t02_raw_qc/images/img_03_2.jpg
+2026-11-14T11:29:05+00:00,t02_eval,REVIEW,GT severity=1,GT severity=1,,fixtures/t02_raw_qc/images/img_15_0.jpg
