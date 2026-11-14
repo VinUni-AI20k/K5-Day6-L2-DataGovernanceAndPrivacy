@@ -1,33 +1,34 @@
-"""YOUR PoC PIPELINE — this is the file your group owns.
+"""T08 · Retention & Delete Request Simulator — PoC pipeline (group G02).
 
-Lab contract = 5 automated steps, run by `python -m src.main ...`:
-    01 load      input + provenance check (manifest.csv)
-    02 process   your algorithm / model (the research part)
-    03 rank      prioritise for a fixed review budget B
-    04 review    human-in-the-loop: queue -> reviewer decisions -> overrides + audit log
-    05 decide    GO / HOLD / REWORK (or track equivalent) with reason_code + owner, write outputs
+    python -m src.main --config configs/lab.yaml --output out/poc --run-name poc --offline --seed 42
 
-Required output: out/<pred_file> with the columns listed for your track in
-docs/tracks/TXX.md (also in src/metrics/tracks.py::TRACKS). Then evaluate with
-    python -m src.evaluate --track tXX --pred out/<pred_file>
+5 steps (lab contract) and owners — column contract in reports/t08_interface.md:
+    01 load      data_graph.json + requests.json, verify manifest sha256                  [P3]
+    02 process   per request: subject's artefacts + BFS lineage, then the frozen policy:  [P3]
+                     legal hold > identity > permission > unknown origin > multi-subject > delete
+    03 rank      review queue = every exception (no budget cut: false deletes are final)  [P4]
+    04 review    apply out/review_queue_reviewed.csv (approve / edit / escalate / reject) [P4]
+    05 decide    dry-run diff, mock delete (tombstones, idempotent), GO/HOLD               [P4]
 
-Rules: never read fixtures/*/gt/ here (the GT guard will stop you); seed everything via ctx.rng;
-no network calls; fail loudly on missing models instead of downloading.
-See src/examples/random_baseline.py for a minimal end-to-end wiring example.
+Everything is mock: "deleting" only writes a tombstone file. No real data is ever deleted.
+Policy parameters are frozen in configs/tracks/t08.yaml (see reports/metric_contract.md).
+Rules: never read fixtures/*/gt/ (GT guard), no network, seed via ctx.rng.
 """
 from __future__ import annotations
 
 import json
 from collections import deque
+from datetime import datetime, timezone
+from pathlib import Path
 
 import pandas as pd
 
+from .common.contact_sheet import render_contact_sheet
 from .common.context import RunContext
 from .common.decision import Decision, write_decision
 from .common.manifest import verify_manifest
 from .common.review import load_review_decisions, make_review_queue, write_review_queue
 from .metrics.tracks import get_track
-
 
 ACTIONS = ("delete", "retain_legal_hold", "escalate")
 DEFAULT_PERMITTED_ACL = ["data-platform"]       # roles our deletion job is allowed to act as
@@ -36,7 +37,6 @@ DEFAULT_PERMITTED_ACL = ["data-platform"]       # roles our deletion job is allo
 PROCESS_COLUMNS = ["request_id", "artefact_id", "action", "key", "subject_id", "type", "reason_code", "reason",
                    "uri", "lineage_depth", "lineage_via", "n_subjects", "held_ancestors", "deadline", "source", "score"]
 REVIEW_PRIORITY = {"retain_legal_hold": 2.0, "escalate": 1.0, "delete": 0.0}
-
 
 
 # ================================================================ P3 · 01 load
@@ -173,47 +173,143 @@ def process(ctx: RunContext, data: dict) -> pd.DataFrame:
     return df
 
 
-# ---------------------------------------------------------------- 03 rank
+# ================================================================ P4 · 03 rank
 def rank(ctx: RunContext, scored: pd.DataFrame) -> pd.DataFrame:
-    """Default: top-B by `score`. Adapt id/score/reason columns to your track."""
-    budget = int(ctx.param("budget", 20))
-    if "score" not in scored.columns:
-        raise ValueError("rank(): process() output needs a numeric `score` column (higher = review first), "
-                         "or adapt rank() to your track")
-    q = make_review_queue(scored, id_col=scored.columns[0], score_col="score", budget=budget,
-                          reason_col="reason" if "reason" in scored.columns else None)
+    """Every exception (score > 0) goes to a human: legal hold first, then escalations, earliest deadline first.
+    Budget = all exceptions (false deletes are irreversible, so no top-B cut)."""
+    cand = scored[scored.score > 0].sort_values(["deadline", "key"], kind="mergesort")
+    cand = cand.assign(review_reason=cand.reason_code + ": " + cand.reason)
+    q = make_review_queue(cand, id_col="key", score_col="score", budget=len(cand), reason_col="review_reason",
+                          action_col="action", slice_col="type", evidence_col="uri")
     write_review_queue(q, ctx.out("review_queue.csv"))
+    render_contact_sheet(q, ctx.out("contact_sheet.html"), image_col=None,
+                         title="T08 · delete-request exceptions — reviewer sign-off")
+    ctx.stats["n_review_queue"] = len(q)
     return q
 
 
-# ---------------------------------------------------------------- 04 review
+# ================================================================ P4 · 04 review
 def review(ctx: RunContext, scored: pd.DataFrame, queue: pd.DataFrame) -> pd.DataFrame:
-    """If a reviewed queue exists (out/review_queue_reviewed.csv), apply it. Otherwise pass through.
+    """Apply out/review_queue_reviewed.csv (or params.review_file) if present; audit every change.
 
-    TODO: decide what an `edit` / `reject` means for your track and apply it
-    (e.g. via common.review.apply_overrides), logging every change to ctx.audit.
+    approve -> keep suggested action · edit + override_value ∈ ACTIONS -> new action
+    escalate / reject -> escalate (a reject never turns into a delete) · skip -> unchanged, still pending
     """
-    reviewed_path = ctx.output_dir / "review_queue_reviewed.csv"
-    if reviewed_path.exists():
-        reviewed = load_review_decisions(reviewed_path)
-        ctx.stats["n_reviewed"] = len(reviewed)
-        # TODO: apply overrides
-    return scored
+    final = scored.copy()
+    final["reviewer"] = ""
+    final["review_note"] = ""
+    path = Path(ctx.param("review_file") or ctx.output_dir / "review_queue_reviewed.csv")
+    if not path.exists():
+        ctx.stats["n_reviewed"] = 0
+        return final
+    reviewed = load_review_decisions(path)
+    unknown = sorted(set(reviewed.item_id) - set(final.key))
+    if unknown:
+        raise ValueError(f"review rows not in this run's (request, artefact) scope: {unknown[:5]}")
+    reviewed = reviewed[reviewed.reviewer_decision != "skip"]
+    for r in reviewed.itertuples(index=False):
+        m = final.key == r.item_id
+        before = final.loc[m, "action"].iloc[0]
+        after = reviewed_action(r.reviewer_decision, r.override_value, before, r.item_id)
+        final.loc[m, ["action", "reviewer", "review_note", "source"]] = [after, r.reviewer, r.review_note, "human"]
+        req_id, aid = r.item_id.split(":", 1)
+        ctx.audit.log(actor=r.reviewer, action=f"review:{r.reviewer_decision}", item_id=aid, before=before,
+                      after=after, reason=r.review_note, request_id=req_id, reviewed_at=r.reviewed_at)
+    ctx.stats["n_reviewed"] = len(reviewed)
+    return final
 
 
-# ---------------------------------------------------------------- 05 decide
-def decide(ctx: RunContext, final: pd.DataFrame) -> Decision:
-    # TODO: replace with your policy (thresholds frozen BEFORE looking at eval results)
-    return Decision(status="HOLD", reason_code="POLICY_NOT_IMPLEMENTED", reason="Decision policy not implemented yet",
-                    owner=ctx.config.get("owner", "TODO-owner"), scope=ctx.track)
+def reviewed_action(decision: str, override_value: str, before: str, item_id: str) -> str:
+    """approve keeps the suggestion; reject/escalate send it up (never delete); edit sets override_value."""
+    if decision == "approve":
+        return before
+    if decision in ("reject", "escalate"):
+        return "escalate"
+    value = str(override_value).strip().lower()
+    if value not in ACTIONS:
+        raise ValueError(f"override_value {override_value!r} for {item_id} must be one of {ACTIONS}")
+    return value
+
+
+# ================================================================ P4 · 05 decide (+ mock delete)
+def execute(ctx: RunContext, final: pd.DataFrame) -> dict:
+    """Dry-run diff always. With dry_run=false write tombstones; artefacts already tombstoned are
+    skipped, so re-running (or resuming an interrupted job) never deletes twice."""
+    dry = bool(ctx.param("dry_run", True))
+    store_path = Path(ctx.param("mock_store") or ctx.output_dir / "mock_store_tombstones.json")
+    store = json.loads(store_path.read_text(encoding="utf-8")) if store_path.exists() else {}
+    diff, new, already = [], 0, 0
+    for r in final.itertuples(index=False):
+        status = "kept"
+        if r.action == "delete":
+            if r.artefact_id in store:
+                status, already = "already_deleted", already + 1
+            elif dry:
+                status = "would_delete"
+            else:
+                store[r.artefact_id] = {"request_id": r.request_id, "uri": r.uri,
+                                        "deleted_at": datetime.now(timezone.utc).isoformat(timespec="seconds")}
+                status, new = "deleted_mock", new + 1
+                store_path.parent.mkdir(parents=True, exist_ok=True)   # persist each delete -> resumable
+                store_path.write_text(json.dumps(dict(sorted(store.items())), indent=1), encoding="utf-8")
+        diff.append({"request_id": r.request_id, "artefact_id": r.artefact_id, "type": r.type, "action": r.action,
+                     "status": status, "reason_code": r.reason_code})
+        ctx.audit.log(actor=r.reviewer or "pipeline", action=r.action, item_id=r.artefact_id,
+                      reason=f"{r.reason_code}: {r.reason}", request_id=r.request_id, status=status,
+                      dry_run=dry, uri=r.uri, lineage_via=r.lineage_via)
+    pd.DataFrame(diff).to_csv(ctx.out("dry_run_diff.csv"), index=False)
+    ctx.stats.update({"dry_run": dry, "new_deletes": new, "already_deleted": already})
+    return {"dry_run": dry, "new": new, "already": already}
+
+
+def request_summary(ctx: RunContext, final: pd.DataFrame) -> pd.DataFrame:
+    """Per-request SLA view: counts per action, unreviewed exceptions, days to deadline."""
+    now = datetime.now(timezone.utc)
+    rows = []
+    for rid, sub in final.groupby("request_id", sort=True):
+        dl = sub.deadline.iloc[0]
+        pending = int(((sub.action != "delete") & (sub.reviewer == "")).sum())
+        rows.append({
+            "request_id": rid, "subject_id": sub.subject_id.iloc[0], "n_artefacts": len(sub),
+            **{f"n_{a}": int((sub.action == a).sum()) for a in ACTIONS},
+            "pending_review": pending, "deadline": dl,
+            "days_to_deadline": round((datetime.fromisoformat(dl) - now).total_seconds() / 86400, 1) if dl else None,
+            "status": "BLOCKED_REVIEW" if pending else ("PARTIAL_RETAINED" if (sub.action != "delete").any() else "COMPLETE"),
+        })
+    df = pd.DataFrame(rows)
+    df.to_csv(ctx.out("request_summary.csv"), index=False)
+    return df
+
+
+def decide(ctx: RunContext, final: pd.DataFrame, summary: pd.DataFrame, exec_info: dict) -> Decision:
+    """HOLD while exceptions are unreviewed, GO when all are signed off; reason_code + owner."""
+    owner = ctx.config.get("owner", "TODO-owner")
+    pending = int(summary.pending_review.sum())
+    metrics = {"n_rows": len(final), **{f"n_{a}": int((final.action == a).sum()) for a in ACTIONS},
+               "pending_review": pending, **exec_info}
+    ev = [str(ctx.out(f)) for f in ("actions.csv", "dry_run_diff.csv", "review_queue.csv", "request_summary.csv",
+                                    "audit_log.jsonl")]
+    scope = "t08:" + ",".join(summary.request_id)
+    if pending:
+        return Decision("HOLD", "EXCEPTIONS_PENDING_REVIEW",
+                        f"{pending} exception(s) need a human sign-off before the deletion plan can be closed",
+                        owner, scope=scope, evidence=ev, metrics=metrics)
+    return Decision("GO", "DELETION_PLAN_APPROVED",
+                    "all exceptions signed off; execute delete plan, retained items re-checked when holds lift",
+                    owner, scope=scope, evidence=ev, metrics=metrics)
 
 
 def run(ctx: RunContext) -> None:
     spec = get_track(ctx.track)
+    if spec.track != "t08":
+        raise NotImplementedError(f"group G02 pipeline implements t08 only (got {spec.track})")
     data = load(ctx)
     scored = process(ctx, data)
     ctx.stats["n_items"] = len(scored)
     queue = rank(ctx, scored)
     final = review(ctx, scored, queue)
+    final = final.sort_values(["request_id", "artefact_id"], kind="mergesort").reset_index(drop=True)
     final[spec.pred_columns + [c for c in final.columns if c not in spec.pred_columns]].to_csv(ctx.out(spec.pred_file), index=False)
-    write_decision(decide(ctx, final), ctx.out("decision.json"), ctx.out("decision_log.csv"))
+    exec_info = execute(ctx, final)
+    summary = request_summary(ctx, final)
+    write_decision(decide(ctx, final, summary, exec_info), ctx.out("decision.json"), ctx.out("decision_log.csv"))
