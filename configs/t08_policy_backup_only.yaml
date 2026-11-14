@@ -1,0 +1,16 @@
+# T08 deletion policy — ABLATION ONLY (R3 applies to backup only; NOT the main result) — TEACHING EXAMPLE, not legal advice. Needs DPO/legal review before real use.
+# Thứ tự dòng = độ ưu tiên: luật ĐẦU TIÊN khớp sẽ quyết định (first match wins).
+# `when` là tên điều kiện cài trong src/t08/policy.py (CONDITIONS).
+# `source` do D (pháp lý) rà lại ở bước D2.
+# Phạm vi mỗi request: artefact có subject_id của request trong `subject_ids`.
+version: "1.0"
+version_date: "2026-11-14"
+rules:
+  - {id: R1, when: identity_not_verified, action: escalate,          reason_code: IDENTITY_NOT_VERIFIED, source: "GDPR Art.12(6)"}
+  - {id: R2, when: legal_hold,            action: retain_legal_hold, reason_code: LEGAL_HOLD_ACTIVE,     source: "GDPR Art.17(3)(e)"}
+  - {id: R3, when: ancestor_legal_hold_backup,  action: retain_legal_hold, reason_code: LEGAL_HOLD_INHERITED,  source: "GDPR Art.17(3)(e); hold covers derived copies"}
+  - {id: R4, when: no_permission,         action: escalate,          reason_code: NO_PERMISSION_ACL,     source: "internal ACL policy; GDPR Art.28, 17(2)"}
+  - {id: R5, when: origin_unknown,        action: escalate,          reason_code: ORIGIN_UNKNOWN,        source: "GDPR Art.5(2) accountability"}
+  - {id: R6, when: training_export,       action: escalate,          reason_code: SHARED_EXPORT_REBUILD, source: "GDPR Art.17(2)"}
+  - {id: R7, when: multi_subject,         action: escalate,          reason_code: MULTI_SUBJECT_SHARED,  source: "GDPR Art.15(4) rights of others"}
+  - {id: R8, when: always,                action: delete,            reason_code: ERASURE_REQUEST,       source: "GDPR Art.17(1); Luat 91/2025; ND 356/2025"}
