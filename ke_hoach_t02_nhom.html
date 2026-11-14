@@ -1,0 +1,419 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Kế hoạch Phân công Công việc Nhóm G01 — Track T02 Raw QC Triage</title>
+  <style>
+    :root {
+      --primary: #1a73e8;
+      --primary-dark: #0d47a1;
+      --primary-light: #e8f0fe;
+      --success: #1e8e3e;
+      --success-light: #e6f4ea;
+      --warning: #f9ab00;
+      --warning-light: #fef7e0;
+      --danger: #d93025;
+      --danger-light: #fce8e6;
+      --text: #202124;
+      --text-muted: #5f6368;
+      --bg: #f8f9fa;
+      --card-bg: #ffffff;
+      --border: #dadce0;
+      --radius: 12px;
+      --shadow: 0 4px 14px rgba(0,0,0,0.08);
+      --code-bg: #1e293b;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+      line-height: 1.6;
+      color: var(--text);
+      background-color: var(--bg);
+      padding: 30px 15px;
+    }
+    .container {
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+    .header {
+      background: linear-gradient(135deg, #0f172a 0%, #1e3a8a 100%);
+      color: white;
+      padding: 36px 32px;
+      border-radius: var(--radius);
+      box-shadow: 0 6px 20px rgba(15, 23, 42, 0.25);
+      margin-bottom: 25px;
+      position: relative;
+    }
+    .header h1 { font-size: 26px; font-weight: 800; margin-bottom: 8px; }
+    .header p { opacity: 0.92; font-size: 15px; }
+    .badge-bar { margin-top: 15px; display: flex; flex-wrap: wrap; gap: 8px; }
+    .badge {
+      display: inline-block;
+      padding: 5px 12px;
+      border-radius: 20px;
+      font-size: 12px;
+      font-weight: 700;
+      background: rgba(255,255,255,0.18);
+      color: #fff;
+      border: 1px solid rgba(255,255,255,0.25);
+    }
+    .btn-repo {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: #38bdf8;
+      color: #0f172a;
+      text-decoration: none;
+      padding: 10px 20px;
+      border-radius: 8px;
+      font-weight: 700;
+      font-size: 14px;
+      margin-top: 18px;
+      transition: all 0.2s;
+    }
+    .btn-repo:hover { background: #7dd3fc; transform: translateY(-2px); }
+
+    .summary-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 14px;
+      margin-bottom: 24px;
+    }
+    .summary-card {
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 18px;
+      text-align: center;
+      box-shadow: var(--shadow);
+    }
+    .summary-val { font-size: 24px; font-weight: 800; color: #0284c7; }
+    .summary-label { font-size: 12.5px; color: var(--text-muted); font-weight: 600; margin-top: 4px; }
+
+    .callout {
+      border-left: 5px solid;
+      padding: 16px 20px;
+      border-radius: 6px;
+      margin-bottom: 24px;
+      font-size: 14px;
+    }
+    .callout-warning { background: var(--warning-light); border-color: var(--warning); color: #7c4a03; }
+    .callout-success { background: var(--success-light); border-color: var(--success); color: #0f5132; }
+
+    .card {
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 26px 28px;
+      margin-bottom: 24px;
+      box-shadow: var(--shadow);
+    }
+    .card h2 {
+      font-size: 20px;
+      color: #0f172a;
+      margin-bottom: 16px;
+      padding-bottom: 8px;
+      border-bottom: 2px solid var(--primary-light);
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    /* Member Box */
+    .member-block {
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 20px;
+      margin-bottom: 20px;
+      background: #ffffff;
+      transition: all 0.2s;
+    }
+    .member-block:hover { border-color: #0284c7; box-shadow: 0 4px 12px rgba(2,132,199,0.1); }
+    .member-block.is-lead { border-left: 6px solid var(--success); background: #fcfdfd; }
+    
+    .member-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      margin-bottom: 12px;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+    .member-header h3 { font-size: 17px; color: #0f172a; font-weight: 700; }
+    .member-tag {
+      font-size: 11px;
+      font-weight: 700;
+      padding: 4px 10px;
+      border-radius: 20px;
+      text-transform: uppercase;
+    }
+    .tag-done { background: var(--success-light); color: var(--success); border: 1px solid #bbf7d0; }
+    .tag-todo { background: var(--warning-light); color: #b45309; border: 1px solid #fde68a; }
+
+    .task-list { list-style: none; margin: 12px 0 16px 0; }
+    .task-list li {
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+      font-size: 14px;
+      color: #334155;
+      margin-bottom: 8px;
+    }
+    .task-list input[type="checkbox"] {
+      margin-top: 3px;
+      accent-color: #0284c7;
+      width: 15px;
+      height: 15px;
+    }
+
+    .file-tag {
+      background: #f1f5f9;
+      border: 1px solid #e2e8f0;
+      border-radius: 6px;
+      padding: 8px 12px;
+      font-size: 13px;
+      color: #475569;
+      margin-bottom: 12px;
+    }
+    .file-tag strong { color: #0f172a; }
+    .file-tag code { color: #d946ef; font-weight: 600; font-family: Consolas, monospace; }
+
+    pre {
+      background: var(--code-bg);
+      color: #f8fafc;
+      padding: 14px 16px;
+      border-radius: 8px;
+      font-family: Consolas, "Courier New", monospace;
+      font-size: 13px;
+      overflow-x: auto;
+      line-height: 1.5;
+    }
+
+    .footer {
+      text-align: center;
+      font-size: 13px;
+      color: var(--text-muted);
+      margin-top: 30px;
+      padding-top: 20px;
+      border-top: 1px solid var(--border);
+    }
+  </style>
+</head>
+<body>
+
+<div class="container">
+
+  <!-- HEADER -->
+  <div class="header">
+    <h1>Kế hoạch Phân chia Công việc Nhóm G01 · Track T02 (Raw QC Triage)</h1>
+    <p>Field-to-Release PoC · Day 06 Data Lab · Đánh giá & Phân loại hình ảnh thô cảm biến xe tự hành</p>
+    <div class="badge-bar">
+      <span class="badge">Trưởng nhóm: Hoàng Sỹ Khiêm (Lead)</span>
+      <span class="badge">Budget: B = 20 Frame</span>
+      <span class="badge">Defect Recall@20: 85.0%</span>
+      <span class="badge">Test Suite: 53/53 Passed (100%)</span>
+    </div>
+    <div>
+      <a href="https://github.com/hoangkhiem3523/K5-L2-DAY06-HoangSyKhiem-2A202603244-DataGovernanceAndPrivacy" target="_blank" class="btn-repo">
+        🔗 Mở GitHub Repository Nhóm (Click để Clone & Push)
+      </a>
+    </div>
+  </div>
+
+  <!-- STATS OVERVIEW -->
+  <div class="summary-grid">
+    <div class="summary-card">
+      <div class="summary-val">+70.0%</div>
+      <div class="summary-label">Vượt Baseline (Recall 50% ➔ 85%)</div>
+    </div>
+    <div class="summary-card">
+      <div class="summary-val">75.0%</div>
+      <div class="summary-label">Defect-Type Accuracy</div>
+    </div>
+    <div class="summary-card">
+      <div class="summary-val">0.0%</div>
+      <div class="summary-label">False Alarm lúc hoàng hôn (Dusk)</div>
+    </div>
+    <div class="summary-card">
+      <div class="summary-val">0.44 giây</div>
+      <div class="summary-label">Tốc độ xử lý / 100 ảnh trên CPU</div>
+    </div>
+  </div>
+
+  <div class="callout callout-warning">
+    <strong>⚠️ QUY TẮC BẮT BUỘC ĐỂ CẢ NHÓM ĐỦ ĐIỂM (RUBRIC GIẢNG VIÊN):</strong>
+    <p>Giảng viên sẽ chạy lệnh <code>git shortlog -sne --all</code> để kiểm tra đóng góp của từng người. <strong>Mỗi thành viên bắt buộc phải có ít nhất 1–2 commit thực chất</strong> từ tài khoản GitHub của mình. Dưới đây là phân chia nhiệm vụ chi tiết và lệnh Git chuẩn bị sẵn cho từng bạn:</p>
+  </div>
+
+  <!-- PHÂN CÔNG CHI TIẾT 5 THÀNH VIÊN -->
+  <div class="card">
+    <h2>📋 Phân chia Nhiệm vụ & Lệnh Git cho Từng Thành Viên</h2>
+
+    <!-- THÀNH VIÊN 1: LEAD (HOÀN THÀNH) -->
+    <div class="member-block is-lead">
+      <div class="member-header">
+        <div>
+          <h3>1. Hoàng Sỹ Khiêm (Trưởng nhóm / Core Lead)</h3>
+          <p style="color: #64748b; font-size: 13px;">Lead · Core Algorithm · Pipeline Integration · Contract Verification</p>
+        </div>
+        <span class="member-tag tag-done">ĐÃ HOÀN THÀNH (LEAD) ✅</span>
+      </div>
+      <ul class="task-list">
+        <li><input type="checkbox" checked disabled> Xây dựng pipeline 5 bước (<code>load</code> ➔ <code>process</code> ➔ <code>rank</code> ➔ <code>review</code> ➔ <code>decide</code>) trong <code>src/pipeline.py</code>.</li>
+        <li><input type="checkbox" checked disabled> Tối ưu thuật toán nhận diện 4 loại lỗi (Blur, Glare, Dark, Compression), chuẩn hóa camera <code>cam_B</code> và xử lý ảnh đêm <code>night</code>.</li>
+        <li><input type="checkbox" checked disabled> Chạy đánh giá đối chứng, Defect Recall@20 đạt 85.0%, đưa toàn bộ 53 tests về pass 100%.</li>
+        <li><input type="checkbox" checked disabled> Khởi tạo và quản lý repository chính trên GitHub.</li>
+      </ul>
+      <div class="file-tag">
+        <strong>File phụ trách chính:</strong> <code>src/pipeline.py</code>, <code>configs/lab.yaml</code>, <code>src/main.py</code>
+      </div>
+    </div>
+
+    <!-- THÀNH VIÊN 2: DATA & PROVENANCE -->
+    <div class="member-block">
+      <div class="member-header">
+        <div>
+          <h3>2. Thành viên 2 (Data & Provenance Specialist)</h3>
+          <p style="color: #64748b; font-size: 13px;">Dữ liệu đầu vào · Kiểm định SHA-256 · Thống kê phân bố Dataset</p>
+        </div>
+        <span class="member-tag tag-todo">CẦN 1 COMMIT ⏳</span>
+      </div>
+      <ul class="task-list">
+        <li><input type="checkbox"> Clone repo về máy của bạn và chạy <code>python -m tools.verify_manifests</code> kiểm tra hash SHA-256.</li>
+        <li><input type="checkbox"> Tạo một file script mới <code>tools/check_data_stats.py</code> để in ra số lượng ảnh theo từng điều kiện (Day, Dusk, Night, Camera A, Camera B).</li>
+        <li><input type="checkbox"> Commit file script đó lên GitHub để ghi nhận đóng góp phần Data & Provenance.</li>
+      </ul>
+      <div class="file-tag">
+        <strong>File phụ trách:</strong> <code>tools/check_data_stats.py</code> (tạo mới), <code>fixtures/t02_raw_qc/manifest.csv</code>
+      </div>
+      <pre><code># Hướng dẫn thao tác cho Thành viên 2:
+git clone https://github.com/hoangkhiem3523/K5-L2-DAY06-HoangSyKhiem-2A202603244-DataGovernanceAndPrivacy.git
+cd K5-L2-DAY06-HoangSyKhiem-2A202603244-DataGovernanceAndPrivacy
+
+# Tạo file tools/check_data_stats.py (đoạn code mẫu):
+# import pandas as pd
+# df = pd.read_csv("fixtures/t02_raw_qc/images.csv")
+# print(df.groupby(["camera_id", "light", "split"]).size())
+
+git add tools/check_data_stats.py
+git commit -m "feat(data): add dataset distribution inspection script"
+git push origin main</code></pre>
+    </div>
+
+    <!-- THÀNH VIÊN 3: QA & TEST LEAD -->
+    <div class="member-block">
+      <div class="member-header">
+        <div>
+          <h3>3. Thành viên 3 (QA & Testing Lead)</h3>
+          <p style="color: #64748b; font-size: 13px;">Kiểm thử phần mềm · Bổ sung Edge Test Cases · Đảm bảo 100% Pass</p>
+        </div>
+        <span class="member-tag tag-todo">CẦN 1 COMMIT ⏳</span>
+      </div>
+      <ul class="task-list">
+        <li><input type="checkbox"> Clone repo về máy, chạy <code>pytest -v</code> kiểm tra 53 unit tests hiện tại.</li>
+        <li><input type="checkbox"> Mở file <code>tests/test_t02_pipeline.py</code>, viết thêm 1 hàm test mới (ví dụ kiểm tra trường hợp ảnh lóa nặng có tỷ lệ bão hòa cao thì phải gắn cờ `glare` và hành động `RECAPTURE`).</li>
+        <li><input type="checkbox"> Chạy lại <code>pytest -v</code> đảm bảo toàn bộ tests đều xanh (54+ passed) rồi commit push.</li>
+      </ul>
+      <div class="file-tag">
+        <strong>File phụ trách:</strong> <code>tests/test_t02_pipeline.py</code>, <code>tests/test_cli.py</code>
+      </div>
+      <pre><code># Hướng dẫn thao tác cho Thành viên 3:
+git pull origin main
+
+# Mở tests/test_t02_pipeline.py và thêm hàm test:
+# def test_t02_severe_glare_saturation(tmp_path):
+#     glare_arr = np.full((180, 320, 3), 255, dtype=np.uint8)
+#     p = _make_sample_image(tmp_path, "glare_test.jpg", glare_arr)
+#     res = _score_image(p, camera_id="cam_A", light="day")
+#     assert res["pred_defect_type"] == "glare"
+#     assert res["pred_action"] == "RECAPTURE"
+
+pytest -v
+git add tests/test_t02_pipeline.py
+git commit -m "test(t02): add unit test case for severe glare saturation detection"
+git push origin main</code></pre>
+    </div>
+
+    <!-- THÀNH VIÊN 4: HUMAN REVIEWER -->
+    <div class="member-block">
+      <div class="member-header">
+        <div>
+          <h3>4. Thành viên 4 (Human-in-the-Loop Reviewer)</h3>
+          <p style="color: #64748b; font-size: 13px;">Thẩm định Contact Sheet · Audit Log · Bổ sung nhận xét chuyên gia</p>
+        </div>
+        <span class="member-tag tag-todo">CẦN 1 COMMIT ⏳</span>
+      </div>
+      <ul class="task-list">
+        <li><input type="checkbox"> Mở file <code>out/poc/contact_sheet.html</code> bằng trình duyệt web để xem 20 ảnh lỗi trực quan.</li>
+        <li><input type="checkbox"> Mở file <code>reports/review_queue.csv</code>, bổ sung tên của bạn vào cột <code>reviewer</code> ở một số dòng bạn đã thẩm định.</li>
+        <li><input type="checkbox"> Ghi chú thêm nhận xét chi tiết vào cột <code>review_note</code> (ví dụ: "Đã kiểm tra mắt thường: biển số bị chói sáng đèn pha", "Mờ nhòe do rung camera").</li>
+        <li><input type="checkbox"> Commit file <code>reports/review_queue.csv</code> lên GitHub.</li>
+      </ul>
+      <div class="file-tag">
+        <strong>File phụ trách:</strong> <code>reports/review_queue.csv</code>, <code>out/poc/review_queue_reviewed.csv</code>, <code>out/poc/audit_log.jsonl</code>
+      </div>
+      <pre><code># Hướng dẫn thao tác cho Thành viên 4:
+git pull origin main
+
+# Chỉnh sửa nhận xét thẩm định trong reports/review_queue.csv
+git add reports/review_queue.csv
+git commit -m "docs(review): audit and add reviewer notes for top-20 QC candidates"
+git push origin main</code></pre>
+    </div>
+
+    <!-- THÀNH VIÊN 5: REPORT & PRESENTATION -->
+    <div class="member-block">
+      <div class="member-header">
+        <div>
+          <h3>5. Thành viên 5 (Documentation & Presentation Lead)</h3>
+          <p style="color: #64748b; font-size: 13px;">Hoàn thiện Danh sách nhóm · Chuẩn bị Slide Thuyết trình Demo</p>
+        </div>
+        <span class="member-tag tag-todo">CẦN 1 COMMIT ⏳</span>
+      </div>
+      <ul class="task-list">
+        <li><input type="checkbox"> Mở file <code>reports/group_report.md</code> và <code>reports/team_contributions.csv</code>.</li>
+        <li><input type="checkbox"> Điền chính xác họ tên thật, mã sinh viên và email của tất cả 5 thành viên trong nhóm vào Bảng 2.</li>
+        <li><input type="checkbox"> Chuẩn bị slide thuyết trình (Google Slides hoặc PowerPoint, 3–5 slides):
+          <br>• Slide 1: Bối cảnh & Rủi ro khi xe tự hành dính ảnh lỗi.
+          <br>• Slide 2: Kiến trúc Pipeline 5 bước chuẩn Field-to-Release.
+          <br>• Slide 3: Bảng 1 so sánh Baseline vs PoC (Recall 50% ➔ 85%).
+          <br>• Slide 4: Phân tích 4 Failure Modes (Cam B, Ảnh đêm, Lóa đèn, Nén JPEG) và Quyết định REWORK.
+        </li>
+        <li><input type="checkbox"> Commit cập nhật thông tin thành viên lên GitHub.</li>
+      </ul>
+      <div class="file-tag">
+        <strong>File phụ trách:</strong> <code>reports/group_report.md</code>, <code>reports/team_contributions.csv</code>, <code>reports/metric_contract.md</code>
+      </div>
+      <pre><code># Hướng dẫn thao tác cho Thành viên 5:
+git pull origin main
+
+# Điền tên thật thành viên vào reports/group_report.md và reports/team_contributions.csv
+git add reports/group_report.md reports/team_contributions.csv
+git commit -m "docs: finalize group report member roster and contribution matrix"
+git push origin main</code></pre>
+    </div>
+
+  </div>
+
+  <!-- CHECKLIST NỘP BÀI -->
+  <div class="card">
+    <h2>🎯 Checklist Đối chiếu Rubric Chấm điểm của Giảng viên</h2>
+    <ul class="task-list">
+      <li><input type="checkbox" checked disabled> <strong>Đúng 1 lệnh chạy chính:</strong> <code>python -m src.main --track t02 --output out/poc --offline</code> chạy exit code 0.</li>
+      <li><input type="checkbox" checked disabled> <strong>Không vi phạm GT Guard:</strong> Tuyệt đối không đọc <code>fixtures/*/gt/</code> trong pipeline.</li>
+      <li><input type="checkbox" checked disabled> <strong>Chạy hoàn toàn Offline:</strong> Có cờ <code>--offline</code>, không gọi mạng internet.</li>
+      <li><input type="checkbox" checked disabled> <strong>Đủ bộ file kết quả:</strong> Có đủ <code>ranked_review.csv</code>, <code>review_queue.csv</code>, <code>contact_sheet.html</code>, <code>decision.json</code>, <code>decision_log.csv</code>.</li>
+      <li><input type="checkbox" checked disabled> <strong>Pass 100% Unit Tests:</strong> Lệnh <code>pytest -q</code> chạy 0 failures.</li>
+    </ul>
+  </div>
+
+  <div class="footer">
+    <p>Tài liệu điều phối nội bộ Nhóm G01 · Day 06 Data Lab · Đại học VinUni</p>
+    <p style="margin-top: 6px; font-size: 12px; color: #94a3b8;">File <code>ke_hoach_t02_nhom.html</code> nằm trực tiếp trong thư mục gốc của repository.</p>
+  </div>
+
+</div>
+
+</body>
+</html>
