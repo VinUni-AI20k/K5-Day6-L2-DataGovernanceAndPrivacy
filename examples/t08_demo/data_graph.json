@@ -1,0 +1,154 @@
+{
+  "version": "hand-authored-demo-v1",
+  "note": "Small manually specified development cases, NOT instructor GT",
+  "artefacts": [
+    {
+      "artefact_id": "rawA",
+      "type": "raw_video",
+      "subject_ids": [
+        "A"
+      ],
+      "parent_ids": [],
+      "uri": "mock://demo/rawA",
+      "owner": "data-platform",
+      "acl": [
+        "data-platform"
+      ],
+      "legal_hold": null,
+      "origin_known": true,
+      "filename": "drive_A.mp4"
+    },
+    {
+      "artefact_id": "frameA",
+      "type": "frame",
+      "subject_ids": [
+        "A"
+      ],
+      "parent_ids": [
+        "rawA"
+      ],
+      "uri": "mock://demo/frameA",
+      "owner": "data-platform",
+      "acl": [
+        "data-platform"
+      ],
+      "legal_hold": null,
+      "origin_known": true
+    },
+    {
+      "artefact_id": "backupA",
+      "type": "backup",
+      "subject_ids": [
+        "A"
+      ],
+      "parent_ids": [
+        "rawA"
+      ],
+      "uri": "mock://demo/backupA",
+      "owner": "data-platform",
+      "acl": [
+        "data-platform"
+      ],
+      "legal_hold": null,
+      "origin_known": true
+    },
+    {
+      "artefact_id": "holdA",
+      "type": "frame",
+      "subject_ids": [
+        "A"
+      ],
+      "parent_ids": [
+        "rawA"
+      ],
+      "uri": "mock://demo/holdA",
+      "owner": "data-platform",
+      "acl": [
+        "data-platform"
+      ],
+      "legal_hold": "LH-DEMO",
+      "origin_known": true
+    },
+    {
+      "artefact_id": "vendorA",
+      "type": "frame",
+      "subject_ids": [
+        "A"
+      ],
+      "parent_ids": [
+        "rawA"
+      ],
+      "uri": "mock://demo/vendorA",
+      "owner": "data-platform",
+      "acl": [
+        "vendor"
+      ],
+      "legal_hold": null,
+      "origin_known": true
+    },
+    {
+      "artefact_id": "unknownA",
+      "type": "frame",
+      "subject_ids": [
+        "A"
+      ],
+      "parent_ids": [
+        "rawA"
+      ],
+      "uri": "mock://demo/unknownA",
+      "owner": "data-platform",
+      "acl": [
+        "data-platform"
+      ],
+      "legal_hold": null,
+      "origin_known": false
+    },
+    {
+      "artefact_id": "shared",
+      "type": "frame",
+      "subject_ids": [
+        "A",
+        "B"
+      ],
+      "parent_ids": [],
+      "uri": "mock://demo/shared",
+      "owner": "data-platform",
+      "acl": [
+        "data-platform"
+      ],
+      "legal_hold": null,
+      "origin_known": true
+    },
+    {
+      "artefact_id": "rawB",
+      "type": "raw_video",
+      "subject_ids": [
+        "B"
+      ],
+      "parent_ids": [],
+      "uri": "mock://demo/rawB",
+      "owner": "data-platform",
+      "acl": [
+        "data-platform"
+      ],
+      "legal_hold": null,
+      "origin_known": true,
+      "filename": "drive_B.mp4"
+    },
+    {
+      "artefact_id": "inferred",
+      "type": "frame",
+      "subject_ids": [],
+      "parent_ids": [
+        "rawA"
+      ],
+      "uri": "mock://demo/inferred",
+      "owner": "data-platform",
+      "acl": [
+        "data-platform"
+      ],
+      "legal_hold": null,
+      "origin_known": true
+    }
+  ]
+}

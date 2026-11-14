@@ -1,0 +1,11 @@
+request_id,artefact_id,expected_action
+REQ-A,rawA,delete
+REQ-A,frameA,delete
+REQ-A,backupA,delete
+REQ-A,holdA,retain_legal_hold
+REQ-A,vendorA,escalate
+REQ-A,unknownA,escalate
+REQ-A,shared,escalate
+REQ-A,inferred,escalate
+REQ-B,shared,escalate
+REQ-B,rawB,delete

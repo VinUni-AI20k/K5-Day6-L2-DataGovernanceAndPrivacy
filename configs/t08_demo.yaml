@@ -1,0 +1,12 @@
+track_config: tracks/t08.yaml
+track: t08
+group_id: skyyyyy
+owner: LeVanKhoi
+input: examples/t08_demo
+output: out/demo_poc
+seed: 42
+offline: true
+strict_provenance: true
+params:
+  actor: data-platform
+  dry_run: true
