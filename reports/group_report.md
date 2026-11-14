@@ -12,7 +12,7 @@
 |---|---|
 | Group ID | G99 (theo `configs/lab.yaml`) |
 | Challenge | T07 · Automatic Face/Plate Redaction + Review Queue |
-| Thành viên (4) + vai trò | 1. Trương Thanh Đức (Lead / Integrator & Decision Gate) · 2. Võ Khắc Xuân Nguyên (Core Algorithm & Baselines) · 3. Nguyễn Xuân Khánh (Data, Mini-GT, Metrics & QA Tests) · 4. Huỳnh Nhật Quang (Human-in-the-loop, Compliance & Report/Slides) |
+| Thành viên (4) + vai trò | 1. Trương Thành Đức (Lead / Integrator & Decision Gate) · 2. Võ Khắc Xuân Nguyên (Core Algorithm & Baselines) · 3. Nguyễn Xuân Khánh (Data, Mini-GT, Metrics & QA Tests) · 4. Huỳnh Nhật Quang (Human-in-the-loop, Compliance & Report/Slides) |
 | Git URL | https://github.com/thanhduc270998/K5-L2A-DAY06-TruongThanhDuc-2A202603034-DataGovernanceAndPrivacy.git |
 | Tag `demo-180m` (commit) | ____ |
 | Tag `final-24h` (commit) | ____ |
@@ -141,7 +141,7 @@ pytest -q
 
 | Học viên | Git author/email | Module / vai trò | Commit SHA / diff chứng minh | Trình bày? |
 |---|---|---|---|---|
-| Thành viên 1: Trương Thanh Đức | thanhduc0998 / truongthanhduc270998@gmail.com | Lead / Integrator & Decision Gate — `configs/lab.yaml`, `src/pipeline.py` (`load`, `rank`, `review`, `decide`), merge + tag Git | | |
+| Thành viên 1: Trương Thành Đức | thanhduc0998 / truongthanhduc270998@gmail.com | Lead / Integrator & Decision Gate — `configs/lab.yaml`, `src/pipeline.py` (`load`, `rank`, `review`, `decide`), merge + tag Git | | |
 | Thành viên 2: Võ Khắc Xuân Nguyên | Nguyenvkx / vokhacxuannguyen165@gmail.com | Core Algorithm & Baselines — bộ dò mặt/biển số, baseline | | |
 | Thành viên 3: Nguyễn Xuân Khánh | Khanh-AI-ML-DL / khanhblackjaky@gmail.com | Data, Mini-GT, Metrics & QA Tests — `reports/metric_contract.md`, test T07, mini-GT | `c4a80ba` (main) — điền `reports/metric_contract.md` | |
 | Thành viên 4: Huỳnh Nhật Quang | quanghunh / nhatquangh72@gmail.com | Human-in-the-loop, Compliance & Report/Slides — `reports/group_report.md`, `reports/team_contributions.csv`, `reports/review_queue.csv`, `reports/decision_log.csv`, `demo/` | `5218064` (nhánh `quang_2A2603113`) — `group_report.md`, `team_contributions.csv` | |
