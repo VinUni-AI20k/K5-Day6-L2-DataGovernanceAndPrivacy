@@ -1,0 +1,2 @@
+# Preserve fixture bytes required by the T08 SHA-256 manifest on Windows.
+/fixtures/t08_deletion/*.json text eol=lf

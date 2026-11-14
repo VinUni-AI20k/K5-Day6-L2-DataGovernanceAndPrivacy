@@ -24,6 +24,7 @@ from .common.decision import Decision, write_decision
 from .common.manifest import verify_manifest
 from .common.review import load_review_decisions, make_review_queue, write_review_queue
 from .metrics.tracks import get_track
+from .t08.input_data import load_input
 
 
 # ---------------------------------------------------------------- 01 load
@@ -35,6 +36,10 @@ def load(ctx: RunContext) -> dict:
         if ctx.config.get("strict_provenance", True):
             raise ValueError(f"provenance check failed ({len(problems)} problems), first: {problems[:3]}")
     data = {"manifest": pd.read_csv(manifest) if manifest.exists() else None}
+    if ctx.track == "t08":
+        data.update(load_input(ctx.input_dir))
+        ctx.stats.update(n_requests=len(data["requests"]), n_artefacts=len(data["artefacts"]))
+        print(f"[load] T08: {len(data['requests'])} requests, {len(data['artefacts'])} artefacts")
     # TODO: load the tables/images your track needs, e.g.
     # data["images"] = pd.read_csv(ctx.input_dir / "images.csv")
     return data
