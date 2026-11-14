@@ -1,0 +1,24 @@
+# ============================================================
+# Fixture bytes are sha256-verified against manifest.csv.
+# Git must NOT rewrite line endings on checkout, otherwise the
+# hash changes and src.main fails provenance (exit 2) on any
+# machine configured with core.autocrlf=true (Windows default).
+# ============================================================
+fixtures/**        -text
+
+# Binary assets: never diff, never convert
+*.jpg              binary
+*.jpeg             binary
+*.png              binary
+
+# Source and docs: normalise to LF in the repo
+*.py               text eol=lf
+*.md               text eol=lf
+*.yaml             text eol=lf
+*.yml              text eol=lf
+*.toml             text eol=lf
+*.sh               text eol=lf
+Makefile           text eol=lf
+
+# Report CSVs are hand-edited on mixed platforms; keep LF
+reports/*.csv      text eol=lf
