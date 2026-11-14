@@ -1,0 +1,8 @@
+# Fixture manifests hash LF bytes. Keep text identical on Windows and Unix.
+* text=auto eol=lf
+*.jpg binary
+*.jpeg binary
+*.png binary
+*.gif binary
+*.pdf binary
+*.zip binary

@@ -8,10 +8,10 @@
 
 | Mục | Giá trị |
 |---|---|
-| Group ID | G__ |
-| Challenge | T__ · ______________________ |
-| Thành viên (5–6) + vai trò | 1. ____ (Lead/Integrator) · 2. ____ (Data & fixtures) · 3. ____ (Core algorithm) · 4. ____ (QA/metric) · 5. ____ (Review + report) · 6. ____ |
-| Git URL | ____ |
+| Group ID | G06 · Team 6 |
+| Challenge | T02 · Raw QC Triage |
+| Thành viên (6) + vai trò | Hoàng Trọng Trà – 2A202603342 (Lead / Integrator); Nguyễn Quốc Hưng – 2A202603324 (Data & Provenance); Phạm Văn Dương – 2A202603332 (Baseline & Research); Nguyễn Nhật Hạ – 2A202603325 (Core Algorithm / PoC); Lê Trần Phi Hùng – 2A202603353 (QA & Evaluation); Nguyễn Tuấn Minh – 2A202603349 (Human Review & Demo) |
+| Git URL | https://github.com/trahoangdev/K5-Day6-L2B-HoangTrongTra-2A202603342-DataGovernanceAndPrivacy |
 | Tag `demo-180m` (commit) | ____ |
 | Tag `final-24h` (commit) | ____ |
 | Deadline (giờ VN) | ____ |
@@ -109,12 +109,12 @@ pytest -q
 
 | Học viên | Git author/email | Module / vai trò | Commit SHA / diff chứng minh | Trình bày? |
 |---|---|---|---|---|
-| Member 1 | | Integration / CLI | | |
-| Member 2 | | Data + GT | | |
-| Member 3 | | Core algorithm | | |
-| Member 4 | | Metric + tests | | |
-| Member 5 | | Review queue + report | | |
-| Member 6 (nếu có) | | Research / ablation / debate | | |
+| Hoàng Trọng Trà – 2A202603342 | Chờ xác nhận | Lead / Integrator | Chưa ghi nhận | Chờ phân công |
+| Nguyễn Quốc Hưng – 2A202603324 | Chờ xác nhận | Data & Provenance | Chưa ghi nhận | Chờ phân công |
+| Phạm Văn Dương – 2A202603332 | Chờ xác nhận | Baseline & Research | Chưa ghi nhận | Chờ phân công |
+| Nguyễn Nhật Hạ – 2A202603325 | Chờ xác nhận | Core Algorithm / PoC | Chưa ghi nhận | Chờ phân công |
+| Lê Trần Phi Hùng – 2A202603353 | Chờ xác nhận | QA & Evaluation | Chưa ghi nhận | Chờ phân công |
+| Nguyễn Tuấn Minh – 2A202603349 | Chờ xác nhận | Human Review & Demo | Chưa ghi nhận | Chờ phân công |
 
 ## 11 · References
 

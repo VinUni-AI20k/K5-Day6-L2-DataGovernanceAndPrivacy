@@ -1,6 +1,7 @@
 member,git_author_name,git_email,role,modules_files,commit_shas,evidence_note,presenter
-Member 1,,,Lead / Integrator,src/main.py; configs/,,,
-Member 2,,,Data & fixtures,fixtures/; tools/,,,
-Member 3,,,Core algorithm,src/pipeline.py,,,
-Member 4,,,QA / metric,tests/; reports/metrics_*.json,,,
-Member 5,,,Human review + report,reports/group_report.md; demo/,,,
+Hoàng Trọng Trà - 2A202603342,,,Lead / Integrator,src/pipeline.py; src/team06/policy.py; configs/; docs/TEAM06.md,,Phân công đã chốt; Git author/email và commit SHA cần xác nhận,
+Nguyễn Quốc Hưng - 2A202603324,,,Data & Provenance,src/team06/data.py; fixtures/; tools/,,Phân công đã chốt; Git author/email và commit SHA cần xác nhận,
+Phạm Văn Dương - 2A202603332,,,Baseline & Research,src/team06/baseline.py; reports/,,Phân công đã chốt; Git author/email và commit SHA cần xác nhận,
+Nguyễn Nhật Hạ - 2A202603325,,,Core Algorithm / PoC,src/team06/features.py; src/team06/scoring.py,,Phân công đã chốt; Git author/email và commit SHA cần xác nhận,
+Lê Trần Phi Hùng - 2A202603353,,,QA & Evaluation,tests/test_team06.py; tests/; reports/metrics_*.json,,Phân công đã chốt; Git author/email và commit SHA cần xác nhận,
+Nguyễn Tuấn Minh - 2A202603349,,,Human Review & Demo,src/team06/human_review.py; demo/; reports/,,Phân công đã chốt; Git author/email và commit SHA cần xác nhận,
