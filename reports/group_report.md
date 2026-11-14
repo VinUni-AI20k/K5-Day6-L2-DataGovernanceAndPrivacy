@@ -9,7 +9,7 @@
 |---|---|
 | Group ID | G00 (config `configs/lab.yaml`) |
 | Challenge | T02 · Raw QC Triage |
-| Thành viên + vai trò | 1. Nguyễn Thế Tùng, 2A202603320 (Lead/Integrator) · 2. ____ · 3. ____ · 4. ____ |
+| Thành viên + vai trò | 1. Nguyễn Thế Tùng, 2A202603320 (Lead/Integrator) · 2. Hoàng Duy Vương, 2A202603350(Data & fixtures) · 3. ____ · 4. ____ |
 | Git URL | https://github.com/entity-solo/K5-L2B-DAY06-NguyenTheTung-2A202603320-DataGovernanceAndPrivacy |
 | Tag `demo-180m` (commit) | `d6ad742` (freeze PoC + baseline + eval trước HITL) |
 | Tag `final-24h` (commit) | tag `final-24h` trên repo = commit cuối cùng |
