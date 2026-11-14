@@ -33,7 +33,7 @@ raw_video (15) ─┬─ backup (15)
 | # | Bẫy | Artefact | Ảnh hưởng tới yêu cầu | Xử lý của nhóm |
 |---|---|---|---|---|
 | B1 | Legal hold trên video gốc | `a0043` (LH-2026-03), `a0099` (LH-2026-07) | DR-002, DR-005 | `retain_legal_hold` |
-| B2 | Con cháu của video đang bị hold nhưng bản thân `legal_hold = null` | 14 artefact (DR-002), 15 artefact (DR-005); trong đó 26 cái chỉ có 1 chủ thể | DR-002, DR-005 | Xem câu hỏi mở Q1 |
+| B2 | Con cháu của video đang bị hold nhưng bản thân `legal_hold = null` | 14 artefact (DR-002), 15 artefact (DR-005); trong đó 26 cái chỉ có 1 chủ thể | DR-002, DR-005 | `delete` (đã chốt Q1, xem mục 3) |
 | B3 | Không rõ nguồn gốc (`origin_known = false`) | 3 embedding `a0075`, `a0079`, `a0083` | DR-004 | `escalate` |
 | B4 | Hệ thống không có quyền (`acl = ["vendor-x"]`) | backup `a0156` | DR-008 | `escalate` |
 | B5 | Nhiều chủ thể: frame và annotation có 2 người; `training_export` có 9–10 người | 8 frame/annotation, 2 export (`a0211`, `a0212`) | 9 trên 10 yêu cầu | `escalate` |
@@ -59,15 +59,22 @@ Giảng viên có bộ hidden eval tương đương, nên **không hard-code art
 | BFS ngây thơ, xóa hết con cháu | 164 | Completeness 100% nhưng false-delete khoảng 36 (30 ngoại lệ + 6 dòng ngoài phạm vi) |
 | PoC của nhóm | 128 | Completeness 100%, false-delete 0, với 2 `retain_legal_hold` và 28 `escalate` |
 
-## 3. Câu hỏi mở phải chốt trước phút 30
+## 3. Quyết định đã chốt
 
-| # | Câu hỏi | Đề xuất mặc định | Ai chốt |
+| # | Câu hỏi | Quyết định | Lý do |
 |---|---|---|---|
-| Q1 | Legal hold trên video gốc có lan xuống backup, frame, crop, embedding không? | **Không lan.** Chỉ artefact có `legal_hold` khác null mới `retain_legal_hold`. Bản gốc đã giữ đủ bằng chứng, bản phái sinh vẫn xóa theo nguyên tắc tối thiểu hóa dữ liệu. Các dòng này được đẩy lên đầu review queue với reason `DERIVED_FROM_HELD` để người duyệt xác nhận. | M3 hỏi giảng viên, M1 chốt |
-| Q2 | Artefact nhiều chủ thể: `escalate` hay `delete`? | `escalate`. Xóa sẽ làm mất dữ liệu của người không yêu cầu; cách xử lý đúng (che mặt, dựng lại export) cần người quyết. | M3 |
-| Q3 | Review budget B bằng bao nhiêu? | B = 60, đủ chứa 30 ngoại lệ và 26 dòng `DERIVED_FROM_HELD`. | M5 |
+| Q1 | Legal hold trên video gốc có lan xuống backup, frame, crop, embedding không? | **ĐÃ CHỐT: không lan, bản phái sinh `delete`.** Chỉ artefact có `legal_hold` khác null mới `retain_legal_hold`. Tham số `hold_scope: direct`. | Lệnh giữ gắn riêng từng artefact trong dữ liệu, các bản phái sinh có `legal_hold = null`. Video gốc được giữ nguyên nên bằng chứng vẫn còn; giữ thêm ảnh mặt và embedding chỉ làm tăng rủi ro cho người dùng (nguyên tắc tối thiểu hóa dữ liệu). |
+| Q2 | Artefact nhiều chủ thể: `escalate` hay `delete`? | **ĐÃ CHỐT: `escalate`.** | Xóa sẽ làm mất dữ liệu của người không yêu cầu; cách xử lý đúng (che mặt, dựng lại export) cần người quyết. |
+| Q3 | Review budget B bằng bao nhiêu? | **ĐÃ CHỐT: B = 60.** | Đủ chứa 30 ngoại lệ và 26 dòng `delete` có reason `DERIVED_FROM_HELD`. Budget không ảnh hưởng điểm T08. |
 
-Q1 là rủi ro điểm lớn nhất: nếu GT cho rằng hold lan xuống, 26 dòng `delete` của ta thành false-delete. Vì vậy phải làm 3 việc: hỏi giảng viên ngay phút đầu, để hành vi này thành tham số `hold_scope: direct | descendants` trong `configs/lab.yaml`, và ghi quyết định cùng lý do vào `reports/metric_contract.md` **trước** khi có kết quả eval. Không đổi tham số sau khi thấy điểm.
+### Rủi ro đã chấp nhận ở Q1
+
+Nhóm biết rằng nếu đáp án của giảng viên coi hold lan xuống bản phái sinh, 26 dòng `delete` sẽ thành false-delete. Nhóm chấp nhận rủi ro này để nhắm tới Completeness 100%. Bốn việc bắt buộc đi kèm:
+
+1. **M3 vẫn hỏi giảng viên ngay phút đầu.** Nếu giảng viên trả lời "có lan", đổi `hold_scope: descendants` trước phút 30, rồi cập nhật lại mục này.
+2. **Ghi quyết định và lý do vào `reports/metric_contract.md` trước khi chạy eval.** Không đổi tham số sau khi thấy điểm.
+3. **26 dòng này lên đầu review queue** với reason `DERIVED_FROM_HELD`, kèm mã hold của tổ tiên trong audit log, để người duyệt có thể chặn lại nếu thấy cần.
+4. **M3 làm ablation `hold_scope: descendants`** và đưa vào báo cáo, để khi tranh biện có số cho cả hai cách hiểu.
 
 ## 4. Thiết kế kỹ thuật
 
@@ -156,7 +163,7 @@ Mỗi dòng `retain_legal_hold` ghi thêm mã hold và ghi chú "xóa khi hết 
 |---|---|---|---|
 | **M1** (Leader) | Integrator | Bộ khung chạy exit 0; `pipeline.py` nối đủ 5 bước; `rank()` và `decide()`; merge PR; 2 tag | 3 |
 | **M2** | Data & lineage | `loader.py` có kiểm schema; `lineage.py` (index, phạm vi, đường đi, tổ tiên bị hold); phát hiện dangling và vòng lặp | 3 |
-| **M3** | Policy | `policy.py`; `t08_policy.yaml` có nguồn luật; chốt Q1 và Q2; ablation `hold_scope` | 3 |
+| **M3** | Policy | `policy.py`; `t08_policy.yaml` có nguồn luật; hỏi giảng viên xác nhận Q1; ablation `hold_scope: descendants` | 3 |
 | **M4** | QA & metric | `baseline.py`; bộ gold mini; tối thiểu 8 test; `metrics_baseline.json`, `metrics_poc.json`, bảng so sánh | 3 |
 | **M5** | Review & report | `audit.py`; review queue và contact sheet; đóng vai người duyệt; `metric_contract.md`; `group_report.md`; slides | 3 |
 
@@ -250,7 +257,7 @@ Trước mỗi lần chạy lấy số liệu chính thức, xóa thư mục `ou
 | Phút | M1 | M2 | M3 | M4 | M5 | Mốc kiểm |
 |---|---|---|---|---|---|---|
 | 0–15 | Sửa `lab.yaml` sang t08, push khung và stub | Cài môi trường, đọc fixture | Đọc đề, hỏi giảng viên Q1 | Cài môi trường, đọc evaluator | Bắt đầu `metric_contract.md` | Mỗi người có 1 commit; lệnh PoC exit 0 với stub |
-| 15–30 | Sửa `rank()` dùng `item_id` | `loader.py` | Viết `t08_policy.yaml` | Viết graph mini và đáp án | Chốt Q3, điền xong contract | **Chốt `metric_contract.md`** và Q1–Q3 |
+| 15–30 | Sửa `rank()` dùng `item_id` | `loader.py` | Viết `t08_policy.yaml` | Viết graph mini và đáp án | Chốt Q3, điền xong contract | **Chốt `metric_contract.md`** (ghi Q1–Q3 đã chốt; đổi Q1 chỉ khi giảng viên trả lời khác) |
 | 30–50 | Duyệt PR | `scope_for()`, `build_index()` | `decide_action()` luật 1, 5, 7 | `baseline.py` và test baseline | Khung `write_audit()` | **Merge 1:** có `out/baseline/actions.csv` |
 | 50–90 | Nối `process()` với code thật | `lineage_path()`, `held_ancestor()` | Luật 2, 3, 4, 6 và `review_score` | 6 test đầu trong danh sách | Audit đủ trường, dry-run | **Merge 2:** PoC ra 158 dòng, test xanh |
 | 90–145 | `decide()`, tombstones, sửa lỗi tích hợp | Cảnh báo dangling/cycle, hỗ trợ M4 | Ablation `hold_scope`, viết lập luận pháp lý | Test idempotency và audit; gán nhãn tay DR-004, DR-005 | Review queue, contact sheet, đóng vai người duyệt | **Merge 3:** vòng review chạy đủ, có override trong audit log |
