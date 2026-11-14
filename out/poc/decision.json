@@ -1,0 +1,17 @@
+{
+  "status": "RECAPTURE",
+  "reason_code": "QC_ANOMALIES_FOUND",
+  "reason": "48 images exceeded the frozen QC anomaly threshold",
+  "owner": "Nguyen Thanh Phong (Data Owner)",
+  "scope": "t02",
+  "evidence": [
+    "out\\poc\\ranked_review.csv",
+    "out\\poc\\review_queue.csv"
+  ],
+  "metrics": {
+    "n_images": 96,
+    "n_recapture": 48
+  },
+  "ts": "2026-11-14T08:36:17+00:00",
+  "canonical": "REWORK"
+}

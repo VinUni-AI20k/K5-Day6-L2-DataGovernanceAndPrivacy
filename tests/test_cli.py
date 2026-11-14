@@ -15,10 +15,17 @@ from src.common.offline import NetworkBlockedError, disable_offline_guard, enabl
 
 
 def test_template_pipeline_fails_clearly_not_silently(tmp_path):
-    rc = runner.main(["--track", "t02", "--output", str(tmp_path), "--offline"])
+    rc = runner.main(["--track", "t03", "--output", str(tmp_path), "--offline"])
     assert rc == 3                                   # NotImplemented -> explicit exit code
     info = json.loads((tmp_path / "run_info.json").read_text())
     assert info["status"] == 3 and info["seed"] == 42
+
+
+def test_t02_pipeline_end_to_end(tmp_path):
+    assert runner.main(["--track", "t02", "--output", str(tmp_path), "--offline"]) == 0
+    ranked = pd.read_csv(tmp_path / "ranked_review.csv")
+    assert len(ranked) == 96
+    assert {"image_id", "score", "pred_defect_type", "pred_action"}.issubset(ranked.columns)
 
 
 def _run_baseline(out):
