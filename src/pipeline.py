@@ -28,6 +28,10 @@ from .metrics.tracks import get_track
 
 # ---------------------------------------------------------------- 01 load
 def load(ctx: RunContext) -> dict:
+    if ctx.track == "t02":
+        from .team06.data import load_inputs
+
+        return load_inputs(ctx)
     manifest = ctx.input_dir / "manifest.csv"
     problems = verify_manifest(manifest) if manifest.exists() else [{"problem": "no_manifest"}]
     if problems:
@@ -42,6 +46,10 @@ def load(ctx: RunContext) -> dict:
 
 # ---------------------------------------------------------------- 02 process
 def process(ctx: RunContext, data: dict) -> pd.DataFrame:
+    if ctx.track == "t02":
+        from .team06.scoring import score_images
+
+        return score_images(ctx, data)
     spec = get_track(ctx.track)
     raise NotImplementedError(
         f"Implement process() for {spec.track} ({spec.title}). It must produce a DataFrame with at least "
@@ -56,8 +64,12 @@ def rank(ctx: RunContext, scored: pd.DataFrame) -> pd.DataFrame:
     if "score" not in scored.columns:
         raise ValueError("rank(): process() output needs a numeric `score` column (higher = review first), "
                          "or adapt rank() to your track")
-    q = make_review_queue(scored, id_col=scored.columns[0], score_col="score", budget=budget,
-                          reason_col="reason" if "reason" in scored.columns else None)
+    q = make_review_queue(scored, id_col="image_id" if ctx.track == "t02" else scored.columns[0],
+                          score_col="score", budget=budget,
+                          reason_col="reason" if "reason" in scored.columns else None,
+                          action_col="pred_action" if "pred_action" in scored.columns else None,
+                          slice_col="light" if "light" in scored.columns else None,
+                          evidence_col="path" if "path" in scored.columns else None)
     write_review_queue(q, ctx.out("review_queue.csv"))
     return q
 
@@ -69,6 +81,10 @@ def review(ctx: RunContext, scored: pd.DataFrame, queue: pd.DataFrame) -> pd.Dat
     TODO: decide what an `edit` / `reject` means for your track and apply it
     (e.g. via common.review.apply_overrides), logging every change to ctx.audit.
     """
+    if ctx.track == "t02":
+        from .team06.human_review import apply_human_review
+
+        return apply_human_review(ctx, scored, queue)
     reviewed_path = ctx.output_dir / "review_queue_reviewed.csv"
     if reviewed_path.exists():
         reviewed = load_review_decisions(reviewed_path)
@@ -79,17 +95,26 @@ def review(ctx: RunContext, scored: pd.DataFrame, queue: pd.DataFrame) -> pd.Dat
 
 # ---------------------------------------------------------------- 05 decide
 def decide(ctx: RunContext, final: pd.DataFrame) -> Decision:
+    if ctx.track == "t02":
+        from .team06.policy import decide as decide_t02
+
+        return decide_t02(ctx, final)
     # TODO: replace with your policy (thresholds frozen BEFORE looking at eval results)
     return Decision(status="HOLD", reason_code="POLICY_NOT_IMPLEMENTED", reason="Decision policy not implemented yet",
                     owner=ctx.config.get("owner", "TODO-owner"), scope=ctx.track)
 
 
-def run(ctx: RunContext) -> None:
+def run_pipeline(ctx: RunContext, scorer=process) -> None:
+    """Shared stages for Team 6 PoC and baseline; scorer(ctx, data) returns a scored table."""
     spec = get_track(ctx.track)
     data = load(ctx)
-    scored = process(ctx, data)
+    scored = scorer(ctx, data)
     ctx.stats["n_items"] = len(scored)
     queue = rank(ctx, scored)
     final = review(ctx, scored, queue)
     final[spec.pred_columns + [c for c in final.columns if c not in spec.pred_columns]].to_csv(ctx.out(spec.pred_file), index=False)
     write_decision(decide(ctx, final), ctx.out("decision.json"), ctx.out("decision_log.csv"))
+
+
+def run(ctx: RunContext) -> None:
+    run_pipeline(ctx)
