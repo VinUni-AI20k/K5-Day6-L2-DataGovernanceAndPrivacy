@@ -1,6 +1,6 @@
 member,git_author_name,git_email,role,modules_files,commit_shas,evidence_note,presenter
-Member 1,,,Lead / Integrator,src/main.py; configs/,,,
-Member 2,,,Data & fixtures,fixtures/; tools/,,,
-Member 3,,,Core algorithm,src/pipeline.py,,,
-Member 4,,,QA / metric,tests/; reports/metrics_*.json,,,
-Member 5,,,Human review + report,reports/group_report.md; demo/,,,
+Member 1,,,,src/t07_detector.py; src/t07_redactor.py; src/t07_ranking.py,,Detector/redactor/ranking owner; identity and commit pending,
+Nguyen Thanh Phong,Nguyen Thanh Phong(K18),phongnthe182099@fpt.edu.vn,Baseline and data protocol,src/t07_baseline.py; reports/t07_data_protocol.md,,Branch and commit pending,
+Member 3,,,,src/t07_review.py; src/t07_export.py,,Human review/audit/export owner; identity and commit pending,
+Member 4,,,,tests/test_t07_pipeline.py; reports/metric_contract.md; tools/t07_slice_report.py,,QA/metric/failure-analysis owner; identity and commit pending,
+Nguyen Nhat Minh,nminnnnn,nminnnnn@users.noreply.github.com,Lead integration decision report and demo,configs/lab.yaml; src/pipeline.py; src/t07_contract.py; docs/T07_INTEGRATION_CONTRACT.md; reports/group_report.md; demo/,8f1f13a,Integration contract schema validation and demo plan,
