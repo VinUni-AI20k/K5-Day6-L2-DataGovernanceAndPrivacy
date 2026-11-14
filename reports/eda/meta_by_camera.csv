@@ -1,0 +1,5 @@
+split,camera_id,n_images
+dev,cam_A,36
+dev,cam_B,20
+eval,cam_A,28
+eval,cam_B,12
