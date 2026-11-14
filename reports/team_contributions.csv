@@ -1,6 +1,5 @@
 member,git_author_name,git_email,role,modules_files,commit_shas,evidence_note,presenter
-Member 1,,,Lead / Integrator,src/main.py; configs/,,,
-Member 2,,,Data & fixtures,fixtures/; tools/,,,
-Member 3,,,Core algorithm,src/pipeline.py,,,
-Member 4,,,QA / metric,tests/; reports/metrics_*.json,,,
-Member 5,,,Human review + report,reports/group_report.md; demo/,,,
+Thành viên 1,thanhduc0998,,Lead / Integrator & Decision Gate,configs/lab.yaml; src/pipeline.py,,"Nối 5 bước load → process → rank → review → decide; viết load(), rank(), review(), policy decide() (GO/HOLD/REWORK + reason_code + owner); quản lý merge và gắn tag Git",
+Thành viên 2,nguyenvkx,,Core Algorithm & Baselines,src/t07_baseline.py; src/t07_detector.py,,"2 baseline (blur-all + OpenCV Haar Cascade mặc định); PoC detector offline (CLAHE/tăng sáng ảnh tối, nhánh face + lọc hard-negative đầu người đi bộ, nhánh plate, padding cân bằng coverage ≥ 0.9 và over-redaction ≤ 0.3, làm mờ ảnh xuất demo)",
+Thành viên 3,Khanh-AI-ML-DL,,"Data, Mini-GT, Metrics & QA Tests",reports/metric_contract.md; tests/test_t07.py; scratch/dev_mini_gt.csv,,"Chốt metric_contract.md trước khi eval; tự gán nhãn ~10–12 ảnh dev (không đụng eval); chạy src.evaluate + src.compare trên dev theo slice; ≥ 2 test (success + failure/edge); tìm ≥ 2 failure case",
+Thành viên 4,quanghunh,,"Human-in-the-loop, Compliance & Report/Slides",reports/group_report.md; reports/team_contributions.csv; demo/,,"Kiểm tra contact_sheet.html; đóng vai reviewer duyệt top-15 → review_queue_reviewed.csv → audit_log.jsonl; lưu reports/review_queue.csv và reports/decision_log.csv; viết phần EDPB 02/2026; điền report và làm 3–5 slide demo",
