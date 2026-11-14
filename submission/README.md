@@ -22,9 +22,8 @@ Họ tên và MSSV lấy từ file `report/individual/<MSSV>_<HoTen>.md` trong r
 | 3 | Nguyễn Xuân Việt | 2A202604045 | [ngxuanviet](https://github.com/ngxuanviet) | _chưa phân_ |
 | 4 | Trần Nguyễn Phi Long | 2A202604058 | [CybevisKeishaa](https://github.com/CybevisKeishaa) | _chưa phân_ |
 | 5 | Phạm Phú Nguyễn Hưng | 2A202604062 | [phamphunguyenhung](https://github.com/phamphunguyenhung) | _chưa phân_ |
-| 6 | _chưa có thông tin_ | _chưa có_ | _chưa có_ | _chưa phân_ |
+| 6 | Bùi Văn Thịnh | 2A202604040 | [buivanthinhtxt-del](https://github.com/buivanthinhtxt-del) | Failure analysis (H) |
 
-> Nhóm có 6 người, hiện mới có đủ thông tin của 5 người. Bổ sung dòng 6 khi có họ tên, MSSV và GitHub.
 > Bảng này phải khớp với `reports/team_contributions.csv` và `git shortlog -sne --all`.
 
 ## Cần có trong repo khi nộp
