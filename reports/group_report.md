@@ -1,45 +1,41 @@
 # Group Report — Day 06 Data Lab (Field-to-Release PoC)
 
-> Quy ước trong file này: `[CẦN ĐIỀN]` = thông tin chỉ bạn biết hoặc số liệu phải lấy từ file do script sinh ra.
-> Không điền số khi chưa có file `reports/metrics_*.json` hoặc `reports/table1_baseline_vs_poc.md`.
+> Điền đầy đủ, cụ thể, không viết chung chung. Mọi con số phải lấy từ file do script sinh ra
+> (`reports/metrics_*.json`, `reports/table1_baseline_vs_poc.md`) — không gõ tay, không làm tròn mất đơn vị.
+> 3–5 trang (hoặc README + report.md tương đương).
 
 ## 00 · Header
 
 | Mục | Giá trị |
 |---|---|
-| Group ID | Làm cá nhân |
-| Challenge | T13 · Active Learning & Rare Case Miner |
-| Thành viên (5–6) + vai trò | 1. Hoàng Gia Bảo (MSSV: 2A202603138 — kiểm tra lại) — làm một mình, đảm nhận toàn bộ vai trò: Lead/Integrator, Data & fixtures, Core algorithm, QA/metric, Review + report |
-| Git URL | [CẦN ĐIỀN] |
-| Tag `demo-180m` (commit) | [CẦN ĐIỀN] |
-| Tag `final-24h` (commit) | [CẦN ĐIỀN] |
-| Deadline (giờ VN) | [CẦN ĐIỀN] |
+| Group ID | G__ |
+| Challenge | T__ · ______________________ |
+| Thành viên (5–6) + vai trò | 1. ____ (Lead/Integrator) · 2. ____ (Data & fixtures) · 3. ____ (Core algorithm) · 4. ____ (QA/metric) · 5. ____ (Review + report) · 6. ____ |
+| Git URL | ____ |
+| Tag `demo-180m` (commit) | ____ |
+| Tag `final-24h` (commit) | ____ |
+| Deadline (giờ VN) | ____ |
 
 ## 01 · Problem statement
 
-- **Ai bị ảnh hưởng khi hệ thống sai?** Nhóm gán nhãn (tốn ngân sách vào ảnh trùng hoặc ảnh vô ích) và người huấn luyện model (model không thấy được các tình huống hiếm như ban đêm có mưa, xe máy bị che, công trường, động vật, nên yếu đúng ở những chỗ quan trọng).
-- **Điểm nghẽn cụ thể:** ngân sách gán nhãn chỉ đủ cho K = 20 ảnh trong pool 200 ảnh chưa nhãn. Chọn ngẫu nhiên thì gần như không bắt được rare case (đề nêu baseline bằng 0 ở slice `night_rain` và `occluded`). Ngược lại, chọn theo "độ lạ" thuần túy dễ rơi vào ảnh nhiễu hoặc chỉ toàn ảnh tối.
-- **Đầu vào → đầu ra:** `pool_features.csv` (đặc trưng rẻ + `emb_00..15`) và `images.csv` → `out/poc/selected.csv` (đúng 20 dòng, cột `image_id`, `rank`) kèm `review_queue.csv`, `contact_sheet.html`, `decision.json`.
-- **Tiêu chí GO / HOLD / REWORK** (cài trong `decide()`):
-  - `HOLD / EMPTY_POOL`: pool rỗng.
-  - `REWORK / UNDERFILLED_SELECTION`: chọn chưa đủ K.
-  - `REWORK / JUNK_IN_SELECTION`: có ảnh bị gắn junk trong K.
-  - `REWORK / NEAR_DUPLICATE_IN_SELECTION`: có ảnh gần trùng nhau trong K.
-  - `HOLD / PENDING_HUMAN_REVIEW`: tập chọn sạch nhưng chưa có review của người.
-  - `GO / REVIEWED_OK`: đủ K, không junk, không near-duplicate, đã áp review.
-- **Giả định cần domain owner xác nhận:** (1) "rare" được định nghĩa bằng 4 tag của đề; (2) embedding trong fixture là giả lập nên khoảng cách trong không gian đó chỉ xấp xỉ độ hiếm thật; (3) ngưỡng junk và dedupe là heuristic thống kê, chưa kiểm chứng bằng GT.
+- Ai bị ảnh hưởng / ai chịu hậu quả khi hệ thống sai? ____
+- Điểm nghẽn cụ thể: ____
+- Đầu vào → đầu ra: ____
+- Tiêu chí GO / HOLD / REWORK (chốt trước khi chạy eval): ____
+- Giả định của nhóm (cần DPO/legal/domain owner xác nhận): ____
 
 ## 02 · Data & provenance
 
 | Split | N | Nguồn / link | License | Synthetic? |
 |---|---|---|---|---|
-| dev | không có tách riêng: pool 200 ảnh chưa nhãn, không dùng nhãn để tune | `fixtures/t13_rare_mining/` | [CẦN ĐIỀN từ `manifest.csv`] | [CẦN ĐIỀN từ `manifest.csv`]; embedding là giả lập (theo đề) |
-| eval / heldout | cùng pool 200 ảnh, GT `gt/rare_labels.csv` do giảng viên giữ, nhóm không đọc | `fixtures/t13_rare_mining/gt/` (chỉ giảng viên) | [CẦN ĐIỀN] | [CẦN ĐIỀN] |
+| dev | | | | |
+| eval / heldout | | | | |
 
 - **Schema & class mapping:** `images.csv` (`image_id`, `path`), `pool_features.csv` (`image_id`, `brightness_*`, `saturation_mean`, `edge_density`, `emb_00..15`). Rare tags dùng để đánh giá: `night_rain`, `occluded_motorbike`, `construction`, `animal`.
 - **Seed:** 42. **Cách chia split:** không chia. Pool cố định cho cả baseline và PoC, GT chỉ dùng ở khâu đánh giá của giảng viên.
-- **`manifest.csv` verified (sha256):** [CẦN ĐIỀN: có / không] — lệnh: `python -m tools.verify_manifests`. Pipeline cũng tự kiểm hash ở bước `load` (`strict_provenance`).
-- **Dữ liệu thật:** [CẦN ĐIỀN: có dùng `data/real/bdd/` không; nếu có, ghi cách xây GT từ metadata BDD. Nếu không, ghi "không dùng"].
+- **`manifest.csv` verified (sha256):** Có — lệnh: `python -m tools.verify_manifests`. Pipeline cũng tự kiểm hash ở bước `load` (`strict_provenance`).
+- **Dữ liệu thật:** chỉ dùng tài liệu trong fixtures/t13
+
 
 ## 03 · Research & design
 
@@ -70,14 +66,11 @@
 
 ## 04 · Baseline vs PoC
 
-- **Baseline:** chọn ngẫu nhiên K = 20 (`src.examples.random_baseline`), seed 42. Commit: [CẦN ĐIỀN].
-- **PoC:** `src/pipeline.py` (file `pipeline_t13.py`), `mode = hybrid`, tham số mặc định như trong `reports/metric_contract.md`. Commit: [CẦN ĐIỀN].
-- **Cùng budget / heldout / seed:** B = K = 20, cùng pool 200 ảnh, seed 42 — [CẦN XÁC NHẬN].
-
-**Bảng 1 · Baseline vs PoC & hard slices** — dán output của `python -m src.compare reports/metrics_baseline.json reports/metrics_poc.json`.
-
-> Chưa có số liệu: repo sinh viên không chứa GT nên `src.evaluate` không chạy được trên máy sinh viên (báo "ground truth file not found"). Giảng viên chạy chấm chính thức. Khi có file `reports/table1_baseline_vs_poc.md`, dán nguyên bảng vào đây, không gõ tay. Nếu baseline = 0 thì ghi "baseline = 0" thay vì phần trăm cải thiện.
-
+- **Baseline:** chọn ngẫu nhiên K = 20 (`src.examples.random_baseline`), seed 42.
+- **PoC:** `src/pipeline.py` (file `pipeline_t13.py`), `mode = hybrid`, tham số mặc định như trong `reports/metric_contract.md`. 
+- **Cùng budget / heldout / seed:** B = K = 20, cùng pool 200 ảnh, seed 42
+**Bảng 1 · Baseline vs PoC & hard slices** — dán output của
+`python -m src.compare reports/metrics_baseline.json reports/metrics_poc.json`:
 | Metric (unit) | Baseline | PoC | Δ & chú thích |
 |---|---|---|---|
 | Primary: Rare-case Recall@K (image) | [chờ eval] | [chờ eval] | higher is better |
@@ -85,7 +78,7 @@
 | Hard-slice: `occluded_motorbike` (image) | [chờ eval] | [chờ eval] | N=[chờ eval] |
 | Review@B / miss / FP | [chờ eval] | [chờ eval] | B=20 |
 | Runtime (cả lần chạy, 200 ảnh) | 3,87 s | 13,05 s | từ log `run_info.json` ở lần chạy đầu; chạy lại bản code cuối để đo lại, CPU=[CẦN ĐIỀN] |
-
+Chưa có số liệu: repo sinh viên không chứa GT nên `src.evaluate` không chạy được trên máy sinh viên (báo "ground truth file not found").
 ## 05 · Evaluation protocol
 
 - **Công thức:** Recall@K = (số ảnh rare thật trong K) / (tổng số ảnh rare thật trong pool); đơn vị là ảnh; ghép theo `image_id`. Chi tiết trong `reports/metric_contract.md`.
@@ -93,20 +86,18 @@
 - **Độ bất định khi N nhỏ:** Wilson 95% CI cho Recall@K và từng slice; baseline random chạy nhiều seed — [CẦN ĐIỀN: ghi rõ đã chạy bao nhiêu seed, nếu chỉ seed 42 thì nói rõ].
 - **Lệnh evaluate:**
   `python -m src.evaluate --track t13 --pred out/poc/selected.csv --run-name poc --out reports/metrics_poc.json`
-- **Lưu ý:** nhóm không có GT nên chưa tự chấm được; các số trên chỉ có sau khi giảng viên chạy hoặc cấp file chấm. Nhãn tự gán, nếu dùng, chỉ là ước lượng và phải ghi rõ như vậy.
+- **Lưu ý:** nhóm không có GT nên chưa tự chấm được; các số trên chỉ có sau khi giảng viên chạy hoặc cấp file chấm.
 
 ## 06 · Result slices
 
 | Slice | N | Baseline | PoC | Ghi chú |
 |---|---|---|---|---|
-| `night_rain` | [chờ eval] | [chờ eval] | [chờ eval] | target chính; báo cả khi bằng 0 |
-| `occluded_motorbike` | [chờ eval] | [chờ eval] | [chờ eval] | target chính; báo cả khi bằng 0 |
-| `construction` | [chờ eval] | [chờ eval] | [chờ eval] | |
-| `animal` | [chờ eval] | [chờ eval] | [chờ eval] | |
+| | | | | |
+| | | | | |
 
-- **Failure case 1 (ảnh/metadata + root cause):** [CẦN ĐIỀN: ví dụ ảnh junk hoặc dark-but-common trong K. Tìm bằng `out/poc/scored_all.csv`: lọc `is_junk`, `is_dark`, cột `reason`; chèn ảnh từ contact sheet và nêu nguyên nhân].
-- **Failure case 2:** [CẦN ĐIỀN: ví dụ near-duplicate đội lốt rare hoặc rare bị loại nhầm là junk].
-- **Latency / compute:** [CẦN ĐIỀN: máy, CPU, ms/item. Số tham khảo: một lần `make run` mất 13,05 s cho 200 ảnh trên WSL; đo lại bằng bản code cuối].
+- Failure case 1 (ảnh/metadata + root cause): ____
+- Failure case 2: ____
+- Latency / compute (máy, CPU, ms/item): ____
 
 ## 07 · Human & decision
 
@@ -120,15 +111,13 @@
 
 ```bash
 make setup          # hoặc: python -m venv .venv && pip install -r requirements.txt
-python -m src.main --input fixtures/t13_rare_mining --config configs/lab.yaml --output out/ --offline --seed 42
-python -m src.evaluate --track t13 --pred out/poc/selected.csv --out reports/metrics_poc.json
+python -m src.main --input fixtures/<track> --config configs/lab.yaml --output out/ --offline --seed 42
+python -m src.evaluate --track t__ --pred out/<file> --out reports/metrics_poc.json
 pytest -q
 ```
 
-Lệnh thực tế đã dùng: `make baseline TRACK=T13` và `make run TRACK=T13`.
-
-- **Output của `pytest -q`:** [CẦN ĐIỀN: chạy `pytest -q` và dán kết quả]
-- **Máy / CPU / OS / Python:** [CẦN ĐIỀN] (WSL trên Windows) · git sha: [CẦN ĐIỀN]
+- Output của `pytest -q`: ____
+- Máy / CPU / OS / Python: ____ · git sha: ____
 
 ## 09 · Limitations & ethics
 
@@ -145,19 +134,20 @@ Lệnh thực tế đã dùng: `make baseline TRACK=T13` và `make run TRACK=T13
 
 **Bảng 2 · Individual contribution evidence** (đối chiếu với `git shortlog -sne --all` và `reports/team_contributions.csv`)
 
-Dự án do một người thực hiện toàn bộ.
-
 | Học viên | Git author/email | Module / vai trò | Commit SHA / diff chứng minh | Trình bày? |
 |---|---|---|---|---|
-| Hoàng Gia Bảo | [CẦN ĐIỀN] | Toàn bộ: pipeline 5 bước, review queue, decision, metric contract, report | [CẦN ĐIỀN] | [CẦN ĐIỀN] |
+| Member 1 | | Integration / CLI | | |
+| Member 2 | | Data + GT | | |
+| Member 3 | | Core algorithm | | |
+| Member 4 | | Metric + tests | | |
+| Member 5 | | Review queue + report | | |
+| Member 6 (nếu có) | | Research / ablation / debate | | |
 
 ## 11 · References
 
 | URL | Ngày xem | 1–2 dòng ý nghĩa (không chép nguyên văn) |
 |---|---|---|
-| [CẦN ĐIỀN: FiftyOne Brain uniqueness] | [CẦN ĐIỀN] | Cách đo độ độc nhất của mẫu trong không gian embedding; làm cơ sở cho novelty bằng kNN. |
-| [CẦN ĐIỀN: BDD100K] | [CẦN ĐIỀN] | Bộ dữ liệu lái xe có metadata thời tiết/cảnh; nguồn định nghĩa rare case thật. |
-| [CẦN ĐIỀN: Ultralytics YOLO26 (theo Research Shelf trong handout)] | [CẦN ĐIỀN] | Tham chiếu mà đề nêu trong Research Shelf; ghi lại ý nghĩa nếu bạn thực sự đã đọc. |
+| | | |
 
 ---
 
@@ -165,6 +155,6 @@ Dự án do một người thực hiện toàn bộ.
 
 - [ ] Link repo và tag cuối cùng trong README; input mẫu không chứa PII thật.
 - [ ] Đúng 1 lệnh run, 1 lệnh evaluate, 1 lệnh tests; không cần download khi chạy.
-- [ ] Có baseline/PoC metrics (cần số từ giảng viên), ≥1 failure case, reviewer evidence, decision log.
+- [ ] Có baseline/PoC metrics, ≥1 failure case, reviewer evidence, decision log.
 - [ ] Có license/source provenance, data splits, seed, offline environment, GT/eval N.
 - [ ] Mỗi thành viên có ≥1 commit thực chất và được nêu minh bạch trong bảng trên.
