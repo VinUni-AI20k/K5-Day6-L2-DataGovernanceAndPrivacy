@@ -70,7 +70,7 @@
 - **Baseline tham khảo `baseline_haar`** (`src/t07_baseline_haar.py`, tùy chọn): Haar cascade mặt mặc định của OpenCV. `cv2.CascadeClassifier` không còn trong OpenCV 5.x bản thường, nên baseline này chỉ chạy được với OpenCV 4.x hoặc opencv-contrib; kết quả đo trong môi trường có contrib: miss 0,750, over-redaction 0,430 → FAIL (`reports/metrics_baseline_haar.json`). Không dùng làm baseline chính vì không tái lập được trên mọi máy.
 - **Baseline tầm thường `baseline_blurall`** (`src/t07_baseline_blurall.py`): một khung phủ toàn ảnh. Miss rate = 0 nhưng over-redaction = 0,988 → **FAIL guardrail**, nên chỉ số chính không hợp lệ (`reports/table1b_blurall_vs_poc.md`).
 - **PoC `poc`** (`src/pipeline.py` + `src/t07_detector.py` v1.0.0, tham số trong `configs/lab.yaml`): bộ dò cổ điển, hàng chờ 15 ảnh, người duyệt, audit log, decision gate. `poc_auto` = cùng pipeline **trước** khi người duyệt (`redactions_before_review.csv`).
-- **Cùng điều kiện:** cùng 60 ảnh, cùng seed 42, cùng mini-GT, cùng `--split dev`, cùng lệnh evaluate. Commit của bản nộp: \_\_\_\_
+- **Cùng điều kiện:** cùng 60 ảnh, cùng seed 42, cùng mini-GT, cùng `--split dev`, cùng lệnh evaluate. Commit của bản nộp: e84d827
 
 **Bảng 1 · Baseline vs PoC** — output nguyên văn của `python -m src.compare reports/metrics_baseline.json reports/metrics_poc.json` (mini-GT dev, không phải điểm chính thức):
 
@@ -165,7 +165,7 @@ python -m src.evaluate --track t07 --pred out/poc/redactions.csv --run-name poc 
 - **`pytest -q`:** `64 passed, 39 skipped` (39 test bị skip cần GT của giảng viên), chạy trong môi trường cài sạch từ `requirements.txt`. `tests/test_t07.py` có 17 test của nhóm: bộ dò phủ ≥ 0,9 các mặt trên cảnh tự render; không che đầu người đi bộ và biển báo; tất định; ảnh trống → 0 vùng; đầu vào sai định dạng → `ValueError`; parser override (hợp lệ và sai định dạng); baseline chạy offline, baseline Haar tùy chọn báo lỗi rõ ràng khi OpenCV không hỗ trợ; pipeline end-to-end HOLD → review → GO kèm audit log; tái lập cùng seed; review thiếu tên reviewer → exit 2.
 - **Không cần mạng:** `--offline` bật network guard; không tải model.
 - **Lưu ý Windows:** đặt `git config core.autocrlf false` trước khi checkout, nếu không Git đổi ký tự xuống dòng của CSV trong `fixtures/` và bước kiểm sha256 sẽ dừng pipeline (exit 2).
-- **Máy / Python:** Python 3.13.17, Windows; thời gian chạy PoC 3.47 s cho 60 ảnh. Git sha lúc tạo số liệu: `3919d8c` + thay đổi chưa commit; sha của bản nộp: \_\_\_
+- **Máy / Python:** Python 3.13.17, Windows; thời gian chạy PoC 3.47 s cho 60 ảnh. Git sha lúc tạo số liệu: `3919d8c` + thay đổi chưa commit; sha của bản nộp: e84d827
 
 ## 09 · Limitations & ethics
 
