@@ -1,9 +1,16 @@
 # ============================================================
 # Group config — EDIT ME (one per group). Values here override
 # the track defaults loaded from `track_config`.
+#
+# How the two files link together:
+#   configs/tracks/t02.yaml   <- track defaults + FROZEN PARAMETERS (`params:`)
+#   configs/lab.yaml          <- this file; loaded ON TOP of the track file
+#   src/common/io.py::load_config  deep-merges track file, then this file
+# So the pipeline sees ONE merged dict, and `ctx.config["params"]` already
+# contains every frozen T02 value. Nothing is hard-coded in src/pipeline.py.
 # ============================================================
-group_id: G00                     # e.g. G07
-owner: "TODO: tên người ký duyệt (role)"   # mandatory for every Decision
+group_id: G00                     # TODO: đổi thành mã nhóm thật (vd G07) — chưa có nguồn xác nhận
+owner: "Hoang Thu Huong"          # mandatory for every Decision (ky duyet)
 track_config: tracks/t02.yaml     # pick your challenge: tracks/t01.yaml ... tracks/t14.yaml
 track: t02                        # must match track_config
 input: fixtures/t02_raw_qc        # or data/real/... if your instructor provided a real pack
@@ -13,4 +20,8 @@ offline: true                     # demo/eval must not touch the network
 strict_provenance: true           # fail if manifest.csv hashes do not match
 
 # Track params (merged over track_config.params). Freeze before evaluation.
+# Leave EMPTY: the frozen T02 parameters live in configs/tracks/t02.yaml so the
+# track defaults stay reusable. Only add a key here to consciously override the
+# track value for this run — and if you do, re-freeze and log it in
+# reports/metric_contract.md, because the override changes the scoring.
 params: {}
