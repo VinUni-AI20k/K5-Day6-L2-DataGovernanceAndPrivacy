@@ -8,22 +8,27 @@
 
 | Mục | Giá trị |
 |---|---|
-| Group ID | G__ |
-| Challenge | T__ · ______________________ |
-| Thành viên (5–6) + vai trò | 1. ____ (Lead/Integrator) · 2. ____ (Data & fixtures) · 3. ____ (Core algorithm) · 4. ____ (QA/metric) · 5. ____ (Review + report) · 6. ____ |
-| Git URL | ____ |
-| Tag `demo-180m` (commit) | ____ |
-| Tag `final-24h` (commit) | ____ |
-| Deadline (giờ VN) | ____ |
+| Group ID | Làm cá nhân |
+| Challenge | T13 · Active Learning & Rare Case Miner |
+| Thành viên (5–6) + vai trò | 1. Hoàng Gia Bảo (MSSV: 2A202603138 — kiểm tra lại) — làm một mình, đảm nhận toàn bộ vai trò: Lead/Integrator, Data & fixtures, Core algorithm, QA/metric, Review + report |
+| Git URL | https://github.com/GBao294/K5-L2A-Day6-HoangGiaBao-202603138-DataGovernanceAndPrivacy |
+| Tag `demo-180m` (commit) | 52bfe17 |
+| Tag `final-24h` (commit) | c413d64|
+| Deadline (giờ VN) | 24h |
 
 ## 01 · Problem statement
 
-- Ai bị ảnh hưởng / ai chịu hậu quả khi hệ thống sai? ____
-- Điểm nghẽn cụ thể: ____
-- Đầu vào → đầu ra: ____
-- Tiêu chí GO / HOLD / REWORK (chốt trước khi chạy eval): ____
-- Giả định của nhóm (cần DPO/legal/domain owner xác nhận): ____
-
+- **Ai bị ảnh hưởng khi hệ thống sai?** Nhóm gán nhãn (tốn ngân sách vào ảnh trùng hoặc ảnh vô ích) và người huấn luyện model (model không thấy được các tình huống hiếm như ban đêm có mưa, xe máy bị che, công trường, động vật, nên yếu đúng ở những chỗ quan trọng).
+- **Điểm nghẽn cụ thể:** ngân sách gán nhãn chỉ đủ cho K = 20 ảnh trong pool 200 ảnh chưa nhãn. Chọn ngẫu nhiên thì gần như không bắt được rare case (đề nêu baseline bằng 0 ở slice `night_rain` và `occluded`). Ngược lại, chọn theo "độ lạ" thuần túy dễ rơi vào ảnh nhiễu hoặc chỉ toàn ảnh tối.
+- **Đầu vào → đầu ra:** `pool_features.csv` (đặc trưng rẻ + `emb_00..15`) và `images.csv` → `out/poc/selected.csv` (đúng 20 dòng, cột `image_id`, `rank`) kèm `review_queue.csv`, `contact_sheet.html`, `decision.json`.
+- **Tiêu chí GO / HOLD / REWORK** (cài trong `decide()`):
+  - `HOLD / EMPTY_POOL`: pool rỗng.
+  - `REWORK / UNDERFILLED_SELECTION`: chọn chưa đủ K.
+  - `REWORK / JUNK_IN_SELECTION`: có ảnh bị gắn junk trong K.
+  - `REWORK / NEAR_DUPLICATE_IN_SELECTION`: có ảnh gần trùng nhau trong K.
+  - `HOLD / PENDING_HUMAN_REVIEW`: tập chọn sạch nhưng chưa có review của người.
+  - `GO / REVIEWED_OK`: đủ K, không junk, không near-duplicate, đã áp review.
+  
 ## 02 · Data & provenance
 
 | Split | N | Nguồn / link | License | Synthetic? |
