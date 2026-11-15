@@ -16,7 +16,7 @@ make preflight             # kiểm tra môi trường, fixtures, offline guard,
 make test                  # pytest -q  (phải 0 failed)
 
 # Ví dụ wiring E2E (random baseline, có cho T01/T02/T11/T13):
-make baseline TRACK=t11      # ghi out/baseline/; repo học viên không có gt/ nên bước chấm
+make baseline TRACK=t13      # ghi out/baseline/; repo học viên không có gt/ nên bước chấm
                              # (make eval-baseline) chỉ chạy được khi đã cài overlay giảng viên, nếu không exit 2
 ```
 
