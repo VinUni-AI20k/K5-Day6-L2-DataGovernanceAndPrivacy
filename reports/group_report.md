@@ -7,7 +7,7 @@
 
 | Mục | Giá trị |
 |---|---|
-| Group ID | [CẦN ĐIỀN] (làm cá nhân) |
+| Group ID | Làm cá nhân |
 | Challenge | T13 · Active Learning & Rare Case Miner |
 | Thành viên (5–6) + vai trò | 1. Hoàng Gia Bảo (MSSV: 2A202603138 — kiểm tra lại) — làm một mình, đảm nhận toàn bộ vai trò: Lead/Integrator, Data & fixtures, Core algorithm, QA/metric, Review + report |
 | Git URL | [CẦN ĐIỀN] |
