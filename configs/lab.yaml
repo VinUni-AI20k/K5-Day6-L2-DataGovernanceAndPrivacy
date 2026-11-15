@@ -1,16 +1,27 @@
-# ============================================================
-# Group config — EDIT ME (one per group). Values here override
-# the track defaults loaded from `track_config`.
-# ============================================================
-group_id: G00                     # e.g. G07
-owner: "TODO: tên người ký duyệt (role)"   # mandatory for every Decision
-track_config: tracks/t02.yaml     # pick your challenge: tracks/t01.yaml ... tracks/t14.yaml
-track: t02                        # must match track_config
-input: fixtures/t02_raw_qc        # or data/real/... if your instructor provided a real pack
+# Group config — copy/edit, then run:  python -m src.main --config configs/lab.yaml
+# Values here override configs/tracks/<track>.yaml; CLI flags override both.
+group_id: G99                     # e.g. G07
+owner: "Huynh Nhat Quang (reviewer, HITL & compliance)"   # mandatory for every Decision
+track_config: tracks/t07.yaml     # pick your challenge: tracks/t01.yaml ... tracks/t14.yaml
+track: t07                        # must match track_config
+input: fixtures/t07_redaction     # or data/real/... if your instructor provided a real pack
 output: out/
 seed: 42
 offline: true                     # demo/eval must not touch the network
 strict_provenance: true           # fail if manifest.csv hashes do not match
 
-# Track params (merged over track_config.params). Freeze before evaluation.
-params: {}
+# Frozen parameters (see reports/metric_contract.md). Tuned on the dev split only.
+params:
+  budget: 15                       # review budget B (images)
+  face_pad: 0.03                   # relative padding per side of a face box
+  face_pad_px: 1.0                 # absolute padding per side of a face box (px)
+  plate_pad: 0.02                  # relative padding per side of a plate box
+  plate_pad_px: 1.0                # absolute padding per side of a plate box (px)
+  blur_grow: 0.12                  # extra growth of face boxes on blurred frames
+  min_conf: 0.30                   # drop detector boxes below this confidence
+  blur_laplacian_threshold: 60.0   # image-level "blurred" flag (variance of Laplacian)
+  dark_mean_threshold: 55.0        # image-level "dark" flag (mean grey level)
+  blur_radius: 12                  # Gaussian blur radius used for the redacted export
+  high_risk_score_threshold: 0.55  # images at/above this review score need human sign-off
+  max_redacted_area_frac: 0.35     # REWORK if mean redacted area exceeds this
+  require_review_for_high_risk: true

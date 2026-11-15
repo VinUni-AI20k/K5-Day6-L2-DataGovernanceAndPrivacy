@@ -1,0 +1,218 @@
+{
+  "run_name": "baseline",
+  "track": "t07",
+  "created_at": "2026-11-15T10:08:09+00:00",
+  "git_sha": "3919d8c",
+  "seed": 42,
+  "n_items": 60,
+  "runtime_seconds": 0.2412,
+  "runtime_per_100_items_s": 0.402,
+  "machine": {
+    "python": "3.13.17",
+    "platform": "Windows-11-10.0.26200-SP0",
+    "processor": "AMD64 Family 25 Model 97 Stepping 2, AuthenticAMD"
+  },
+  "config": {
+    "min_coverage": 0.9,
+    "split": "dev",
+    "max_over_redaction": 0.3
+  },
+  "metrics": [
+    {
+      "name": "PII Miss Rate",
+      "value": 0.578125,
+      "direction": "lower",
+      "unit": "GT regions with coverage < 0.9 / GT regions",
+      "numerator": 37,
+      "denominator": 64,
+      "n": 64,
+      "slice": "all",
+      "primary": true,
+      "notes": "",
+      "extra": {}
+    },
+    {
+      "name": "Region recall",
+      "value": 0.421875,
+      "direction": "higher",
+      "unit": "1 - miss rate",
+      "numerator": null,
+      "denominator": null,
+      "n": 64,
+      "slice": "all",
+      "primary": false,
+      "notes": "",
+      "extra": {}
+    },
+    {
+      "name": "Over-redaction rate",
+      "value": 0.7165467470452237,
+      "direction": "lower",
+      "unit": "redacted px outside GT / redacted px",
+      "numerator": 66325,
+      "denominator": 92562,
+      "n": null,
+      "slice": "all",
+      "primary": false,
+      "notes": "",
+      "extra": {}
+    },
+    {
+      "name": "Guardrail: Over-redaction rate <= 0.3",
+      "value": 0.0,
+      "direction": "higher",
+      "unit": "1 = pass, 0 = fail (constrained primary)",
+      "numerator": null,
+      "denominator": null,
+      "n": null,
+      "slice": "all",
+      "primary": false,
+      "notes": "",
+      "extra": {}
+    },
+    {
+      "name": "PII Miss Rate",
+      "value": 0.2571428571428571,
+      "direction": "lower",
+      "unit": "fraction",
+      "numerator": 9,
+      "denominator": 35,
+      "n": 35,
+      "slice": "type=face",
+      "primary": false,
+      "notes": "",
+      "extra": {}
+    },
+    {
+      "name": "PII Miss Rate",
+      "value": 0.9655172413793104,
+      "direction": "lower",
+      "unit": "fraction",
+      "numerator": 28,
+      "denominator": 29,
+      "n": 29,
+      "slice": "type=plate",
+      "primary": false,
+      "notes": "",
+      "extra": {}
+    },
+    {
+      "name": "PII Miss Rate",
+      "value": 0.5,
+      "direction": "lower",
+      "unit": "fraction",
+      "numerator": 5,
+      "denominator": 10,
+      "n": 10,
+      "slice": "condition=blur",
+      "primary": false,
+      "notes": "",
+      "extra": {}
+    },
+    {
+      "name": "PII Miss Rate",
+      "value": 0.8125,
+      "direction": "lower",
+      "unit": "fraction",
+      "numerator": 13,
+      "denominator": 16,
+      "n": 16,
+      "slice": "condition=dark",
+      "primary": false,
+      "notes": "",
+      "extra": {}
+    },
+    {
+      "name": "PII Miss Rate",
+      "value": 0.375,
+      "direction": "lower",
+      "unit": "fraction",
+      "numerator": 9,
+      "denominator": 24,
+      "n": 24,
+      "slice": "condition=normal",
+      "primary": false,
+      "notes": "",
+      "extra": {}
+    },
+    {
+      "name": "PII Miss Rate",
+      "value": 0.7,
+      "direction": "lower",
+      "unit": "fraction",
+      "numerator": 7,
+      "denominator": 10,
+      "n": 10,
+      "slice": "condition=occluded",
+      "primary": false,
+      "notes": "",
+      "extra": {}
+    },
+    {
+      "name": "PII Miss Rate",
+      "value": 0.75,
+      "direction": "lower",
+      "unit": "fraction",
+      "numerator": 3,
+      "denominator": 4,
+      "n": 4,
+      "slice": "condition=small",
+      "primary": false,
+      "notes": "",
+      "extra": {}
+    }
+  ],
+  "extra": {
+    "gt": "reports\\mini_gt\\gt_regions.csv",
+    "pred": "out\\baseline\\redactions.csv",
+    "notes": [
+      "min_coverage=0.9",
+      "guardrail Over-redaction rate <= 0.3: FAIL — primary metric is not valid on its own (value=0.7165)",
+      "report the trivial blur-all baseline next to your PoC"
+    ],
+    "slices": [
+      {
+        "slice": "type=face",
+        "n": 35,
+        "miss_rate": 0.2571428571428571,
+        "mean_coverage": 0.8627043283491391
+      },
+      {
+        "slice": "type=plate",
+        "n": 29,
+        "miss_rate": 0.9655172413793104,
+        "mean_coverage": 0.6157493777352324
+      },
+      {
+        "slice": "condition=blur",
+        "n": 10,
+        "miss_rate": 0.5,
+        "mean_coverage": 0.5060224089635854
+      },
+      {
+        "slice": "condition=dark",
+        "n": 16,
+        "miss_rate": 0.8125,
+        "mean_coverage": 0.7156305782267636
+      },
+      {
+        "slice": "condition=normal",
+        "n": 24,
+        "miss_rate": 0.375,
+        "mean_coverage": 0.9166720371662747
+      },
+      {
+        "slice": "condition=occluded",
+        "n": 10,
+        "miss_rate": 0.7,
+        "mean_coverage": 0.6401911660464292
+      },
+      {
+        "slice": "condition=small",
+        "n": 4,
+        "miss_rate": 0.75,
+        "mean_coverage": 0.7847573882056641
+      }
+    ]
+  }
+}

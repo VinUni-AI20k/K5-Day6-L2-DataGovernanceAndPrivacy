@@ -1,0 +1,46 @@
+{
+  "track": "t07",
+  "run_name": "poc",
+  "status": 0,
+  "seed": 42,
+  "offline": true,
+  "input": "fixtures\\t07_redaction",
+  "output": "out\\poc",
+  "pipeline": "src.pipeline",
+  "config_hash": "201b9321e670",
+  "git_sha": "3919d8c",
+  "runtime_seconds": 3.4693,
+  "stats": {
+    "n_images": 60,
+    "split_counts": {
+      "dev": 36,
+      "eval": 24
+    },
+    "detector": {
+      "name": "t07_classical_cv",
+      "version": "1.0.0",
+      "mode": "poc_offline",
+      "license": "repo code; OpenCV (Apache-2.0)",
+      "notes": "Colour/shape heuristics for synthetic faces + plates; CPU only; no weights."
+    },
+    "n_raw_boxes": 281,
+    "mean_redacted_area_frac": 0.013425,
+    "n_items": 60,
+    "n_reviewed": 15,
+    "escalated_ids": [],
+    "n_final_boxes": 282,
+    "final_mean_redacted_area_frac": 0.013352,
+    "n_high_risk_images": 14,
+    "n_high_risk_unreviewed": 0
+  },
+  "machine": {
+    "python": "3.13.17",
+    "platform": "Windows-11-10.0.26200-SP0",
+    "processor": "AMD64 Family 25 Model 97 Stepping 2, AuthenticAMD"
+  },
+  "output_check": {
+    "pred_file": "out\\poc\\redactions.csv",
+    "exists": true,
+    "missing_columns": []
+  }
+}

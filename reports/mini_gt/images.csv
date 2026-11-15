@@ -1,0 +1,13 @@
+image_id,path,width,height,split
+pii_00,images/pii_00.jpg,640,360,dev
+pii_02,images/pii_02.jpg,640,360,dev
+pii_08,images/pii_08.jpg,640,360,dev
+pii_10,images/pii_10.jpg,640,360,dev
+pii_14,images/pii_14.jpg,640,360,dev
+pii_15,images/pii_15.jpg,640,360,dev
+pii_19,images/pii_19.jpg,640,360,dev
+pii_21,images/pii_21.jpg,640,360,dev
+pii_25,images/pii_25.jpg,640,360,dev
+pii_27,images/pii_27.jpg,640,360,dev
+pii_30,images/pii_30.jpg,640,360,dev
+pii_47,images/pii_47.jpg,640,360,dev

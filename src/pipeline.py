@@ -13,6 +13,7 @@ Required output for T07: out/<pred_file> (`redactions.csv`) with columns
 from __future__ import annotations
 
 import json
+import os
 from pathlib import Path
 from typing import Any
 
@@ -30,6 +31,14 @@ from .metrics.tracks import get_track
 from .t07_detector import DETECTOR_INFO, detect_image
 
 T07_BOX_COLUMNS = ["image_id", "x", "y", "w", "h"]
+
+
+def _rel(path: Path) -> str:
+    """Path relative to the working directory (keeps machine-specific prefixes out of CSV outputs)."""
+    try:
+        return Path(os.path.relpath(path)).as_posix()
+    except ValueError:                      # different drive on Windows
+        return str(path)
 
 
 def _require_t07(ctx: RunContext) -> None:
@@ -277,8 +286,8 @@ def process(ctx: RunContext, data: dict) -> pd.DataFrame:
                 "reason": reason,
                 "suggested_action": suggested,
                 "slice": cond_slice,
-                "before_path": str(src_path),
-                "evidence_path": str(after_path),
+                "before_path": _rel(src_path),
+                "evidence_path": _rel(after_path),
                 "n_boxes": len(boxes),
                 "redacted_area_frac": round(area_frac, 6),
                 "mean_brightness": round(bri["mean"], 2),
@@ -341,6 +350,7 @@ def rank(ctx: RunContext, scored: pd.DataFrame) -> pd.DataFrame:
             fields=("rank", "item_id", "score", "reason", "suggested_action", "slice"),
             title=f"T07 Redaction Review Queue (top-{len(q_html)})",
             image_root=None,
+            thumb_width=int(ctx.param("contact_sheet_thumb_width", 520)),
             boxes_by_item=boxes_by_item,
             embed=True,
         )
@@ -366,6 +376,7 @@ def review(ctx: RunContext, scored: pd.DataFrame, queue: pd.DataFrame) -> pd.Dat
 
     reviewed_path = ctx.output_dir / "review_queue_reviewed.csv"
     escalated_ids: list[str] = []
+    signed_off: set[str] = set()            # images a human actually looked at (anything but skip)
     if reviewed_path.exists():
         reviewed = load_review_decisions(reviewed_path)
         ctx.stats["n_reviewed"] = int(len(reviewed))
@@ -377,6 +388,10 @@ def review(ctx: RunContext, scored: pd.DataFrame, queue: pd.DataFrame) -> pd.Dat
             before_boxes = list(boxes_by_img[img_id])
             dec = r.reviewer_decision
             ov_raw = str(r.override_value).strip()
+            if ov_raw.lower() == "nan":
+                ov_raw = ""
+            if dec != "skip":
+                signed_off.add(img_id)
 
             if dec == "approve":
                 ctx.audit.log(actor=r.reviewer, action="review:approve", item_id=img_id,
@@ -432,7 +447,9 @@ def review(ctx: RunContext, scored: pd.DataFrame, queue: pd.DataFrame) -> pd.Dat
     ctx.stats["n_final_boxes"] = int(len(final_rows))
     ctx.stats["final_mean_redacted_area_frac"] = round(float(np.mean(area_fracs)), 6) if area_fracs else 0.0
     high_risk_thr = float(ctx.param("high_risk_score_threshold", 0.55))
-    ctx.stats["n_high_risk_images"] = int((scored["score"] >= high_risk_thr).sum()) if len(scored) else 0
+    high_risk_ids = [str(i) for i in scored.loc[scored["score"] >= high_risk_thr, "image_id"]] if len(scored) else []
+    ctx.stats["n_high_risk_images"] = len(high_risk_ids)
+    ctx.stats["n_high_risk_unreviewed"] = len([i for i in high_risk_ids if i not in signed_off])
 
     if not final_rows:
         return pd.DataFrame(columns=T07_BOX_COLUMNS + ["type", "conf", "reason"])
@@ -449,6 +466,7 @@ def decide(ctx: RunContext, final: pd.DataFrame) -> Decision:
     n_boxes = int(len(final))
     n_reviewed = int(ctx.stats.get("n_reviewed", 0))
     n_high_risk = int(ctx.stats.get("n_high_risk_images", 0))
+    n_unreviewed = int(ctx.stats.get("n_high_risk_unreviewed", n_high_risk))
     escalated = list(ctx.stats.get("escalated_ids", []))
     mean_area = float(ctx.stats.get("final_mean_redacted_area_frac", 0.0))
     max_area = float(ctx.param("max_redacted_area_frac", 0.35))
@@ -459,6 +477,7 @@ def decide(ctx: RunContext, final: pd.DataFrame) -> Decision:
         "n_images": n_images,
         "n_final_boxes": n_boxes,
         "n_high_risk_images": n_high_risk,
+        "n_high_risk_unreviewed": n_unreviewed,
         "n_reviewed": n_reviewed,
         "mean_redacted_area_frac": mean_area,
         "detector_mode": detector_mode,
@@ -504,11 +523,11 @@ def decide(ctx: RunContext, final: pd.DataFrame) -> Decision:
             evidence=evidence,
             metrics=metrics_snapshot,
         )
-    elif require_review and n_high_risk > 0 and n_reviewed == 0:
+    elif require_review and n_unreviewed > 0:
         dec = Decision(
             status="HOLD",
             reason_code="NEEDS_HUMAN_REVIEW",
-            reason=f"{n_high_risk} high-risk image(s) queued in review_queue.csv awaiting human sign-off.",
+            reason=f"{n_unreviewed} of {n_high_risk} high-risk image(s) in review_queue.csv still await human sign-off.",
             owner=owner,
             scope=ctx.track,
             evidence=evidence,
