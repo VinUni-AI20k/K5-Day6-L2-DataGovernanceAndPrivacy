@@ -3,7 +3,7 @@
 # the track defaults loaded from `track_config`.
 # ============================================================
 group_id: G-07 # TODO: đổi thành mã nhóm thật (G + 2 chữ số)
-owner: "Doan Tung Lam (reviewer, đóng vai DPO)" # mandatory for every Decision
+owner: "Doan Tung Lam (reviewer)" # mandatory for every Decision
 track_config: tracks/t08.yaml # pick your challenge: tracks/t01.yaml ... tracks/t14.yaml
 track: t08 # must match track_config
 input: fixtures/t08_deletion # or data/real/... if your instructor provided a real pack
