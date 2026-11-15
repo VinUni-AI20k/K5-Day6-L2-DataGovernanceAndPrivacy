@@ -1,0 +1,156 @@
+{
+  "run_name": "baseline",
+  "track": "t02",
+  "created_at": "2026-11-14T15:03:41+00:00",
+  "git_sha": "e9e08fd",
+  "seed": 42,
+  "n_items": 96,
+  "runtime_seconds": 0.3546,
+  "runtime_per_100_items_s": 0.3694,
+  "machine": {
+    "python": "3.12.10",
+    "platform": "Windows-11-10.0.26200-SP0",
+    "processor": "AMD64 Family 25 Model 80 Stepping 0, AuthenticAMD"
+  },
+  "config": {
+    "budget": 20,
+    "split": "eval"
+  },
+  "metrics": [
+    {
+      "name": "Defect Recall@B",
+      "value": 0.8695652173913043,
+      "direction": "higher",
+      "unit": "GT defects in top-B / GT defects",
+      "numerator": 20,
+      "denominator": 23,
+      "n": 40,
+      "slice": "all",
+      "primary": true,
+      "notes": "",
+      "extra": {}
+    },
+    {
+      "name": "Precision@B",
+      "value": 1.0,
+      "direction": "higher",
+      "unit": "GT defects in top-B / B",
+      "numerator": 20,
+      "denominator": 20,
+      "n": 40,
+      "slice": "all",
+      "primary": false,
+      "notes": "",
+      "extra": {}
+    },
+    {
+      "name": "Defect-type accuracy (GT defects)",
+      "value": 0.30434782608695654,
+      "direction": "higher",
+      "unit": "fraction",
+      "numerator": null,
+      "denominator": null,
+      "n": 23,
+      "slice": "all",
+      "primary": false,
+      "notes": "",
+      "extra": {}
+    },
+    {
+      "name": "False alarm in top-B",
+      "value": 0.0,
+      "direction": "lower",
+      "unit": "clean images in top-B / clean images",
+      "numerator": 0,
+      "denominator": 10,
+      "n": 20,
+      "slice": "light=day",
+      "primary": false,
+      "notes": "",
+      "extra": {}
+    },
+    {
+      "name": "False alarm in top-B",
+      "value": 0.0,
+      "direction": "lower",
+      "unit": "clean images in top-B / clean images",
+      "numerator": 0,
+      "denominator": 1,
+      "n": 4,
+      "slice": "light=dusk",
+      "primary": false,
+      "notes": "",
+      "extra": {}
+    },
+    {
+      "name": "False alarm in top-B",
+      "value": 0.0,
+      "direction": "lower",
+      "unit": "clean images in top-B / clean images",
+      "numerator": 0,
+      "denominator": 6,
+      "n": 16,
+      "slice": "light=night",
+      "primary": false,
+      "notes": "",
+      "extra": {}
+    }
+  ],
+  "extra": {
+    "gt": "reports\\eval_gt_from_Evalimg.txt.csv",
+    "pred": "out\\baseline\\ranked_review.csv",
+    "notes": [
+      "B=20, eval N=40"
+    ],
+    "slices": [
+      {
+        "slice": "light=day",
+        "n": 20,
+        "recall_in_topB": 0.9,
+        "false_alarm_in_topB": 0.0
+      },
+      {
+        "slice": "light=dusk",
+        "n": 4,
+        "recall_in_topB": 1.0,
+        "false_alarm_in_topB": 0.0
+      },
+      {
+        "slice": "light=night",
+        "n": 16,
+        "recall_in_topB": 0.8,
+        "false_alarm_in_topB": 0.0
+      },
+      {
+        "slice": "defect=blur",
+        "n": 7,
+        "recall_in_topB": 1.0,
+        "false_alarm_in_topB": NaN
+      },
+      {
+        "slice": "defect=blur glare",
+        "n": 2,
+        "recall_in_topB": 1.0,
+        "false_alarm_in_topB": NaN
+      },
+      {
+        "slice": "defect=compression",
+        "n": 8,
+        "recall_in_topB": 0.75,
+        "false_alarm_in_topB": NaN
+      },
+      {
+        "slice": "defect=dark",
+        "n": 4,
+        "recall_in_topB": 1.0,
+        "false_alarm_in_topB": NaN
+      },
+      {
+        "slice": "defect=glare",
+        "n": 2,
+        "recall_in_topB": 0.5,
+        "false_alarm_in_topB": NaN
+      }
+    ]
+  }
+}

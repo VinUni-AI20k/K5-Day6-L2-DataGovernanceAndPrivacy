@@ -18,6 +18,18 @@ from .common.report import write_metrics
 from .metrics.tracks import default_gt_path, get_track, infer_track_from_path
 
 
+def _print_safe(text: str) -> None:
+    """Windows consoles default to cp1252; avoid UnicodeEncodeError on ·/Δ/→."""
+    try:
+        sys.stdout.reconfigure(encoding="utf-8", errors="replace")
+    except (AttributeError, ValueError):  # non-TextIO stdout
+        pass
+    try:
+        print(text)
+    except UnicodeEncodeError:
+        print(text.encode("ascii", "replace").decode())
+
+
 def main(argv=None) -> int:
     ap = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
     ap.add_argument("--track")
@@ -57,17 +69,17 @@ def main(argv=None) -> int:
             params[k] = v
     res = spec.evaluator(gt, pred, params)
 
-    print(f"\n== {spec.track.upper()} · {spec.title} · run={a.run_name}")
-    print(f"   gt={gt}\n   pred={pred}\n   params={params}")
+    _print_safe(f"\n== {spec.track.upper()} · {spec.title} · run={a.run_name}"
+                f"\n   gt={gt}\n   pred={pred}\n   params={params}")
     rows = [{"metric": m.name + (" [PRIMARY]" if m.primary else ""), "slice": m.slice, "value": m.value, "direction": m.direction,
              "num": m.numerator, "den": m.denominator, "N": m.n, "unit": m.unit} for m in res.metrics]
     with pd.option_context("display.max_colwidth", 70, "display.width", 200):
-        print(pd.DataFrame(rows).to_string(index=False))
+        _print_safe(pd.DataFrame(rows).to_string(index=False))
         if len(res.slices):
-            print("\n-- slices")
-            print(res.slices.to_string(index=False))
+            _print_safe("\n-- slices")
+            _print_safe(res.slices.to_string(index=False))
     for n in res.notes:
-        print(f"note: {n}")
+        _print_safe(f"note: {n}")
 
     if a.out:
         run_info = pred.parent / "run_info.json"
@@ -75,7 +87,7 @@ def main(argv=None) -> int:
         write_metrics(a.out, a.run_name, spec.track, res.metrics, seed=info.get("seed"), config=params,
                       runtime_seconds=info.get("runtime_seconds"), n_items=(info.get("stats") or {}).get("n_items"),
                       extra={"gt": str(gt), "pred": str(pred), "notes": res.notes, "slices": res.slices.to_dict(orient="records")})
-        print(f"\nwrote {a.out}")
+        _print_safe(f"\nwrote {a.out}")
     if a.slices_out:
         Path(a.slices_out).parent.mkdir(parents=True, exist_ok=True)
         res.slices.to_csv(a.slices_out, index=False)

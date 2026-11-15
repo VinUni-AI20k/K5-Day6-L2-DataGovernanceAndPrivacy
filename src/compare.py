@@ -11,6 +11,18 @@ from pathlib import Path
 from .common.report import compare_runs
 
 
+def _print_safe(text: str) -> None:
+    """Windows consoles default to cp1252; avoid UnicodeEncodeError on Δ/·/→."""
+    try:
+        sys.stdout.reconfigure(encoding="utf-8", errors="replace")
+    except (AttributeError, ValueError):  # non-TextIO stdout
+        pass
+    try:
+        print(text)
+    except UnicodeEncodeError:
+        print(text.encode("ascii", "replace").decode())
+
+
 def main(argv=None) -> int:
     ap = argparse.ArgumentParser()
     ap.add_argument("baseline")
@@ -18,7 +30,7 @@ def main(argv=None) -> int:
     ap.add_argument("--out")
     a = ap.parse_args(argv)
     md = compare_runs(a.baseline, a.poc)
-    print(md)
+    _print_safe(md)
     if a.out:
         Path(a.out).parent.mkdir(parents=True, exist_ok=True)
         Path(a.out).write_text(md + "\n", encoding="utf-8")

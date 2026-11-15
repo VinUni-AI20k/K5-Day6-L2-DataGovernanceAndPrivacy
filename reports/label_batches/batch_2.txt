@@ -1,0 +1,15 @@
+# Folder 2 - batch 1 (user labels, numbered 1..14 in sheet order)
+# 7 is pending: user wrote "blur 0", which the schema forbids (defect needs severity 1-2).
+img_07_2 = dark/1          # 1
+img_07_3 = blur/2          # 2
+img_08_0 = none/0          # 3
+img_08_1 = none/0          # 4
+img_08_2 = blur/1          # 5
+img_08_3 = dark/1          # 6
+img_09_1 = none/0          # 8
+img_09_2 = blur/2          # 9
+img_09_3 = blur/1          # 10
+img_10_0 = none/0          # 11
+img_10_1 = none/0          # 12
+img_10_2 = compression/2   # 13
+img_10_3 = dark/1          # 14

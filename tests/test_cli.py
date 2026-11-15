@@ -14,11 +14,30 @@ from src.common.gt_guard import GroundTruthAccessError, disable_gt_guard, enable
 from src.common.offline import NetworkBlockedError, disable_offline_guard, enable_offline_guard
 
 
-def test_template_pipeline_fails_clearly_not_silently(tmp_path):
-    rc = runner.main(["--track", "t02", "--output", str(tmp_path), "--offline"])
+def test_unimplemented_pipeline_fails_clearly_not_silently(tmp_path):
+    """A pipeline module without run() implemented must exit 3 with a clear error (lab contract)."""
+    stub = tmp_path / "stub_not_impl.py"
+    stub.write_text("def run(ctx):\n    raise NotImplementedError('process() not implemented')\n")
+    sys.path.insert(0, str(tmp_path))
+    try:
+        rc = runner.main(["--track", "t02", "--pipeline", "stub_not_impl", "--output", str(tmp_path / "out"), "--offline"])
+    finally:
+        sys.path.remove(str(tmp_path))
     assert rc == 3                                   # NotImplemented -> explicit exit code
-    info = json.loads((tmp_path / "run_info.json").read_text())
+    info = json.loads((tmp_path / "out" / "run_info.json").read_text())
     assert info["status"] == 3 and info["seed"] == 42
+
+
+def test_group_pipeline_contract_run(tmp_path):
+    """The group's default pipeline (src.pipeline = frozen PoC v1) runs the full 5-step contract."""
+    out = tmp_path / "out"
+    rc = runner.main(["--track", "t02", "--input", "fixtures/t02_raw_qc", "--output", str(out),
+                      "--offline", "--seed", "42"])
+    assert rc == 0
+    for f in ["ranked_review.csv", "review_queue.csv", "decision.json", "decision_log.csv", "run_info.json"]:
+        assert (out / f).exists(), f
+    decision = json.loads((out / "decision.json").read_text())
+    assert decision["owner"] and decision["reason_code"]
 
 
 def _run_baseline(out):

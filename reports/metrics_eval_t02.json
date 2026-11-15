@@ -1,0 +1,311 @@
+{
+  "generated_at": "2026-11-14T11:06:05+00:00",
+  "track": "t02",
+  "scope": "40 nhan eval tu C:\\Users\\hanng\\Downloads\\Evalimg.txt (da freeze truoc, khong calibrate lai)",
+  "gt_file": "reports\\eval_gt_from_Evalimg.txt.csv",
+  "gt_sha256": "3441d4937bc453e3e0b7725e2a904a4d3e6d5b74d00421ae1f25050720a3fb0a",
+  "n_eval": 40,
+  "n_defect": 23,
+  "n_clean": 17,
+  "budget": 20,
+  "models": {
+    "poc_v1": {
+      "metrics": [
+        {
+          "name": "Defect Recall@B",
+          "value": 0.8695652173913043,
+          "direction": "higher",
+          "unit": "GT defects in top-B / GT defects",
+          "numerator": 20,
+          "denominator": 23,
+          "n": 40,
+          "slice": "all",
+          "primary": true,
+          "notes": "",
+          "extra": {}
+        },
+        {
+          "name": "Precision@B",
+          "value": 1.0,
+          "direction": "higher",
+          "unit": "GT defects in top-B / B",
+          "numerator": 20,
+          "denominator": 20,
+          "n": 40,
+          "slice": "all",
+          "primary": false,
+          "notes": "",
+          "extra": {}
+        },
+        {
+          "name": "Defect-type accuracy (GT defects)",
+          "value": 0.8695652173913043,
+          "direction": "higher",
+          "unit": "fraction",
+          "numerator": null,
+          "denominator": null,
+          "n": 23,
+          "slice": "all",
+          "primary": false,
+          "notes": "",
+          "extra": {}
+        },
+        {
+          "name": "False alarm in top-B",
+          "value": 0.0,
+          "direction": "lower",
+          "unit": "clean images in top-B / clean images",
+          "numerator": 0,
+          "denominator": 10,
+          "n": 20,
+          "slice": "light=day",
+          "primary": false,
+          "notes": "",
+          "extra": {}
+        },
+        {
+          "name": "False alarm in top-B",
+          "value": 0.0,
+          "direction": "lower",
+          "unit": "clean images in top-B / clean images",
+          "numerator": 0,
+          "denominator": 1,
+          "n": 4,
+          "slice": "light=dusk",
+          "primary": false,
+          "notes": "",
+          "extra": {}
+        },
+        {
+          "name": "False alarm in top-B",
+          "value": 0.0,
+          "direction": "lower",
+          "unit": "clean images in top-B / clean images",
+          "numerator": 0,
+          "denominator": 6,
+          "n": 16,
+          "slice": "light=night",
+          "primary": false,
+          "notes": "",
+          "extra": {}
+        }
+      ],
+      "slices": [
+        {
+          "slice": "light=day",
+          "n": 20,
+          "recall_in_topB": 0.9,
+          "false_alarm_in_topB": 0.0
+        },
+        {
+          "slice": "light=dusk",
+          "n": 4,
+          "recall_in_topB": 1.0,
+          "false_alarm_in_topB": 0.0
+        },
+        {
+          "slice": "light=night",
+          "n": 16,
+          "recall_in_topB": 0.8,
+          "false_alarm_in_topB": 0.0
+        },
+        {
+          "slice": "defect=blur",
+          "n": 7,
+          "recall_in_topB": 0.7142857142857143,
+          "false_alarm_in_topB": NaN
+        },
+        {
+          "slice": "defect=blur glare",
+          "n": 2,
+          "recall_in_topB": 1.0,
+          "false_alarm_in_topB": NaN
+        },
+        {
+          "slice": "defect=compression",
+          "n": 8,
+          "recall_in_topB": 0.875,
+          "false_alarm_in_topB": NaN
+        },
+        {
+          "slice": "defect=dark",
+          "n": 4,
+          "recall_in_topB": 1.0,
+          "false_alarm_in_topB": NaN
+        },
+        {
+          "slice": "defect=glare",
+          "n": 2,
+          "recall_in_topB": 1.0,
+          "false_alarm_in_topB": NaN
+        }
+      ],
+      "notes": [
+        "B=20, eval N=40"
+      ]
+    },
+    "baseline": {
+      "metrics": [
+        {
+          "name": "Defect Recall@B",
+          "value": 0.8695652173913043,
+          "direction": "higher",
+          "unit": "GT defects in top-B / GT defects",
+          "numerator": 20,
+          "denominator": 23,
+          "n": 40,
+          "slice": "all",
+          "primary": true,
+          "notes": "",
+          "extra": {}
+        },
+        {
+          "name": "Precision@B",
+          "value": 1.0,
+          "direction": "higher",
+          "unit": "GT defects in top-B / B",
+          "numerator": 20,
+          "denominator": 20,
+          "n": 40,
+          "slice": "all",
+          "primary": false,
+          "notes": "",
+          "extra": {}
+        },
+        {
+          "name": "Defect-type accuracy (GT defects)",
+          "value": 0.30434782608695654,
+          "direction": "higher",
+          "unit": "fraction",
+          "numerator": null,
+          "denominator": null,
+          "n": 23,
+          "slice": "all",
+          "primary": false,
+          "notes": "",
+          "extra": {}
+        },
+        {
+          "name": "False alarm in top-B",
+          "value": 0.0,
+          "direction": "lower",
+          "unit": "clean images in top-B / clean images",
+          "numerator": 0,
+          "denominator": 10,
+          "n": 20,
+          "slice": "light=day",
+          "primary": false,
+          "notes": "",
+          "extra": {}
+        },
+        {
+          "name": "False alarm in top-B",
+          "value": 0.0,
+          "direction": "lower",
+          "unit": "clean images in top-B / clean images",
+          "numerator": 0,
+          "denominator": 1,
+          "n": 4,
+          "slice": "light=dusk",
+          "primary": false,
+          "notes": "",
+          "extra": {}
+        },
+        {
+          "name": "False alarm in top-B",
+          "value": 0.0,
+          "direction": "lower",
+          "unit": "clean images in top-B / clean images",
+          "numerator": 0,
+          "denominator": 6,
+          "n": 16,
+          "slice": "light=night",
+          "primary": false,
+          "notes": "",
+          "extra": {}
+        }
+      ],
+      "slices": [
+        {
+          "slice": "light=day",
+          "n": 20,
+          "recall_in_topB": 0.9,
+          "false_alarm_in_topB": 0.0
+        },
+        {
+          "slice": "light=dusk",
+          "n": 4,
+          "recall_in_topB": 1.0,
+          "false_alarm_in_topB": 0.0
+        },
+        {
+          "slice": "light=night",
+          "n": 16,
+          "recall_in_topB": 0.8,
+          "false_alarm_in_topB": 0.0
+        },
+        {
+          "slice": "defect=blur",
+          "n": 7,
+          "recall_in_topB": 1.0,
+          "false_alarm_in_topB": NaN
+        },
+        {
+          "slice": "defect=blur glare",
+          "n": 2,
+          "recall_in_topB": 1.0,
+          "false_alarm_in_topB": NaN
+        },
+        {
+          "slice": "defect=compression",
+          "n": 8,
+          "recall_in_topB": 0.75,
+          "false_alarm_in_topB": NaN
+        },
+        {
+          "slice": "defect=dark",
+          "n": 4,
+          "recall_in_topB": 1.0,
+          "false_alarm_in_topB": NaN
+        },
+        {
+          "slice": "defect=glare",
+          "n": 2,
+          "recall_in_topB": 0.5,
+          "false_alarm_in_topB": NaN
+        }
+      ],
+      "notes": [
+        "B=20, eval N=40"
+      ]
+    }
+  },
+  "frozen_constants": {
+    "poc_v1": {
+      "dark": {
+        "lo": 0.596,
+        "hi": 0.124
+      },
+      "blur": {
+        "lo": 0.205,
+        "hi": 0.032
+      },
+      "compression": {
+        "lo": 1.47,
+        "hi": 2.06
+      },
+      "glare": {
+        "lo": 0.0022,
+        "hi": 0.006
+      }
+    },
+    "baseline": {
+      "lap_threshold": 760.0
+    }
+  },
+  "notes": [
+    "Nguong da freeze tren 56 nhan dev truoc khi eval den; khong doc fixtures/*/gt/, khong chinh nguong tren eval.",
+    "GT co 2 dong multi-label 'blur glare' (img_03_2, img_06_3). eval_t02 so sanh chuoi defect_type chinh xac, nen chung duoc dem la sai neu pred chi la 'blur' hoac 'glare'.",
+    "Ca hai model co Recall@20 va Precision@20 giong nhau (20/23, 20/20). PoC v1 thang ro ve defect-type accuracy (0.8696 vs 0.3043) va false alarm = 0 tren moi slice light."
+  ]
+}
