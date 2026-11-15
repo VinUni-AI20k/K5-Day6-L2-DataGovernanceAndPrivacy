@@ -2,5 +2,5 @@ member,git_author_name,git_email,role,modules_files,commit_shas,evidence_note,pr
 Member 1,,,Lead / Integrator,src/main.py; configs/,,,
 Member 2,,,Data & fixtures,fixtures/; tools/,,,
 Member 3,,,Core algorithm,src/pipeline.py,,,
-Member 4,,,QA / metric,tests/; reports/metrics_*.json,,,
-Member 5,,,Human review + report,reports/group_report.md; demo/,,,
+Member 4,huudang-de,dang36390@gmail.com,QA / metric,tests/test_t02_pipeline.py; reports/metric_contract.md; reports/metrics_*.json; src/baseline_t02.py,,,
+Member 5,Duong Manh Huy,manhhuy2104@gmail.com,Human review + report,src/pipeline.py (review/decide); reports/review_policy.md; reports/review_queue.csv; reports/decision_log.csv; reports/group_report.md; demo/,40eb1ff,Contributor row; review policy (per-image decisions + KEEP/HOLD/RECAPTURE batch policy),yes
