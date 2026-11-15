@@ -1,6 +1,6 @@
 member,git_author_name,git_email,role,modules_files,commit_shas,evidence_note,presenter
-Member 1,,,Lead / Integrator,src/main.py; configs/,,,
-Member 2,,,Data & fixtures,fixtures/; tools/,,,
-Member 3,,,Core algorithm,src/pipeline.py,,,
-Member 4,,,QA / metric,tests/; reports/metrics_*.json,,,
+Le Van Phi,,,Lead / Integrator,src/main.py; configs/,,,
+Nguyen Trong Binh,,,Data & fixtures,fixtures/; tools/,,,
+Nguyen Hoang Dieu,Nguyen Hoang Dieu,nhdieu1301@gmail.com,Core algorithm,src/pipeline.py,e85d937,kNN + Greedy MMR active learning pipeline,
+Le Duc Tuong,Le Duc Tuong,tuongit05@gmail.com,QA & Unit Tests,tests/test_t13_pipeline.py,159c696,Implemented 5 unit tests for T13 pipeline contract; edge cases; reproducibility; runner,
 Member 5,,,Human review + report,reports/group_report.md; demo/,,,
