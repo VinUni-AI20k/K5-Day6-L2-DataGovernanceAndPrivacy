@@ -1,0 +1,11 @@
+{
+  "status": "GO",
+  "reason_code": "REVIEWED_OK",
+  "reason": "K=20 selected, no junk/near-duplicates, review applied (rejected+replaced: 1, dark items in K: 11).",
+  "owner": "TODO: Hoàng Gia Bảo (role)",
+  "scope": "t13",
+  "evidence": [],
+  "metrics": {},
+  "ts": "2026-11-15T05:24:29+00:00",
+  "canonical": "GO"
+}

@@ -1,0 +1,6 @@
+ts,scope,status,canonical,reason_code,reason,owner,evidence
+2026-11-14T08:13:17+00:00,t13,HOLD,HOLD,BASELINE_ONLY,Random baseline: never release on this,TODO: tên người ký duyệt (role),out/baseline/selected.csv
+2026-11-14T09:01:03+00:00,t13,HOLD,HOLD,BASELINE_ONLY,Random baseline: never release on this,TODO: Hoàng Gia Bảo (role),out/baseline/selected.csv
+2026-11-14T09:07:21+00:00,t13,HOLD,HOLD,BASELINE_ONLY,Random baseline: never release on this,TODO: Hoàng Gia Bảo (role),out/baseline/selected.csv
+2026-11-14T09:19:22+00:00,t13,HOLD,HOLD,BASELINE_ONLY,Random baseline: never release on this,TODO: Hoàng Gia Bảo (role),out/baseline/selected.csv
+2026-11-15T04:13:21+00:00,t13,HOLD,HOLD,BASELINE_ONLY,Random baseline: never release on this,TODO: Hoàng Gia Bảo (role),out/baseline/selected.csv

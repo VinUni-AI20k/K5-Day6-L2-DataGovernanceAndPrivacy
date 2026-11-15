@@ -1,0 +1,13 @@
+{
+  "status": "HOLD",
+  "reason_code": "BASELINE_ONLY",
+  "reason": "Random baseline: never release on this",
+  "owner": "TODO: Hoàng Gia Bảo (role)",
+  "scope": "t13",
+  "evidence": [
+    "out/baseline/selected.csv"
+  ],
+  "metrics": {},
+  "ts": "2026-11-15T04:13:21+00:00",
+  "canonical": "HOLD"
+}
