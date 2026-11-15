@@ -2,21 +2,21 @@
 # Group config — EDIT ME (one per group). Values here override
 # the track defaults loaded from `track_config`.
 # ============================================================
-group_id: G00                     # TODO: đổi thành mã nhóm thật (G + 2 chữ số)
-owner: "Lam TherK (reviewer, đóng vai DPO)"   # mandatory for every Decision
-track_config: tracks/t08.yaml     # pick your challenge: tracks/t01.yaml ... tracks/t14.yaml
-track: t08                        # must match track_config
-input: fixtures/t08_deletion      # or data/real/... if your instructor provided a real pack
+group_id: G-07 # TODO: đổi thành mã nhóm thật (G + 2 chữ số)
+owner: "Doan Tung Lam (reviewer, đóng vai DPO)" # mandatory for every Decision
+track_config: tracks/t08.yaml # pick your challenge: tracks/t01.yaml ... tracks/t14.yaml
+track: t08 # must match track_config
+input: fixtures/t08_deletion # or data/real/... if your instructor provided a real pack
 output: out/
 seed: 42
-offline: true                     # demo/eval must not touch the network
-strict_provenance: true           # fail if manifest.csv hashes do not match
+offline: true # demo/eval must not touch the network
+strict_provenance: true # fail if manifest.csv hashes do not match
 
 # Track params (merged over track_config.params). Freeze before evaluation.
 # Chốt ngày 2026-11-14, trước lần chạy PoC đầu tiên — xem reports/metric_contract.md.
 params:
-  dry_run: false                  # false = chạy cả bước xóa MOCK (tombstone trong out/), không xóa gì thật
-  our_acl: data-platform          # nhóm quyền của pipeline; artefact có acl khác -> escalate
-  inherit_hold: true              # artefact dẫn xuất hoàn toàn từ dữ liệu bị legal hold cũng được giữ
-  include_derived_other_subject: true   # con cháu không gắn tên người yêu cầu -> escalate để người kiểm tra
-  budget: 100                     # review budget B: mọi cặp ngoại lệ đều phải có người duyệt
+  dry_run: false # false = chạy cả bước xóa MOCK (tombstone trong out/), không xóa gì thật
+  our_acl: data-platform # nhóm quyền của pipeline; artefact có acl khác -> escalate
+  inherit_hold: true # artefact dẫn xuất hoàn toàn từ dữ liệu bị legal hold cũng được giữ
+  include_derived_other_subject: true # con cháu không gắn tên người yêu cầu -> escalate để người kiểm tra
+  budget: 100 # review budget B: mọi cặp ngoại lệ đều phải có người duyệt
