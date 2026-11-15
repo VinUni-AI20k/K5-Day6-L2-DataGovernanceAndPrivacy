@@ -1,0 +1,26 @@
+{
+  "track": "t13",
+  "run_name": "baseline",
+  "status": 0,
+  "seed": 42,
+  "offline": true,
+  "input": "fixtures/t13_rare_mining",
+  "output": "out/baseline",
+  "pipeline": "src.examples.random_baseline",
+  "config_hash": "3a5c65abe138",
+  "git_sha": "b0ce8bf",
+  "runtime_seconds": 3.8726,
+  "stats": {
+    "n_items": 200
+  },
+  "machine": {
+    "python": "3.14.4",
+    "platform": "Linux-6.18.58.1-microsoft-standard-WSL2-x86_64-with-glibc2.43",
+    "processor": "x86_64"
+  },
+  "output_check": {
+    "pred_file": "out/baseline/selected.csv",
+    "exists": true,
+    "missing_columns": []
+  }
+}

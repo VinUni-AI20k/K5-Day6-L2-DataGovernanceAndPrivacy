@@ -1,0 +1,32 @@
+{
+  "track": "t13",
+  "run_name": "poc",
+  "status": 0,
+  "seed": 42,
+  "offline": true,
+  "input": "fixtures/t13_rare_mining",
+  "output": "out/poc",
+  "pipeline": "src.pipeline",
+  "config_hash": "a0d9a0a2d9f1",
+  "git_sha": "b0ce8bf",
+  "runtime_seconds": 8.0495,
+  "stats": {
+    "dedupe_tau": 1.7047,
+    "n_dark_selected": 11,
+    "n_near_dup_selected": 0,
+    "n_relaxed": 0,
+    "n_items": 200,
+    "n_reviewed": 20,
+    "n_rejected": 1
+  },
+  "machine": {
+    "python": "3.14.4",
+    "platform": "Linux-6.18.58.1-microsoft-standard-WSL2-x86_64-with-glibc2.43",
+    "processor": "x86_64"
+  },
+  "output_check": {
+    "pred_file": "out/poc/selected.csv",
+    "exists": true,
+    "missing_columns": []
+  }
+}

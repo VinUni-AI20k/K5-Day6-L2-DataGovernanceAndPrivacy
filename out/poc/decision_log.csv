@@ -1,0 +1,13 @@
+ts,scope,status,canonical,reason_code,reason,owner,evidence
+2026-11-14T09:20:54+00:00,t13,HOLD,HOLD,AWAITING_HUMAN_REVIEW,selection is clean but no reviewer has confirmed the rare cases yet,TODO: Hoàng Gia Bảo (role),
+2026-11-14T09:49:05+00:00,t13,HOLD,HOLD,AWAITING_HUMAN_REVIEW,selection is clean but no reviewer has confirmed the rare cases yet,TODO: Hoàng Gia Bảo (role),
+2026-11-14T09:50:45+00:00,t13,GO,GO,ACTIVE_LEARNING_PIPELINE_SUCCESS,Successfully processed features pool and prioritized top budget items (B=20).,TODO: Hoàng Gia Bảo (role),
+2026-11-14T10:06:56+00:00,t13,GO,GO,ACTIVE_LEARNING_PIPELINE_SUCCESS,Processed 200 images and prioritized top 20 candidates for human review.,TODO: Hoàng Gia Bảo (role),
+2026-11-14T10:07:35+00:00,t13,GO,GO,ACTIVE_LEARNING_PIPELINE_SUCCESS,Processed 200 images and prioritized top 20 candidates for human review.,TODO: Hoàng Gia Bảo (role),
+2026-11-14T10:11:20+00:00,t13,GO,GO,ACTIVE_LEARNING_PIPELINE_SUCCESS,Successfully processed features pool and prioritized top budget items (B=20).,TODO: Hoàng Gia Bảo (role),
+2026-11-14T10:17:37+00:00,t13,GO,GO,ACTIVE_LEARNING_PIPELINE_SUCCESS,Successfully processed features pool and prioritized top budget items (B=20).,TODO: Hoàng Gia Bảo (role),
+2026-11-14T10:18:30+00:00,t13,GO,GO,ACTIVE_LEARNING_PIPELINE_SUCCESS,Successfully processed features pool and prioritized top budget items (B=20).,TODO: Hoàng Gia Bảo (role),
+2026-11-14T10:44:37+00:00,t13,GO,GO,ACTIVE_LEARNING_PIPELINE_SUCCESS,Successfully processed features pool and prioritized top budget items (B=20).,TODO: Hoàng Gia Bảo (role),
+2026-11-15T04:16:56+00:00,t13,HOLD,HOLD,PENDING_HUMAN_REVIEW,Selection is clean but no human review has been applied yet.,TODO: Hoàng Gia Bảo (role),
+2026-11-15T04:46:26+00:00,t13,HOLD,HOLD,PENDING_HUMAN_REVIEW,Selection is clean but no human review has been applied yet.,TODO: Hoàng Gia Bảo (role),
+2026-11-15T05:24:29+00:00,t13,GO,GO,REVIEWED_OK,"K=20 selected, no junk/near-duplicates, review applied (rejected+replaced: 1, dark items in K: 11).",TODO: Hoàng Gia Bảo (role),
