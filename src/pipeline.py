@@ -272,6 +272,7 @@ def rank(ctx: RunContext, scored: pd.DataFrame) -> pd.DataFrame:
 
     q = make_review_queue(ranked, id_col="image_id", score_col="score", budget=budget,
                           reason_col="reason" if "reason" in ranked.columns else None,
+                          action_col="pred_action" if "pred_action" in ranked.columns else None,
                           slice_col="light" if "light" in ranked.columns else None,
                           evidence_col="path" if "path" in ranked.columns else None)
     write_review_queue(q, ctx.out("review_queue.csv"))
@@ -297,21 +298,42 @@ def review(ctx: RunContext, scored: pd.DataFrame, queue: pd.DataFrame) -> pd.Dat
         return scored
 
     reviewed = load_review_decisions(reviewed_path)
-    ctx.stats["n_reviewed"] = len(reviewed)
-    ctx.stats["n_confirmed_defects"] = int(((reviewed.reviewer_decision == "approve") |
-                                             (reviewed.reviewer_decision == "reject")).sum())
+    decisions = reviewed.reviewer_decision
+
+    # A decision only counts as "resolved" if it settles the item.
+    # skip / escalate mean the reviewer did NOT clear the item -> still pending.
+    resolved = decisions.isin({"approve", "reject", "edit"})
+    ctx.stats["n_reviewed"] = int(len(reviewed))
+    ctx.stats["n_resolved"] = int(resolved.sum())
+    ctx.stats["n_skipped"] = int((decisions == "skip").sum())
+    ctx.stats["n_escalated"] = int((decisions == "escalate").sum())
 
     final = apply_overrides(scored, reviewed, id_col="image_id", value_col="score", audit=ctx.audit)
 
-    reject = reviewed[(reviewed.reviewer_decision == "reject") & (reviewed.override_value.str.strip() == "")]
+    reject = reviewed[(decisions == "reject") & (reviewed.override_value.str.strip() == "")]
     for r in reject.itertuples(index=False):
-        final.loc[final.image_id == r.item_id, "score"] = -1e9
-        ctx.audit.log(actor=r.reviewer, action="override:reject", item_id=r.item_id, after=-1e9,
+        mask = final.image_id == r.item_id
+        if not mask.any():
+            continue
+        before = final.loc[mask, "score"].tolist()
+        # Reviewer cleared this item: drop it to the bottom of the ranking while
+        # staying inside the score contract ([0, 100], finite) and clearing the
+        # REVIEW / defect-type predictions so the output is self-consistent.
+        final.loc[mask, "score"] = 0.0
+        for col, val in (("pred_action", ""), ("pred_defect_type", "none")):
+            if col in final.columns:
+                final.loc[mask, col] = val
+        ctx.audit.log(actor=r.reviewer, action="override:reject", item_id=r.item_id,
+                      before=before[0] if len(before) == 1 else before, after=0.0,
                       reason=r.review_note or "reviewer: no defect")
 
-    # Track confirmed defects for decision policy
-    approved = reviewed[reviewed.reviewer_decision == "approve"]
-    ctx.stats["confirmed_defect_ids"] = approved.item_id.tolist() if len(approved) > 0 else []
+    # Track confirmed defects for decision policy: only `approve` confirms a defect.
+    approved = reviewed[decisions == "approve"]
+    rejected = reviewed[decisions == "reject"]
+    ctx.stats["n_confirmed_defects"] = int(len(approved))
+    ctx.stats["confirmed_defect_ids"] = approved.item_id.tolist()
+    ctx.stats["n_rejected"] = int(len(rejected))
+    ctx.stats["rejected_ids"] = rejected.item_id.tolist()
 
     for r in approved.itertuples(index=False):
         ctx.audit.log(actor=r.reviewer, action="override:approve", item_id=r.item_id,
@@ -329,6 +351,9 @@ def decide(ctx: RunContext, final: pd.DataFrame) -> Decision:
     - At least one confirmed defect in top-B → RECAPTURE (batch contaminated)
     - Review incomplete → HOLD (awaiting completion)
 
+    Only `approve` / `reject` / `edit` count as resolved. `skip` and `escalate`
+    leave the item pending, so a queue filled with them is NOT a clean batch.
+
     Applies to full batch (96 images), not just top-20.
     76 unreviewed images share the batch decision.
     """
@@ -337,6 +362,9 @@ def decide(ctx: RunContext, final: pd.DataFrame) -> Decision:
     n = int(ctx.stats.get("n_items", len(final)))
     budget = int(ctx.param("budget", 20))
     n_reviewed = int(ctx.stats.get("n_reviewed", 0))
+    n_resolved = int(ctx.stats.get("n_resolved", n_reviewed))
+    n_skipped = int(ctx.stats.get("n_skipped", 0))
+    n_escalated = int(ctx.stats.get("n_escalated", 0))
     confirmed_ids = ctx.stats.get("confirmed_defect_ids", [])
     n_confirmed = len(confirmed_ids)
 
@@ -357,31 +385,49 @@ def decide(ctx: RunContext, final: pd.DataFrame) -> Decision:
                      "confirmed_defects": 0},
         )
 
-    # Review incomplete → HOLD
-    if n_reviewed < budget:
+    # Escalated items need a higher-level decision → HOLD regardless of progress
+    if n_escalated > 0:
         return Decision(
             status="HOLD",
-            reason_code="REVIEW_INCOMPLETE",
-            reason=f"Review progress {n_reviewed}/{budget}; awaiting completion before batch decision",
-            owner=owner,
-            scope=ctx.track,
-            evidence=evidence_files + [str(ctx.out("review_queue_reviewed.csv"))],
-            metrics={"batch_size": n, "budget": budget, "n_reviewed": n_reviewed,
-                     "review_completion": round(n_reviewed / budget, 3)},
-        )
-
-    # All top-B reviewed, zero defects → KEEP (batch clean)
-    if n_confirmed == 0:
-        return Decision(
-            status="KEEP",  # maps to GO
-            reason_code="REVIEW_COMPLETE_BATCH_CLEAN",
-            reason=f"Top-{budget} reviewed with zero confirmed defects; full batch ({n} images) released",
+            reason_code="REVIEW_ESCALATED",
+            reason=f"{n_escalated} item(s) escalated by reviewer in top-{budget}; "
+                   f"batch decision deferred to escalation owner",
             owner=owner,
             scope=ctx.track,
             evidence=evidence_files + [str(ctx.out("review_queue_reviewed.csv")),
                                        str(ctx.out("audit_log.jsonl"))],
             metrics={"n_images": n, "batch_size": n, "budget": budget, "n_reviewed": n_reviewed,
-                     "confirmed_defects": 0},
+                     "n_resolved": n_resolved, "n_escalated": n_escalated,
+                     "n_skipped": n_skipped},
+        )
+
+    # Review incomplete (skip/escalate do not settle an item) → HOLD
+    if n_resolved < budget:
+        return Decision(
+            status="HOLD",
+            reason_code="REVIEW_INCOMPLETE",
+            reason=f"Resolved {n_resolved}/{budget} top items "
+                   f"({n_skipped} skipped, {n_escalated} escalated); awaiting completion before batch decision",
+            owner=owner,
+            scope=ctx.track,
+            evidence=evidence_files + [str(ctx.out("review_queue_reviewed.csv"))],
+            metrics={"batch_size": n, "budget": budget, "n_reviewed": n_reviewed,
+                     "n_resolved": n_resolved, "n_skipped": n_skipped,
+                     "review_completion": round(n_resolved / budget, 3)},
+        )
+
+    # All top-B resolved, zero defects → KEEP (batch clean)
+    if n_confirmed == 0:
+        return Decision(
+            status="KEEP",  # maps to GO
+            reason_code="REVIEW_COMPLETE_BATCH_CLEAN",
+            reason=f"Top-{budget} resolved with zero confirmed defects; full batch ({n} images) released",
+            owner=owner,
+            scope=ctx.track,
+            evidence=evidence_files + [str(ctx.out("review_queue_reviewed.csv")),
+                                       str(ctx.out("audit_log.jsonl"))],
+            metrics={"n_images": n, "batch_size": n, "budget": budget, "n_reviewed": n_reviewed,
+                     "n_resolved": n_resolved, "confirmed_defects": 0},
         )
 
     # At least one defect confirmed → RECAPTURE (batch contaminated)
@@ -408,8 +454,16 @@ def run(ctx: RunContext) -> None:
     final = review(ctx, scored, queue)
 
     # ranked_review.csv must be ranked: sort AFTER review so reviewer overrides
-    # (e.g. reject -> -1e9) are reflected. Same deterministic tie-break as rank().
-    ranked = final.sort_values(["score", "image_id"], ascending=[False, True], kind="mergesort")
+    # are reflected. Same deterministic tie-break as rank().
+    # Rejected items sit at score 0.0 and tie with clean images, so an explicit
+    # sort key pushes them behind every unrejected item (reviewer cleared them).
+    rejected_ids = set(ctx.stats.get("rejected_ids", []))
+    final = final.assign(
+        _rejected=final["image_id"].astype(str).isin(rejected_ids).astype(int)
+    )
+    ranked = final.sort_values(["score", "_rejected", "image_id"],
+                               ascending=[False, True, True], kind="mergesort")
+    ranked = ranked.drop(columns=["_rejected"])
     ranked[spec.pred_columns + [c for c in ranked.columns if c not in spec.pred_columns]].to_csv(
         ctx.out(spec.pred_file), index=False)
     write_decision(decide(ctx, final), ctx.out("decision.json"), ctx.out("decision_log.csv"))

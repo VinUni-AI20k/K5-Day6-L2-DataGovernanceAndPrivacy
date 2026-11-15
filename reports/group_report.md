@@ -8,13 +8,13 @@
 
 | Mục | Giá trị |
 |---|---|
-| Group ID | G__ |
+| Group ID | G04 |
 | Challenge | T02 · Raw QC Triage: blur, glare, dark, compression |
-| Thành viên (5–6) + vai trò | 1. ____ (Lead/Integrator) · 2. ____ (Data & fixtures) · 3. ____ (Core algorithm) · 4. ____ (QA/metric) · 5. ____ (Review + report) · 6. ____ |
-| Git URL | ____ |
+| Thành viên (5–6) + vai trò | 1. Hoàng Thu Hương (Lead/Integrator) · 2. ____ (Data & fixtures) · 3. ____ (Core algorithm) · 4. ____ (QA/metric) · 5. ____ (Review + report) · 6. ____ |
+| Git URL | https://github.com/borisbrjch/K5-Day6-L2-HoangThuHuong-2A202603143-DataGovernanceAndPrivacy  |
 | Tag `demo-180m` (commit) | ____ |
 | Tag `final-24h` (commit) | ____ |
-| Deadline (giờ VN) | ____ |
+| Deadline (giờ VN) |  |
 
 ## 01 · Problem statement
 
