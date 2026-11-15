@@ -4,8 +4,42 @@ track: t02
 input: fixtures/t02_raw_qc
 pred_file: ranked_review.csv
 params:
+  # ---- Review queue ----
   budget: 20
   dev_split: dev
+
+  # ============================================================
+  # FROZEN PARAMETERS — single source of truth for the T02 pipeline.
+  # Calibrated GT-free on dev split (n=40), seed 42:
+  # DO NOT tune on eval; any change must be re-frozen on dev and
+  # logged in reports/metric_contract.md.
+  # ============================================================
+
+  # Camera-specific Laplacian variance medians (dev calibration split, n=40)
+  camera_medians:
+    cam_A: 870.7
+    cam_B: 235.8
+  global_median: 710.7        # fallback for unseen cameras
+
+  # Badness thresholds (calibrated on dev originals vs synthetic sev1/sev2)
+  blur_threshold: 0.15        # lap_var/cam_median < 0.15 flags; catches 100% sev1/2, 14% dev flagged
+  blur_range: 0.10            # badness ramp width: [0.15, 0.05] → [0, 1]
+  dark_threshold: 70.0        # lum_p95 < 70 flags; catches 98% sev1, 11% dev flagged
+  glare_threshold: 0.010      # glare_blob > 0.01 flags; catches 82% sev1/100% sev2, 0% dev flagged
+  glare_range: 0.030          # badness ramp: [0.01, 0.04] → [0, 1]
+  jpeg_threshold: 2.20        # blockiness > 2.20 flags; catches 48% sev1/98% sev2, 16% dev flagged
+  jpeg_range: 0.60            # badness ramp: [2.20, 2.80] → [0, 1]
+
+  # Aggregation weights (weighted sum outperformed max-risk on synthetic validation pool)
+  weights:
+    blur: 0.35
+    dark: 0.30
+    glare: 0.25
+    jpeg: 0.10
+
+  # Decision thresholds
+  pred_action_threshold: 10.0 # score > 10 → pred_action="REVIEW" (badness > 0.1)
+  pred_defect_epsilon: 0.05   # max(badness) < 0.05 → pred_defect_type="none" (noise filter)
 eval_params:
   budget: 20
   split: eval
